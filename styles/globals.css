@@ -1,0 +1,663 @@
+@import "swiper/css";
+@import "swiper/css/navigation";
+@import "swiper/css/pagination";
+@import "swiper/css/scrollbar";
+
+html {
+  scroll-padding-top: 90px;
+  scroll-behavior: smooth;
+}
+
+
+/* image popup */
+img.mfp-img {
+  box-shadow: 0 0 8px rgb(0 0 0 / 60%);
+  position: absolute;
+  /* max-height: 392px; */
+  padding: 0 !important;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.mfp-img-container .mfp-content {
+  /* max-width: 400px !important; */
+}
+.mfp-img-container .mfp-close {
+  top: -110px;
+  right: -24px;
+}
+
+.contact-form .form-group .form-control.invalid {
+  border-color: #ff0000;
+}
+
+.about-content h5 {
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.about-content p {
+  font-size: 15px;
+  line-height: 1.8;
+  color: #555;
+}
+
+.about-image img {
+  max-width: 100%;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+
+
+/* Global: stop horizontal scroll */
+html,
+body {
+  overflow-x: hidden;
+}
+
+/* Make sure the home section never overflows */
+.home-section {
+  overflow-x: hidden;
+}
+
+/* Ensure images can't exceed container */
+.home-image img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Your decorative effects are common overflow cause */
+.effect-1,
+.effect-2 {
+  max-width: 100%;
+  overflow: hidden;
+}
+
+/* Mobile tweaks */
+@media (max-width: 991px) {
+  .home-section .row {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .home-title {
+    font-size: 34px; /* adjust if needed */
+    line-height: 1.2;
+    word-break: break-word;
+  }
+
+  /* If effects are positioned with negative values, clamp them */
+  .effect-1,
+  .effect-2 {
+    left: 0 !important;
+    right: 0 !important;
+  }
+}
+
+
+/* ===== Education Timeline - Professional Version ===== */
+.education-section {
+  position: relative;
+  /* Removed custom background to inherit from experience-section */
+}
+
+.edu-timeline-wrap {
+  position: relative;
+  padding: 20px 0;
+}
+
+/* Middle vertical line with gradient */
+.edu-timeline-line {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  transform: translateX(-50%);
+  background: linear-gradient(to bottom, 
+    transparent 0%, 
+    #3b82f6 10%, 
+    #3b82f6 90%, 
+    transparent 100%);
+}
+
+/* Each timeline item */
+.edu-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin: 40px 0;
+  min-height: 160px;
+}
+
+/* Left / Right alignment */
+.edu-item.left {
+  justify-content: flex-start;
+  padding-right: calc(50% + 40px);
+}
+
+.edu-item.right {
+  justify-content: flex-end;
+  padding-left: calc(50% + 40px);
+}
+
+/* Enhanced dot on the middle line */
+.edu-dot {
+  position: absolute;
+  left: 50%;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  transform: translateX(-50%);
+  background: white;
+  border: 3px solid #3b82f6;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1),
+              0 4px 12px rgba(59, 130, 246, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.dot-inner {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #3b82f6;
+}
+
+/* Professional Card Design */
+.edu-card {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05),
+              0 1px 3px rgba(0, 0, 0, 0.05);
+  max-width: 520px;
+  width: 100%;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.edu-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(to bottom, #3b82f6, #8b5cf6);
+  border-radius: 4px 0 0 4px;
+}
+
+.edu-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1),
+              0 2px 6px rgba(0, 0, 0, 0.08);
+  border-color: #cbd5e1;
+}
+
+/* Card Header */
+.edu-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.edu-period {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: #64748b;
+  background: #f1f5f9;
+  padding: 4px 12px;
+  border-radius: 20px;
+  text-transform: uppercase;
+}
+
+.edu-icon {
+  color: #3b82f6;
+  background: #eff6ff;
+  padding: 8px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Degree Title */
+.edu-card h5 {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0 0 8px;
+  color: #1e293b;
+  line-height: 1.4;
+}
+
+/* Meta Information */
+.edu-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.edu-institution {
+  font-size: 14px;
+  font-weight: 600;
+  color: #475569;
+  background: #f8fafc;
+  padding: 4px 12px;
+  border-radius: 6px;
+}
+
+.edu-grade {
+  font-size: 13px;
+  font-weight: 700;
+  color: #10b981;
+  background: rgba(16, 185, 129, 0.1);
+  padding: 4px 12px;
+  border-radius: 6px;
+}
+
+/* Description */
+.edu-card p {
+  font-size: 14.5px;
+  line-height: 1.7;
+  color: #475569;
+  margin: 0;
+}
+
+/* Make service cards equal height */
+.feature-box-01 {
+  display: flex;
+  height: 100%;
+}
+
+.feature-box-01 .feature-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* Push icon to bottom for consistent alignment */
+.feature-box-01 .icon {
+  margin-top: auto;
+}
+
+
+/* ===== Mobile Responsive ===== */
+@media (max-width: 991px) {
+  .edu-timeline-line {
+    left: 24px;
+    transform: none;
+    background: linear-gradient(to bottom, 
+      transparent 0%, 
+      #3b82f6 5%, 
+      #3b82f6 95%, 
+      transparent 100%);
+  }
+
+  .edu-item.left,
+  .edu-item.right {
+    padding: 0 0 0 56px;
+    justify-content: flex-start;
+    margin: 30px 0;
+  }
+
+  .edu-dot {
+    left: 24px;
+    transform: none;
+  }
+
+  .edu-card {
+    max-width: 100%;
+  }
+  
+  .edu-card::before {
+    width: 3px;
+  }
+  
+  .edu-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+}
+
+@media (max-width: 576px) {
+  .edu-card {
+    padding: 20px;
+  }
+  
+  .edu-card h5 {
+    font-size: 16px;
+  }
+  
+  .edu-header {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .edu-icon {
+    align-self: flex-start;
+  }
+}
+
+
+
+/* Mobile */
+@media (max-width: 576px) {
+  .navbar-logo {
+    width: 50px;
+  }
+}
+
+
+
+/* ===== About Section - Professional Design ===== */
+.about-section {
+  padding: 80px 0;
+}
+
+/* Left Card Styling */
+.about-card {
+  background: white;
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e2e8f0;
+  height: 100%;
+}
+
+.about-header h3 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #1e293b;
+  line-height: 1.3;
+  margin-bottom: 15px;
+}
+
+.about-tagline {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  color: white;
+  padding: 10px 16px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.about-tagline svg {
+  opacity: 0.9;
+}
+
+/* Contact Information */
+.about-contact {
+  margin: 25px 0;
+  padding: 20px 0;
+  border-top: 1px solid #f1f5f9;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+  font-size: 14px;
+  color: #475569;
+}
+
+.contact-item:last-child {
+  margin-bottom: 0;
+}
+
+.contact-item svg {
+  color: #3b82f6;
+  width: 18px;
+}
+
+/* Skills Summary */
+.skills-summary {
+  margin-top: 25px;
+}
+
+.skills-summary h6 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 15px;
+}
+
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.skill-tags span {
+  background: #f1f5f9;
+  color: #475569;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12.5px;
+  font-weight: 500;
+}
+
+/* Right Content Area */
+.about-intro {
+  background: white;
+  border-radius: 12px;
+  padding: 25px;
+  margin-bottom: 25px;
+  border-left: 4px solid #3b82f6;
+}
+
+.about-intro p {
+  font-size: 15.5px;
+  line-height: 1.7;
+  color: #475569;
+  margin: 0;
+}
+
+/* Achievement Cards */
+.achievement-card {
+  background: white;
+  border-radius: 14px;
+  padding: 24px;
+  margin-bottom: 20px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.03);
+}
+
+.achievement-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.achievement-header h5 {
+  font-size: 17px;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0;
+}
+
+.achievement-header svg {
+  color: #3b82f6;
+}
+
+/* Achievement Grid */
+.achievement-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.achievement-item {
+  background: #f8fafc;
+  border-radius: 10px;
+  padding: 16px;
+  border: 1px solid #e2e8f0;
+}
+
+.platform {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.platform-name {
+  font-weight: 700;
+  color: #1e293b;
+  font-size: 15px;
+}
+
+.rating {
+  background: linear-gradient(135deg, #10b981, #3b82f6);
+  color: white;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.rank {
+  font-size: 13px;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.achievement-stats {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #3b82f6;
+  font-weight: 500;
+  background: rgba(59, 130, 246, 0.08);
+  padding: 10px 14px;
+  border-radius: 8px;
+}
+
+/* Contest List */
+.contest-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.contest-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.contest-item:last-child {
+  border-bottom: none;
+}
+
+.contest-item svg {
+  color: #f59e0b;
+  margin-top: 2px;
+}
+
+.contest-item div {
+  flex: 1;
+}
+
+.contest-item strong {
+  display: block;
+  font-size: 14px;
+  color: #1e293b;
+  margin-bottom: 4px;
+}
+
+.contest-item span {
+  font-size: 13px;
+  color: #64748b;
+}
+
+
+.role-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.role-header h6 {
+  font-size: 13px;
+  color: #64748b;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0;
+}
+
+.role-header h5 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 2px 0 0;
+}
+
+.role-header svg {
+  color: #10b981;
+}
+
+
+
+/* Responsive Design */
+@media (max-width: 991px) {
+  .about-section {
+    padding: 60px 0;
+  }
+  
+  .about-card {
+    margin-bottom: 30px;
+  }
+  
+  .achievement-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 576px) {
+  .about-card,
+  .achievement-card,
+  .tech-stack {
+    padding: 20px;
+  }
+  
+  .about-header h3 {
+    font-size: 20px;
+  }
+  
+  .tech-tags {
+    gap: 8px;
+  }
+  
+  .tech-tags span {
+    padding: 5px 12px;
+    font-size: 12px;
+  }
+}
+
