@@ -99,12 +99,12 @@ body {
 /* ===== Education Timeline - Professional Version ===== */
 .education-section {
   position: relative;
-  /* Removed custom background to inherit from experience-section */
+  padding-top: 90px ;
+  padding-bottom: 80px;
 }
 
 .edu-timeline-wrap {
   position: relative;
-  padding: 20px 0;
 }
 
 /* Middle vertical line with gradient */
@@ -127,8 +127,7 @@ body {
   position: relative;
   display: flex;
   align-items: center;
-  margin: 40px 0;
-  min-height: 160px;
+  min-height: 120px;
 }
 
 /* Left / Right alignment */
@@ -172,7 +171,7 @@ body {
   background: white;
   border: 1px solid #e2e8f0;
   border-radius: 16px;
-  padding: 24px;
+  padding: 18px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05),
               0 1px 3px rgba(0, 0, 0, 0.05);
   max-width: 520px;
@@ -205,7 +204,6 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 12px;
 }
 
 .edu-period {
@@ -214,7 +212,7 @@ body {
   letter-spacing: 0.5px;
   color: #64748b;
   background: #f1f5f9;
-  padding: 4px 12px;
+  padding: 0px 2px;
   border-radius: 20px;
   text-transform: uppercase;
 }
@@ -222,7 +220,7 @@ body {
 .edu-icon {
   color: #3b82f6;
   background: #eff6ff;
-  padding: 8px;
+  padding: 0px 2px;
   border-radius: 10px;
   display: flex;
   align-items: center;
@@ -233,9 +231,8 @@ body {
 .edu-card h5 {
   font-size: 18px;
   font-weight: 700;
-  margin: 0 0 8px;
+  margin: 0px;
   color: #1e293b;
-  line-height: 1.4;
 }
 
 /* Meta Information */
@@ -243,9 +240,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 16px;
   flex-wrap: wrap;
-  gap: 8px;
 }
 
 .edu-institution {
@@ -253,7 +248,6 @@ body {
   font-weight: 600;
   color: #475569;
   background: #f8fafc;
-  padding: 4px 12px;
   border-radius: 6px;
 }
 
@@ -262,17 +256,9 @@ body {
   font-weight: 700;
   color: #10b981;
   background: rgba(16, 185, 129, 0.1);
-  padding: 4px 12px;
   border-radius: 6px;
 }
 
-/* Description */
-.edu-card p {
-  font-size: 14.5px;
-  line-height: 1.7;
-  color: #475569;
-  margin: 0;
-}
 
 /* Make service cards equal height */
 .feature-box-01 {

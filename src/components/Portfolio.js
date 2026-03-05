@@ -26,6 +26,38 @@ const portfolioData = [
     github: "https://github.com/ramim2219/CSE_HELPER",
     status: "live", // ✅ show working badge
   },
+  {
+    id: 4,
+    title: "House Price Prediction",
+    subtitle: "Built a house price prediction model using Django, Python, HTML, and CSS.",
+    image: "https://raw.githubusercontent.com/ramim2219/house_price_prediction/refs/heads/main/three.png",
+    github: "https://github.com/ramim2219/house_price_prediction?tab=readme-ov-file",
+    status: "live", // ✅ show working badge
+  },
+  {
+    id: 5,
+    title: "Diabetes Risk Prediction",
+    subtitle: "Developed a diabetes risk prediction system using Django, Python, HTML, and CSS.",
+    image: "https://raw.githubusercontent.com/ramim2219/DiabetesRiskPrediction/main/home_d.png",
+    github: "https://github.com/ramim2219/DiabetesRiskPrediction?tab=readme-ov-file",
+    status: "live", // ✅ show working badge
+  },
+  {
+    id: 6,
+    title: "Village Scenerio",
+    subtitle: "A CGIP course project that recreates a village scene through artistic coding to demonstrate computer graphics concepts.",
+    image: "https://raw.githubusercontent.com/ramim2219/VillageScenerio/main/villageScenerio.png",
+    github: "https://github.com/ramim2219/VillageScenerio",
+    status: "live", // ✅ show working badge
+  },
+  {
+    id: 7,
+    title: "Movie Finder",
+    subtitle: "A React-based app that lets users search for movies and view details using API integration.",
+    image: "https://raw.githubusercontent.com/ramim2219/movie_finder/refs/heads/main/screencapture-easymoviefinder321-netlify-app-2024-10-13-00_20_59.png",
+    github: "https://github.com/ramim2219/movie_finder",
+    status: "live", // ✅ show working badge
+  },
   // add more projects here (pagination will auto work)
 ];
 
@@ -226,8 +258,17 @@ const Portfolio = () => {
 
       {/* Styles */}
       <style jsx>{`
+        .col-sm-6.col-lg-4 {
+          display: flex;
+        }
         .portfolio-clickable {
           cursor: pointer;
+        }
+        .portfolio-box {
+          display: flex;
+          flex-direction: column;
+          height: 100%;
+          width: 100%;
         }
 
         /* ✅ Make all images same height */
@@ -259,15 +300,14 @@ const Portfolio = () => {
         }
 
         .portfolio-info {
+          flex-grow: 1;
           display: flex;
-          align-items: flex-start;
+          flex-direction: column;
           justify-content: space-between;
-          gap: 12px;
-          padding-top: 12px;
         }
 
-        .portfolio-text h6 {
-          margin: 0;
+        .portfolio-text {
+          flex-grow: 1;
         }
 
         .portfolio-text span {
@@ -384,6 +424,7 @@ const Portfolio = () => {
         }
 
         .latest-projects{
+          margin-top: auto;
           padding-left : 5px;
         }
 

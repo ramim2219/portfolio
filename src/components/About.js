@@ -310,7 +310,7 @@ const About = () => {
                   <span>Problem Solving</span>
                   <span>Data Structures</span>
                   <span>Algorithms</span>
-                  <span>Full Stack Dev</span>
+                  <span>Full Stack Development</span>
                   <span>Competitive Programming</span>
                 </div>
               </div>
@@ -336,14 +336,20 @@ const About = () => {
                       <span className="platform-name">Codeforces</span>
                       <span className="rating">Pupil (1249)</span>
                     </div>
-                    <div className="rank">Top 35% globally</div>
+                    <div className="rank">
+                      <span>Top 35% globally</span>
+                      <a target="blank" href="https://codeforces.com/profile/Ramim2219" className="profile-btn">Click Here</a>
+                    </div>
                   </div>
                   <div className="achievement-item">
                     <div className="platform">
                       <span className="platform-name">CodeChef</span>
-                      <span className="rating">2★ (1523)</span>
+                      <span className="rating">2★ (1589)</span>
                     </div>
-                    <div className="rank">Top 8.3% globally</div>
+                    <div className="rank">
+                      <span>Top 8.3% globally</span>
+                      <a target="blank" href="https://www.codechef.com/users/ramim1234" className="profile-btn">Click Here</a>
+                    </div>
                   </div>
                 </div>
                 <div className="achievement-stats">
@@ -399,8 +405,26 @@ const About = () => {
       </div>
 
       <style>{`
+        .profile-btn {
+          display: inline-block;
+          padding: 6px 14px;
+          margin-left: 10px;
+          font-size: 13px;
+          font-weight: 600;
+          text-decoration: none;
+          color: #111;
+          border: 2px solid #111;
+          border-radius: 6px;
+          transition: all 0.25s ease;
+        }
+
+        .profile-btn:hover {
+          background: #111;
+          color: #fff;
+        }
         .gallery-card { border-radius: 14px; overflow: hidden; border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.02); }
         .gallery-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid rgba(255,255,255,0.07); background: rgba(255,255,255,0.03); flex-wrap: wrap; gap: 8px; }
+        .rank {display: flex; justify-content: space-between;}
         .gallery-header-left { display: flex; align-items: center; gap: 12px; flex: 1; min-width: 0; }
         .gallery-icon-wrap { width: 42px; height: 42px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
         .gallery-title { margin: 0; font-size: 1rem; font-weight: 700; letter-spacing: 0.2px; color: #000000; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }

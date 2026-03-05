@@ -1,19 +1,27 @@
-import emailjs from "emailjs-com";
+import emailjs from "@emailjs/browser";
 import { useState } from "react";
 import SectionTitle from "./SectionTitle";
 
 const contactInfo = [
-  { id: 1, label: "Phone", value: "+88 01829742139", icon: "fas fa-envelope" },
+  {
+    id: 1,
+    label: "Phone",
+    value: "+88 01829742139",
+    link: "tel:+8801829742139",
+    icon: "fas fa-phone-alt",
+  },
   {
     id: 2,
     label: "Mail",
     value: "shafayetullah200119@gmail.com",
-    icon: "fas fa-phone-alt",
+    link: "mailto:shafayetullah200119@gmail.com",
+    icon: "fas fa-envelope",
   },
   {
     id: 3,
     label: "Visit My Office",
     value: "North Mohora , Chittagong",
+    link: "https://maps.app.goo.gl/J77ANarBUtRvbsiKA",
     icon: "fas fa-map-marker-alt",
   },
 ];
@@ -25,14 +33,20 @@ const Contact = () => {
     message: "",
     subject: "",
   });
+
   const { name, email, subject, message } = mailData;
+
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [loading, setLoading] = useState(false);
+
   const onChange = (e) => {
     setMailData({ ...mailData, [e.target.name]: e.target.value });
   };
+
   const onSubmit = (e) => {
     e.preventDefault();
+
     if (
       name.length === 0 ||
       email.length === 0 ||
@@ -41,24 +55,35 @@ const Contact = () => {
     ) {
       setError(true);
     } else {
+      setLoading(true);
+
       emailjs
         .send(
-          "service_seruhwu", // service id
-          "template_21aw58z", // template id
+          process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
+          process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID,
           mailData,
-          "Q3pccdLZhU-mZT7tQ" // public api
+          process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY
         )
         .then(
           (response) => {
             setError(false);
             setSuccess(true);
+            setLoading(false);
+
             setTimeout(() => {
               setSuccess(false);
             }, 3000);
-            setMailData({ name: "", email: "", message: "", subject: "" });
+
+            setMailData({
+              name: "",
+              email: "",
+              message: "",
+              subject: "",
+            });
           },
           (err) => {
             console.log(err.text);
+            setLoading(false);
           }
         );
     }
@@ -71,13 +96,16 @@ const Contact = () => {
           heading={"Let's Discuss Project"}
           subHeading={"Contact"}
         />
+
         <div className="row">
+          {/* CONTACT FORM */}
           <div className="col-lg-6">
             <div className="contact-form">
               <h6>Get in touch</h6>
               <p className="lead">
                 Our friendly team would love to hear from you.
               </p>
+
               <form id="contact-form" onSubmit={(e) => onSubmit(e)}>
                 <div className="row gx-3 gy-4">
                   <div className="col-md-6">
@@ -85,7 +113,7 @@ const Contact = () => {
                       <label className="form-label">First name</label>
                       <input
                         name="name"
-                        onChange={(e) => onChange(e)}
+                        onChange={onChange}
                         value={name}
                         id="name"
                         placeholder="Name *"
@@ -96,12 +124,13 @@ const Contact = () => {
                       />
                     </div>
                   </div>
+
                   <div className="col-md-6">
                     <div className="form-group">
                       <label className="form-label">Your Email</label>
                       <input
                         name="email"
-                        onChange={(e) => onChange(e)}
+                        onChange={onChange}
                         value={email}
                         id="email"
                         placeholder="Email *"
@@ -112,12 +141,13 @@ const Contact = () => {
                       />
                     </div>
                   </div>
+
                   <div className="col-12">
                     <div className="form-group">
                       <label className="form-label">Subject</label>
                       <input
                         name="subject"
-                        onChange={(e) => onChange(e)}
+                        onChange={onChange}
                         value={subject}
                         id="subject"
                         placeholder="Subject *"
@@ -128,12 +158,13 @@ const Contact = () => {
                       />
                     </div>
                   </div>
+
                   <div className="col-md-12">
                     <div className="form-group">
                       <label className="form-label">Your message</label>
                       <textarea
                         name="message"
-                        onChange={(e) => onChange(e)}
+                        onChange={onChange}
                         value={message}
                         id="message"
                         placeholder="Your message *"
@@ -143,23 +174,28 @@ const Contact = () => {
                         }`}
                       />
                     </div>
-                    <span
-                      id="suce_message"
-                      className="text-success"
-                      style={{ display: success ? "block" : "none" }}
-                    >
-                      Message Sent Successfully
-                    </span>
+
+                    {success && (
+                      <span id="suce_message" className="text-success">
+                        ✅ Message Sent Successfully!
+                      </span>
+                    )}
+
+                    {error && (
+                      <span className="text-danger">
+                        ⚠️ Please fill in all fields.
+                      </span>
+                    )}
                   </div>
+
                   <div className="col-md-12">
                     <div className="send">
                       <button
                         className="px-btn px-btn-theme2"
                         type="submit"
-                        value="Send"
+                        disabled={loading}
                       >
-                        {" "}
-                        Send Message
+                        {loading ? "Sending..." : "Send Message"}
                       </button>
                     </div>
                   </div>
@@ -167,20 +203,37 @@ const Contact = () => {
               </form>
             </div>
           </div>
-          <div className="col-lg-5 ms-auto col-xl-4 pt-5 pt-lg-0">
+
+          {/* CONTACT INFO */}
+          <div className="col-lg-6 ms-auto col-xl-5 pt-5 pt-lg-0">
             <ul className="contact-infos">
               {contactInfo.map((contact) => (
                 <li key={contact.id}>
                   <div className="icon">
                     <i className={contact.icon} />
                   </div>
+
                   <div className="col">
                     <h5>{contact.label}</h5>
-                    <p>{contact.value}</p>
+
+                    <p>
+                      {contact.link ? (
+                        <a
+                          href={contact.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {contact.value}
+                        </a>
+                      ) : (
+                        contact.value
+                      )}
+                    </p>
                   </div>
                 </li>
               ))}
             </ul>
+
             <div className="text-center pt-5">
               <img src="assets/img/contact.svg" className="svg" alt="image" />
             </div>
@@ -190,4 +243,5 @@ const Contact = () => {
     </section>
   );
 };
+
 export default Contact;

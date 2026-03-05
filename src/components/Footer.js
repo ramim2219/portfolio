@@ -5,20 +5,17 @@ const Footer = () => {
         <div className="row align-items-center">
           <div className="col-md-6 py-2">
             <div className="nav justify-content-center justify-content-md-start">
-              <a href="#">
+              <a href="https://www.facebook.com/shafayetullah.ramim/" target="blank">
                 <i className="fab fa-facebook-f" />
               </a>
-              <a href="#">
+              <a href="https://x.com/2219Ramim69667" target="blank">
                 <i className="fab fa-twitter" />
               </a>
-              <a href="#">
+              <a href="https://www.instagram.com/ramimshafayetullah/" target="blank">
                 <i className="fab fa-instagram" />
               </a>
-              <a href="#">
+              <a href="https://www.linkedin.com/in/shafayet-ullah-ramim-05976a237/" target="blank">
                 <i className="fab fa-linkedin-in" />
-              </a>
-              <a href="#">
-                <i className="fab fa-pinterest" />
               </a>
             </div>
           </div>

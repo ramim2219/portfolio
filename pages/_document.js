@@ -16,7 +16,7 @@ export default function Document() {
         {/* title */}
         <title>Ramim Dev</title>
         {/* Favicon */}
-        <link rel="shortcut icon" type="image/x-icon" href="logo.png" />
+        <link rel="shortcut icon" type="image/x-icon" href="fabicon.png" />
         {/* theme css */}
         <link href="assets/css/style.css" rel="stylesheet" />
       </Head>

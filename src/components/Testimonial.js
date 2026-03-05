@@ -4,39 +4,12 @@ import SectionTitle from "./SectionTitle";
 const testimonialData = [
   {
     id: 1,
-    avatar: "assets/img/avatar-1.jpg",
-    name: "Jennifer Lutheran",
+    avatar: "assets/img/client.jpeg",
+    name: "Mohammed Iftekar Alam.",
     designation: "CEO",
-    company: "pxdraft",
+    company: "IFJONA",
     comment:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
-  },
-  {
-    id: 2,
-    avatar: "assets/img/avatar-2.jpg",
-    name: "Jennifer Lutheran",
-    designation: "CEO",
-    company: "pxdraft",
-    comment:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
-  },
-  {
-    id: 3,
-    avatar: "assets/img/avatar-3.jpg",
-    name: "Jennifer Lutheran",
-    designation: "CEO",
-    company: "pxdraft",
-    comment:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
-  },
-  {
-    id: 4,
-    avatar: "assets/img/avatar-4.jpg",
-    name: "Jennifer Lutheran",
-    designation: "CEO",
-    company: "pxdraft",
-    comment:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
+      "Great progress on the IFJONA e-commerce marketplace. The work delivered so far meets my expectations and shows strong development skills.",
   },
 ];
 const Testimonial = () => {
