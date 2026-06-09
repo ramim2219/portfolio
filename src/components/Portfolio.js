@@ -5,10 +5,12 @@ const portfolioData = [
   {
     id: 1,
     title: "Ifjona E-commerce Marketplace",
-    subtitle: "React js , Laravel , Mysql",
+    subtitle: "Full-Stack E-commerce Platform",
+    description:
+      "A full-stack e-commerce marketplace built with React.js, Laravel, and MySQL. Includes a dynamic admin panel, VPS deployment, WebSocket integration, AI integration, and secure payment integration.",
     image: "assets/img/ifjona.png",
-    github: "https://ifjona.netlify.app/",
-    status: "in_progress", // ✅ live | in_progress
+    github: "https://www.ifjona.com/",
+    status: "live", // live | in_progress
   },
   {
     id: 2,
