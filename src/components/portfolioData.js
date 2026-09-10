@@ -13,6 +13,12 @@
 //   challenges  — array of { challenge, solution } pairs for the "Challenges &
 //                 Solutions" section. These were drafted from the tech/features
 //                 you already listed — edit them to match what actually happened.
+//
+// NOTE ON LOCAL IMAGES:
+//   Files inside the `public/` folder are served from the site root ("/").
+//   So a file saved at `public/assets/img/ifjona.png` must be referenced as
+//   "/assets/img/ifjona.png" — do NOT include "public" in the path, and always
+//   start with "/" so it also works on nested routes like "/projects/1".
 
 const isGithubUrl = (url) => typeof url === "string" && url.includes("github.com");
 
@@ -48,8 +54,8 @@ const rawPortfolioData = [
           "Integrated a secure payment gateway with server-side validation, keeping sensitive payment logic off the client.",
       },
     ],
-    image: "assets/img/ifjona.png",
-    gallery: ["assets/img/ifjona.png"],
+    image: "/assets/img/ifjona.png",
+    gallery: ["/assets/img/ifjona.png"],
     link: "https://www.ifjona.com/",
     status: "live",
   },
@@ -81,8 +87,8 @@ const rawPortfolioData = [
         solution: "Implemented role-based access control so managers and employees only see what's relevant to them.",
       },
     ],
-    image: "assets/img/project-2.jpg",
-    gallery: ["assets/img/project-2.jpg"],
+    image: "/assets/img/project-2.jpg",
+    gallery: ["/assets/img/project-2.jpg"],
     link: "https://github.com/ramim2219/employee-management-system",
     status: "live",
   },

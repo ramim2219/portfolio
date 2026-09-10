@@ -1,4 +1,5 @@
 import SectionTitle from "./SectionTitle";
+import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
 import {
   Code2,
@@ -16,12 +17,13 @@ import {
   X,
   ZoomIn,
   Briefcase,
-  GraduationCap,
   BadgeCheck,
+  Users,
+  BookOpen,
 } from "lucide-react";
 
 // ─── Experience Highlight Strip ───────────────────────────────────────────────
-const ExperienceHighlight = () => (
+const ExperienceHighlight = ({ href }) => (
   <div className="exp-highlight-wrap">
     <div className="exp-highlight-label">
       <Briefcase size={13} />
@@ -31,7 +33,7 @@ const ExperienceHighlight = () => (
       <div className="exp-hi-card exp-hi-current">
         <div className="exp-hi-left">
           <div className="exp-hi-icon exp-hi-icon-active">
-            <img src="assets/img/puc.png" />
+            <img src="/assets/img/puc.png" alt="PUC" />
           </div>
           <div className="exp-hi-dot-active"><span className="exp-hi-pulse" /></div>
         </div>
@@ -45,26 +47,11 @@ const ExperienceHighlight = () => (
             <span className="exp-hi-sep">·</span>
             <span className="exp-hi-date">Dec 2025 – Present</span>
           </div>
-        </div>
-      </div>
-      <div className="exp-hi-divider" />
-      <div className="exp-hi-card exp-hi-past">
-        <div className="exp-hi-left">
-          <div className="exp-hi-icon exp-hi-icon-past">
-            <img src="assets/img/puc.png" />
-          </div>
-          <div className="exp-hi-dot-past" />
-        </div>
-        <div className="exp-hi-body">
-          <div className="exp-hi-top">
-            <span className="exp-hi-role">Competitive Programming Trainer</span>
-            <span className="exp-hi-badge-done">Completed</span>
-          </div>
-          <div className="exp-hi-bottom">
-            <span className="exp-hi-org">PUC CSE Club</span>
-            <span className="exp-hi-sep">·</span>
-            <span className="exp-hi-date">Jul 2024 – Aug 2025</span>
-          </div>
+          <Link href={href} className="exp-hi-learn-more">
+            <BookOpen size={13} />
+            <span>Learn More</span>
+            <ChevronRight size={13} />
+          </Link>
         </div>
       </div>
     </div>
@@ -75,7 +62,8 @@ const ExperienceHighlight = () => (
       .exp-hi-card { display: flex; align-items: center; gap: 14px; padding: 13px 16px; transition: background 0.2s; }
       .exp-hi-card:hover { background: rgba(99,102,241,0.07); }
       .exp-hi-left { display: flex; flex-direction: column; align-items: center; gap: 4px; flex-shrink: 0; }
-      .exp-hi-icon { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+      .exp-hi-icon { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; overflow: hidden; }
+      .exp-hi-icon img { width: 100%; height: 100%; object-fit: cover; }
       .exp-hi-icon-active { background: linear-gradient(135deg, rgba(99,102,241,0.3), rgba(168,85,247,0.25)); border: 1px solid rgba(99,102,241,0.5); color: #a78bfa; box-shadow: 0 2px 8px rgba(99,102,241,0.2); }
       .exp-hi-icon-past { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #888; }
       .exp-hi-dot-active { width: 8px; height: 8px; border-radius: 50%; background: radial-gradient(circle, #a78bfa, #6366f1); display: flex; align-items: center; justify-content: center; position: relative; }
@@ -94,13 +82,112 @@ const ExperienceHighlight = () => (
       .exp-hi-badge-now { font-size: 0.65rem; font-weight: 800; letter-spacing: 0.5px; color: #a78bfa; background: rgba(99,102,241,0.15); border: 1px solid rgba(99,102,241,0.4); border-radius: 20px; padding: 2px 8px; white-space: nowrap; flex-shrink: 0; }
       .exp-hi-badge-done { font-size: 0.65rem; font-weight: 700; color: #888; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 2px 8px; white-space: nowrap; flex-shrink: 0; }
       .exp-hi-divider { height: 1px; margin: 0 16px; background: rgba(99,102,241,0.1); }
+
+      .exp-hi-learn-more {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        margin-top: 10px;
+        padding: 6px 12px;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.4px;
+        text-transform: uppercase;
+        color: #6366f1;
+        background: rgba(99,102,241,0.1);
+        border: 1px solid rgba(99,102,241,0.4);
+        border-radius: 20px;
+        cursor: pointer;
+        text-decoration: none;
+        transition: all 0.2s ease;
+      }
+      .exp-hi-learn-more:hover {
+        background: rgba(99,102,241,0.2);
+        border-color: rgba(99,102,241,0.7);
+        transform: translateX(2px);
+        color: #4f46e5;
+      }
+      .exp-hi-learn-more :global(svg:last-child) {
+        transition: transform 0.2s ease;
+      }
+      .exp-hi-learn-more:hover :global(svg:last-child) {
+        transform: translateX(3px);
+      }
+
       @media (max-width: 480px) { .exp-hi-role { font-size: 0.8rem; } .exp-hi-card { padding: 11px 12px; gap: 10px; } .exp-hi-icon { width: 28px; height: 28px; } }
     `}</style>
   </div>
 );
 
+// ─── Leadership Highlight Strip ───────────────────────────────────────────────
+const LeadershipHighlight = ({ href }) => (
+  <div className="exp-highlight-wrap">
+    <div className="exp-highlight-label">
+      <Users size={13} />
+      <span>Leadership</span>
+    </div>
+    <div className="exp-highlight-items">
+      <div className="exp-hi-card exp-hi-current">
+        <div className="exp-hi-left">
+          <div className="exp-hi-icon exp-hi-icon-active">
+            <img src="/assets/img/puc.png" alt="PUC CSE Club" />
+          </div>
+          <div className="exp-hi-dot-active"><span className="exp-hi-pulse" /></div>
+        </div>
+        <div className="exp-hi-body">
+          <div className="exp-hi-top">
+            <span className="exp-hi-role">Competitive Programming Trainer</span>
+            <span className="exp-hi-badge-done">Completed</span>
+          </div>
+          <div className="exp-hi-bottom">
+            <span className="exp-hi-org">PUC CSE Club</span>
+            <span className="exp-hi-sep">·</span>
+            <span className="exp-hi-date">Jul 2024 – Aug 2025</span>
+          </div>
+          <Link href={href} className="exp-hi-learn-more">
+            <BookOpen size={13} />
+            <span>Learn More</span>
+            <ChevronRight size={13} />
+          </Link>
+        </div>
+      </div>
+    </div>
+    <style>{`
+      .exp-hi-learn-more {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        margin-top: 10px;
+        padding: 6px 12px;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.4px;
+        text-transform: uppercase;
+        color: #6366f1;
+        background: rgba(99,102,241,0.1);
+        border: 1px solid rgba(99,102,241,0.4);
+        border-radius: 20px;
+        cursor: pointer;
+        text-decoration: none;
+        transition: all 0.2s ease;
+      }
+      .exp-hi-learn-more:hover {
+        background: rgba(99,102,241,0.2);
+        border-color: rgba(99,102,241,0.7);
+        transform: translateX(2px);
+        color: #4f46e5;
+      }
+      .exp-hi-learn-more :global(svg:last-child) {
+        transition: transform 0.2s ease;
+      }
+      .exp-hi-learn-more:hover :global(svg:last-child) {
+        transform: translateX(3px);
+      }
+    `}</style>
+  </div>
+);
+
 // ─── Reusable Gallery Slider ──────────────────────────────────────────────────
-// NOTE: icon prop renamed via variable to avoid SWC destructuring parse error
 const GallerySlider = (props) => {
   const {
     images,
@@ -280,10 +367,13 @@ const About = () => {
       <div className="container">
         <SectionTitle heading={"About Me"} subHeading={"Introduction"} />
 
-        {/* ── Row 0: Experience Highlight ── */}
-        <div className="row mb-4">
-          <div className="col-12">
-            <ExperienceHighlight />
+        {/* ── Row 0: Experience + Leadership Highlight ── */}
+        <div className="row mb-4 g-3">
+          <div className="col-lg-6 col-md-12">
+            <ExperienceHighlight href="/experience/software-developer-trainee" />
+          </div>
+          <div className="col-lg-6 col-md-12">
+            <LeadershipHighlight href="/leadership/competitive-programming-trainer" />
           </div>
         </div>
 

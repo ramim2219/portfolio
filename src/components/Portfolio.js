@@ -2,14 +2,13 @@
 
 import SectionTitle from "./SectionTitle";
 import { portfolioData } from "./portfolioData";
-import { useMemo, useState, useEffect } from "react";
+import { useMemo, useState } from "react";
 import { useRouter } from "next/router";
 import { motion } from "framer-motion";
 
 const Portfolio = () => {
   const router = useRouter();
   const [currentPage, setCurrentPage] = useState(1);
-  const [preview, setPreview] = useState(null); // { src, title } | null
 
   const perPage = 6;
   const totalPages = Math.ceil(portfolioData.length / perPage);
@@ -21,30 +20,11 @@ const Portfolio = () => {
 
   const goTo = (p) => setCurrentPage(Math.max(1, Math.min(totalPages, p)));
 
-  // Clicking anywhere on a card (except the image or the external link
-  // button) now takes the visitor to a full case-study page for that project.
+  // Clicking anywhere on a card (including the image) takes the visitor
+  // to the full case-study page for that project.
   const viewDetails = (id) => {
     router.push(`/projects/${id}`);
   };
-
-  const openPreview = (src, title) => {
-    setPreview({ src, title });
-    document.body.style.overflow = "hidden"; // lock scroll
-  };
-
-  const closePreview = () => {
-    setPreview(null);
-    document.body.style.overflow = ""; // unlock scroll
-  };
-
-  // ESC to close preview
-  useEffect(() => {
-    const onKeyDown = (e) => {
-      if (e.key === "Escape") closePreview();
-    };
-    if (preview) window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
-  }, [preview]);
 
   return (
     <section id="work" className="section work-section">
@@ -88,18 +68,8 @@ const Portfolio = () => {
                       </div>
                     )}
 
-                    {/* Image click => open preview (stop bubbling so card won't navigate) */}
-                    <button
-                      type="button"
-                      className="portfolio-img-btn"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        openPreview(portfolio.image, portfolio.title);
-                      }}
-                      aria-label={`Preview ${portfolio.title}`}
-                    >
-                      <img src={portfolio.image} alt={portfolio.title} />
-                    </button>
+                    {/* Image click => same as card click => case study page */}
+                    <img src={portfolio.image} alt={portfolio.title} />
 
                     {/* Hover affordance hinting the card is clickable */}
                     <div className="portfolio-hover-hint">
@@ -195,36 +165,6 @@ const Portfolio = () => {
         )}
       </div>
 
-      {/* FULLSCREEN PREVIEW (Lightbox) */}
-      {preview && (
-        <div
-          className="portfolio-preview-overlay"
-          role="dialog"
-          aria-modal="true"
-          onClick={closePreview}
-        >
-          <div
-            className="portfolio-preview-modal"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <button
-              type="button"
-              className="portfolio-preview-close"
-              onClick={closePreview}
-              aria-label="Close preview"
-              title="Close"
-            >
-              ✕
-            </button>
-
-            <img src={preview.src} alt={preview.title || "Preview"} />
-            {preview.title && (
-              <p className="portfolio-preview-caption">{preview.title}</p>
-            )}
-          </div>
-        </div>
-      )}
-
       {/* Styles */}
       <style jsx>{`
         .col-sm-6.col-lg-4 {
@@ -247,16 +187,6 @@ const Portfolio = () => {
           overflow: hidden;
           border-radius: 12px;
           position: relative; /* needed for badge + hover hint */
-        }
-
-        .portfolio-img-btn {
-          width: 100%;
-          height: 100%;
-          padding: 0;
-          border: 0;
-          background: transparent;
-          cursor: zoom-in;
-          display: block;
         }
 
         /* Crop from TOP */
@@ -453,63 +383,6 @@ const Portfolio = () => {
           border-color: #ccc;
           background-color: #fff;
           cursor: not-allowed;
-        }
-
-        /* PREVIEW (LIGHTBOX) */
-        .portfolio-preview-overlay {
-          position: fixed;
-          inset: 0;
-          background: rgba(0, 0, 0, 0.75);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          padding: 20px;
-          padding-top: 80px;
-          z-index: 9999;
-          overflow: hidden;
-        }
-
-        .portfolio-preview-modal {
-          position: relative;
-          max-width: min(900px, 95vw);
-          max-height: calc(90vh - 80px);
-          background: #0b0b0b;
-          border-radius: 14px;
-          padding: 14px;
-          overflow-y: auto;
-          overflow-x: hidden;
-        }
-
-        .portfolio-preview-modal img {
-          width: 100%;
-          height: auto;
-          display: block;
-          border-radius: 10px;
-        }
-
-        .portfolio-preview-close {
-          position: absolute;
-          top: 10px;
-          right: 10px;
-          width: 36px;
-          height: 36px;
-          border: 0;
-          border-radius: 50%;
-          background: rgba(255, 255, 255, 0.15);
-          color: #fff;
-          cursor: pointer;
-          font-size: 18px;
-          line-height: 36px;
-        }
-
-        .portfolio-preview-close:hover {
-          background: rgba(255, 255, 255, 0.25);
-        }
-
-        .portfolio-preview-caption {
-          margin: 10px 2px 0;
-          color: #eaeaea;
-          font-size: 14px;
         }
       `}</style>
     </section>
