@@ -1,7 +1,3 @@
-'use client';
-
-import { motion } from "framer-motion";
-
 const Home = () => {
   return (
     <section id="home" className="home-section">
@@ -17,12 +13,7 @@ const Home = () => {
         <div className="row min-vh-100 align-items-center">
           
           <div className="col-lg-6 pe-xl-5 py-5">
-            <motion.div
-              className="home-intro one-page-nav"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, ease: "easeOut" }}
-            >
+            <div className="home-intro one-page-nav">
 
               <h6>
                 <span>Hello.</span>
@@ -60,19 +51,14 @@ const Home = () => {
 
               </div>
 
-            </motion.div>
+            </div>
           </div>
 
-          <motion.div
-            className="col-lg-6"
-            initial={{ opacity: 0, scale: 0.92 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, ease: "easeOut", delay: 0.15 }}
-          >
+          <div className="col-lg-6">
             <div className="home-image">
               <img src="assets/img/home-banner.png" alt="image" />
             </div>
-          </motion.div>
+          </div>
 
         </div>
       </div>

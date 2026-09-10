@@ -1,13 +1,69 @@
-'use client';
-
 import SectionTitle from "./SectionTitle";
-import { portfolioData } from "./portfolioData";
 import { useMemo, useState, useEffect } from "react";
-import { useRouter } from "next/router";
-import { motion } from "framer-motion";
+
+const portfolioData = [
+  {
+    id: 1,
+    title: "Ifjona E-commerce Marketplace",
+    subtitle: "Full-Stack E-commerce Platform",
+    description:
+      "A full-stack e-commerce marketplace built with React.js, Laravel, and MySQL. Includes a dynamic admin panel, VPS deployment, WebSocket integration, AI integration, and secure payment integration.",
+    image: "assets/img/ifjona.png",
+    github: "https://www.ifjona.com/",
+    status: "live", // live | in_progress
+  },
+  {
+    id: 2,
+    title: "Employee Development Systems",
+    subtitle: "Laravel ,Mysql",
+    image: "assets/img/project-2.jpg",
+    github: "https://github.com/ramim2219/employee-management-system",
+    status: "live", // ✅ show working badge
+  },
+  {
+    id: 3,
+    title: "CSE Helper",
+    subtitle: "React , Tailwind CSS , Mysql",
+    image: "https://raw.githubusercontent.com/ramim2219/CSE_HELPER/refs/heads/main/home.png",
+    github: "https://github.com/ramim2219/CSE_HELPER",
+    status: "live", // ✅ show working badge
+  },
+  {
+    id: 4,
+    title: "House Price Prediction",
+    subtitle: "Built a house price prediction model using Django, Python, HTML, and CSS.",
+    image: "https://raw.githubusercontent.com/ramim2219/house_price_prediction/refs/heads/main/three.png",
+    github: "https://github.com/ramim2219/house_price_prediction?tab=readme-ov-file",
+    status: "live", // ✅ show working badge
+  },
+  {
+    id: 5,
+    title: "Diabetes Risk Prediction",
+    subtitle: "Developed a diabetes risk prediction system using Django, Python, HTML, and CSS.",
+    image: "https://raw.githubusercontent.com/ramim2219/DiabetesRiskPrediction/main/home_d.png",
+    github: "https://github.com/ramim2219/DiabetesRiskPrediction?tab=readme-ov-file",
+    status: "live", // ✅ show working badge
+  },
+  {
+    id: 6,
+    title: "Village Scenerio",
+    subtitle: "A CGIP course project that recreates a village scene through artistic coding to demonstrate computer graphics concepts.",
+    image: "https://raw.githubusercontent.com/ramim2219/VillageScenerio/main/villageScenerio.png",
+    github: "https://github.com/ramim2219/VillageScenerio",
+    status: "live", // ✅ show working badge
+  },
+  {
+    id: 7,
+    title: "Movie Finder",
+    subtitle: "A React-based app that lets users search for movies and view details using API integration.",
+    image: "https://raw.githubusercontent.com/ramim2219/movie_finder/refs/heads/main/screencapture-easymoviefinder321-netlify-app-2024-10-13-00_20_59.png",
+    github: "https://github.com/ramim2219/movie_finder",
+    status: "live", // ✅ show working badge
+  },
+  // add more projects here (pagination will auto work)
+];
 
 const Portfolio = () => {
-  const router = useRouter();
   const [currentPage, setCurrentPage] = useState(1);
   const [preview, setPreview] = useState(null); // { src, title } | null
 
@@ -21,10 +77,9 @@ const Portfolio = () => {
 
   const goTo = (p) => setCurrentPage(Math.max(1, Math.min(totalPages, p)));
 
-  // Clicking anywhere on a card (except the image or the external link
-  // button) now takes the visitor to a full case-study page for that project.
-  const viewDetails = (id) => {
-    router.push(`/projects/${id}`);
+  const openGithub = (url) => {
+    if (!url) return;
+    window.open(url, "_blank", "noopener,noreferrer");
   };
 
   const openPreview = (src, title) => {
@@ -49,38 +104,26 @@ const Portfolio = () => {
   return (
     <section id="work" className="section work-section">
       <div className="container">
-        <SectionTitle
-          heading={"Latest Projects"}
-          subHeading={"Portfolio"}
-          text={"Click any project to read the full case study — tech stack, key features, and links."}
-        />
+        <SectionTitle heading={"Latest Projects"} subHeading={"Portfolio"} />
 
         <div className="row g-4">
-          {currentItems.map((portfolio, index) => {
+          {currentItems.map((portfolio) => {
             const isWip = portfolio.status === "in_progress";
 
             return (
               <div className="col-sm-6 col-lg-4" key={portfolio.id}>
-                {/* Whole card clickable => project detail page */}
-                <motion.div
+                {/* Whole card clickable => GitHub */}
+                <div
                   className="portfolio-box portfolio-clickable"
                   role="button"
                   tabIndex={0}
-                  initial={{ opacity: 0, y: 32 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.2 }}
-                  whileHover={{ y: -8 }}
-                  transition={{
-                    opacity: { duration: 0.5, delay: (index % perPage) * 0.08 },
-                    y: { type: "spring", stiffness: 260, damping: 22 },
-                  }}
-                  onClick={() => viewDetails(portfolio.id)}
+                  onClick={() => openGithub(portfolio.github)}
                   onKeyDown={(e) => {
-                    if (e.key === "Enter") viewDetails(portfolio.id);
+                    if (e.key === "Enter") openGithub(portfolio.github);
                   }}
                 >
                   <div className="portfolio-img">
-                    {/* WIP badge (top-left) */}
+                    {/* ✅ WIP badge (top-left) */}
                     {isWip && (
                       <div className="portfolio-badge" title="Work in progress">
                         <span className="dot" />
@@ -88,7 +131,7 @@ const Portfolio = () => {
                       </div>
                     )}
 
-                    {/* Image click => open preview (stop bubbling so card won't navigate) */}
+                    {/* Image click => open preview (stop bubbling so card won't open github) */}
                     <button
                       type="button"
                       className="portfolio-img-btn"
@@ -100,11 +143,6 @@ const Portfolio = () => {
                     >
                       <img src={portfolio.image} alt={portfolio.title} />
                     </button>
-
-                    {/* Hover affordance hinting the card is clickable */}
-                    <div className="portfolio-hover-hint">
-                      <span>View Case Study</span>
-                    </div>
                   </div>
 
                   <div className="portfolio-info">
@@ -112,6 +150,7 @@ const Portfolio = () => {
                       <h6>{portfolio.title}</h6>
                       <span>{portfolio.subtitle}</span>
 
+                      {/* ✅ subtle WIP helper text */}
                       {isWip && (
                         <small className="portfolio-wip-note">
                           Work is running… updates coming soon
@@ -120,35 +159,29 @@ const Portfolio = () => {
                     </div>
                   </div>
                   <div className="latest-projects">
-                    {portfolio.link && (
-                      <a
-                        href={portfolio.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={(e) => e.stopPropagation()}
-                        className={`portfolio-linkbtn ${isWip ? "is-wip" : ""}`}
-                        title={portfolio.repoUrl ? "Open source code" : "Open live site"}
-                      >
-                        {isWip ? (
-                          <>
-                            <i className="fas fa-flask me-1" />
-                            Preview
-                          </>
-                        ) : portfolio.repoUrl ? (
-                          <>
-                            <i className="fab fa-github me-1" />
-                            Source Code
-                          </>
-                        ) : (
-                          <>
-                            <i className="fas fa-arrow-up-right-from-square me-1" />
-                            Live Site
-                          </>
-                        )}
-                      </a>
-                    )}
+                    {/* ✅ Professional Live Link button */}
+                    <a
+                      href={portfolio.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
+                      className={`portfolio-linkbtn ${isWip ? "is-wip" : ""}`}
+                      title={isWip ? "Open preview" : "Open live link"}
+                    >
+                      {isWip ? (
+                        <>
+                          <i className="fas fa-flask me-1" />
+                          Preview
+                        </>
+                      ) : (
+                        <>
+                          <i className="fas fa-arrow-up-right-from-square me-1" />
+                          Live Link
+                        </>
+                      )}
+                    </a>
                   </div>
-                </motion.div>
+                </div>
               </div>
             );
           })}
@@ -240,13 +273,13 @@ const Portfolio = () => {
           width: 100%;
         }
 
-        /* Make all images same height */
+        /* ✅ Make all images same height */
         .portfolio-img {
           width: 100%;
           height: 220px;
           overflow: hidden;
           border-radius: 12px;
-          position: relative; /* needed for badge + hover hint */
+          position: relative; /* needed for badge */
         }
 
         .portfolio-img-btn {
@@ -259,50 +292,13 @@ const Portfolio = () => {
           display: block;
         }
 
-        /* Crop from TOP */
+        /* ✅ Crop from TOP */
         .portfolio-img img {
           width: 100%;
           height: 100%;
           object-fit: cover;
           object-position: top;
           display: block;
-          transition: transform 0.5s ease;
-        }
-
-        .portfolio-clickable:hover .portfolio-img img {
-          transform: scale(1.06);
-        }
-
-        /* Hover affordance signalling the card opens a case study */
-        .portfolio-hover-hint {
-          position: absolute;
-          inset: 0;
-          display: flex;
-          align-items: flex-end;
-          justify-content: center;
-          padding-bottom: 14px;
-          background: linear-gradient(to top, rgba(0, 0, 0, 0.55), transparent 55%);
-          opacity: 0;
-          transition: opacity 0.25s ease;
-          pointer-events: none;
-          z-index: 1;
-        }
-
-        .portfolio-hover-hint span {
-          color: #fff;
-          font-size: 12px;
-          font-weight: 700;
-          letter-spacing: 0.5px;
-          text-transform: uppercase;
-          padding: 6px 14px;
-          border: 1px solid rgba(255, 255, 255, 0.6);
-          border-radius: 999px;
-          backdrop-filter: blur(4px);
-        }
-
-        .portfolio-clickable:hover .portfolio-hover-hint,
-        .portfolio-clickable:focus-visible .portfolio-hover-hint {
-          opacity: 1;
         }
 
         .portfolio-info {
@@ -328,7 +324,7 @@ const Portfolio = () => {
           opacity: 0.75;
         }
 
-        /* WIP badge */
+        /* ✅ WIP badge */
         .portfolio-badge {
           position: absolute;
           top: 10px;
@@ -355,19 +351,21 @@ const Portfolio = () => {
           box-shadow: 0 0 0 3px rgba(255, 176, 32, 0.18);
         }
 
+        /* ✅ NEW BUTTON DESIGN (same class, same structure) */
+        /* ✅ FIXED BUTTON DESIGN (no text vanish + proper spacing) */
         .portfolio-linkbtn {
           position: relative;
-          isolation: isolate;
+          isolation: isolate; /* ✅ ensures z-index layering works correctly */
 
           display: inline-flex;
           align-items: center;
           gap: 10px;
 
           padding: 10px 16px;
-          margin-top: 12px;
-          margin-bottom: 6px;
-          width: fit-content;
-
+          margin-top: 12px;       /* ✅ creates space from card border/content */
+          margin-bottom: 6px;     /* ✅ space from bottom border */
+          width: fit-content;     /* ✅ prevents stretching */
+          
           font-size: 13px;
           font-weight: 800;
           letter-spacing: 0.3px;
@@ -385,6 +383,7 @@ const Portfolio = () => {
           transition: color 0.25s ease, border-color 0.25s ease;
         }
 
+        /* ✅ hover fill stays BEHIND text/icon */
         .portfolio-linkbtn::before {
           content: "";
           position: absolute;
@@ -392,7 +391,7 @@ const Portfolio = () => {
           background: #111;
           transform: translateX(-101%);
           transition: transform 0.35s ease;
-          z-index: -1;
+          z-index: -1; /* ✅ behind content */
         }
 
         .portfolio-linkbtn:hover::before {
@@ -403,6 +402,7 @@ const Portfolio = () => {
           color: #fff;
         }
 
+        /* icon animation */
         .portfolio-linkbtn i {
           transition: transform 0.25s ease;
         }
@@ -411,6 +411,7 @@ const Portfolio = () => {
           transform: translateX(4px);
         }
 
+        /* ✅ WIP / Preview style */
         .portfolio-linkbtn.is-wip {
           border-color: #ff9800;
           color: #ff9800;
@@ -424,12 +425,14 @@ const Portfolio = () => {
           color: #111;
         }
 
-        .latest-projects {
+        .latest-projects{
           margin-top: auto;
-          padding-left: 5px;
+          padding-left : 5px;
         }
 
-        /* PAGINATION */
+        /* =========================
+          BLACK PAGINATION
+          ========================= */
         .pagination .page-link {
           color: #000;
           background-color: #fff;
@@ -455,7 +458,9 @@ const Portfolio = () => {
           cursor: not-allowed;
         }
 
-        /* PREVIEW (LIGHTBOX) */
+        /* =========================
+          PREVIEW (LIGHTBOX)
+          ========================= */
         .portfolio-preview-overlay {
           position: fixed;
           inset: 0;
@@ -464,9 +469,9 @@ const Portfolio = () => {
           align-items: center;
           justify-content: center;
           padding: 20px;
-          padding-top: 80px;
+          padding-top: 80px; /* clears fixed header */
           z-index: 9999;
-          overflow: hidden;
+          overflow: hidden; /* no scroll outside modal */
         }
 
         .portfolio-preview-modal {
@@ -476,7 +481,7 @@ const Portfolio = () => {
           background: #0b0b0b;
           border-radius: 14px;
           padding: 14px;
-          overflow-y: auto;
+          overflow-y: auto; /* scroll only inside modal */
           overflow-x: hidden;
         }
 
