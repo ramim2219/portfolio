@@ -351,6 +351,7 @@ const About = () => {
     { src: "/assets/img/duet-iupc-2023.jpg", caption: "DUET IUPC 2023 — Ranked 64 / 170 teams" },
     { src: "/assets/img/iiuc-iupc-2025.jpg", caption: "IIUC IUPC 2025 — Ranked 42nd position" },
     { src: "/assets/img/bu_iupc_2025.jpg", caption: "BU IUPC 2025 — Ranked 6th position" },
+    { src: "/assets/img/my_activities/puc/puc.jpg", caption: "PUC IUPC 2024 — Ranked 48th position" },
   ];
 
   const certificationImages = [

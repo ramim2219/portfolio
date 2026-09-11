@@ -18,12 +18,6 @@ const experiencesData = [
     designation: "Software Developer Trainee",
     company: "Premier University , Chittagong",
   },
-  {
-    id: 2,
-    date: "July 2024 - August 2025",
-    designation: "Competitive Programming Trainer",
-    company: "PUC CSE CLUB",
-  },
 ];
 const Skill = () => {
   return (

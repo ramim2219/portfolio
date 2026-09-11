@@ -24,12 +24,12 @@ const Education = () => {
       grade: "GPA: 4.83/5.00"
     },
     {
-      period: "2021 – 2025",
+      period: "2021 – 2026",
       degree: "BSc in Computer Science & Engineering",
       institution: "Premier University, Chittagong",
       description: "Focused on data structures, algorithms, software engineering, database systems, and web technologies. Actively involved in competitive programming and technical activities.",
       icon: <GraduationCap size={20} />,
-      grade: "CGPA: 3.63/4.00"
+      grade: "CGPA: 3.65/4.00"
     }
   ];
 
