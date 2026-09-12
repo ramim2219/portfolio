@@ -8,11 +8,15 @@
 //
 // Optional extras used by the detail page (safe to leave blank/empty):
 //   gallery     — array of screenshot URLs. Defaults to [image] below if omitted.
+//                 The FIRST image is used as the hero; the rest feed the
+//                 alternating content/image rows.
+//   sections    — optional explicit list of { image, title, body } blocks for
+//                 the alternating layout. If omitted, the detail page falls
+//                 back to pairing `features` + `challenges` with gallery images.
 //   role        — your role on the project, e.g. "Full-Stack Developer (Solo)"
 //   duration    — how long it took, e.g. "6 weeks". Leave "" to hide it on the page.
 //   challenges  — array of { challenge, solution } pairs for the "Challenges &
-//                 Solutions" section. These were drafted from the tech/features
-//                 you already listed — edit them to match what actually happened.
+//                 Solutions" section.
 //
 // NOTE ON LOCAL IMAGES:
 //   Files inside the `public/` folder are served from the site root ("/").
@@ -54,8 +58,34 @@ const rawPortfolioData = [
           "Integrated a secure payment gateway with server-side validation, keeping sensitive payment logic off the client.",
       },
     ],
+    // Cover image used by the portfolio grid card.
     image: "/assets/img/ifjona.png",
-    gallery: ["/assets/img/ifjona.png"],
+    // Full gallery for the detail page. First = hero, rest = alternating rows.
+    // ⚠️ Replace the placeholder paths below with real screenshots.
+    gallery: [
+      "/assets/img/ifjona.png",
+      "/assets/img/ifjona.png", // ← replace with /assets/img/ifjona-admin.png
+      "/assets/img/ifjona.png", // ← replace with /assets/img/ifjona-checkout.png
+    ],
+    // Explicit content/image pairs for the alternating layout.
+    // Each row uses its OWN image URL, so the layout shows different images.
+    sections: [
+      {
+        image: "/assets/img/ifjona.png",
+        title: "Modern Storefront",
+        body: "Ifjona is a production e-commerce marketplace built end-to-end, from database design to deployment. The platform gives store owners a dynamic admin panel to manage products, orders, and customers, while shoppers get a fast, modern storefront.",
+      },
+      {
+        image: "/assets/img/ifjona.png", // ← replace with ifjona-admin.png
+        title: "Dynamic Admin Panel",
+        body: "Store owners manage products, orders, and customers through a role-based admin panel. Inventory changes push instantly to the storefront via WebSocket, so shoppers never see stale stock.",
+      },
+      {
+        image: "/assets/img/ifjona.png", // ← replace with ifjona-checkout.png
+        title: "Secure Checkout",
+        body: "Payments are processed through an integrated gateway with server-side validation. Sensitive payment logic stays off the client, keeping checkout both simple and secure.",
+      },
+    ],
     link: "https://www.ifjona.com/",
     status: "live",
   },
@@ -88,7 +118,28 @@ const rawPortfolioData = [
       },
     ],
     image: "/assets/img/project-2.jpg",
-    gallery: ["/assets/img/project-2.jpg"],
+    gallery: [
+      "/assets/img/project-2.jpg",
+      "/assets/img/project-2.jpg", // ← replace with project-2-dashboard.png
+      "/assets/img/project-2.jpg", // ← replace with project-2-reports.png
+    ],
+    sections: [
+      {
+        image: "/assets/img/project-2.jpg",
+        title: "Centralized Employee Records",
+        body: "An internal-tools style application built with Laravel and MySQL to help organizations track employee development. It centralizes performance data, growth plans, and development records so managers can review progress and plan next steps.",
+      },
+      {
+        image: "/assets/img/project-2.jpg", // ← replace with project-2-dashboard.png
+        title: "Performance Dashboard",
+        body: "Managers get a single dashboard showing each employee's growth trajectory, recent reviews, and upcoming development milestones — replacing scattered spreadsheets with one structured view.",
+      },
+      {
+        image: "/assets/img/project-2.jpg", // ← replace with project-2-reports.png
+        title: "Role-Based Access",
+        body: "Role-based access control ensures managers and employees only see what's relevant to them, keeping sensitive HR records protected without slowing down everyday workflows.",
+      },
+    ],
     link: "https://github.com/ramim2219/employee-management-system",
     status: "live",
   },
@@ -120,7 +171,28 @@ const rawPortfolioData = [
       },
     ],
     image: "https://raw.githubusercontent.com/ramim2219/CSE_HELPER/refs/heads/main/home.png",
-    gallery: ["https://raw.githubusercontent.com/ramim2219/CSE_HELPER/refs/heads/main/home.png"],
+    gallery: [
+      "https://raw.githubusercontent.com/ramim2219/CSE_HELPER/refs/heads/main/home.png",
+      "https://raw.githubusercontent.com/ramim2219/CSE_HELPER/refs/heads/main/home.png", // ← replace with resources.png
+      "https://raw.githubusercontent.com/ramim2219/CSE_HELPER/refs/heads/main/home.png", // ← replace with course.png
+    ],
+    sections: [
+      {
+        image: "https://raw.githubusercontent.com/ramim2219/CSE_HELPER/refs/heads/main/home.png",
+        title: "Home & Navigation",
+        body: "CSE Helper is a resource hub built for Computer Science students, combining a React front end styled with Tailwind CSS and a MySQL-backed data layer.",
+      },
+      {
+        image: "https://raw.githubusercontent.com/ramim2219/CSE_HELPER/refs/heads/main/home.png",
+        title: "Searchable Resources",
+        body: "A categorized, searchable resource structure lets students jump straight to the materials they need — course notes, references, and tools — without scrolling through folders.",
+      },
+      {
+        image: "https://raw.githubusercontent.com/ramim2219/CSE_HELPER/refs/heads/main/home.png",
+        title: "Course Organization",
+        body: "Course materials are grouped by semester and subject, backed by MySQL so content can be managed and updated without touching the front end.",
+      },
+    ],
     link: "https://github.com/ramim2219/CSE_HELPER",
     status: "live",
   },
@@ -153,7 +225,28 @@ const rawPortfolioData = [
       },
     ],
     image: "https://raw.githubusercontent.com/ramim2219/house_price_prediction/refs/heads/main/three.png",
-    gallery: ["https://raw.githubusercontent.com/ramim2219/house_price_prediction/refs/heads/main/three.png"],
+    gallery: [
+      "https://raw.githubusercontent.com/ramim2219/house_price_prediction/refs/heads/main/three.png",
+      "https://raw.githubusercontent.com/ramim2219/house_price_prediction/refs/heads/main/three.png", // ← replace with form.png
+      "https://raw.githubusercontent.com/ramim2219/house_price_prediction/refs/heads/main/three.png", // ← replace with result.png
+    ],
+    sections: [
+      {
+        image: "https://raw.githubusercontent.com/ramim2219/house_price_prediction/refs/heads/main/three.png",
+        title: "Prediction Home",
+        body: "This project pairs a trained regression model with a Django web front end so users can enter property details and instantly get a predicted market price.",
+      },
+      {
+        image: "https://raw.githubusercontent.com/ramim2219/house_price_prediction/refs/heads/main/three.png",
+        title: "Property Input Form",
+        body: "Users enter location, size, and amenities through a simple form. The Django backend handles preprocessing and feeds the values into the trained regression model.",
+      },
+      {
+        image: "https://raw.githubusercontent.com/ramim2219/house_price_prediction/refs/heads/main/three.png",
+        title: "Instant Prediction",
+        body: "The model returns a predicted price in real time, along with a breakdown of the input features, giving users a clear sense of what drove the estimate.",
+      },
+    ],
     link: "https://github.com/ramim2219/house_price_prediction?tab=readme-ov-file",
     status: "live",
   },
@@ -185,7 +278,28 @@ const rawPortfolioData = [
       },
     ],
     image: "https://raw.githubusercontent.com/ramim2219/DiabetesRiskPrediction/main/home_d.png",
-    gallery: ["https://raw.githubusercontent.com/ramim2219/DiabetesRiskPrediction/main/home_d.png"],
+    gallery: [
+      "https://raw.githubusercontent.com/ramim2219/DiabetesRiskPrediction/main/home_d.png",
+      "https://raw.githubusercontent.com/ramim2219/DiabetesRiskPrediction/main/home_d.png", // ← replace with form_d.png
+      "https://raw.githubusercontent.com/ramim2219/DiabetesRiskPrediction/main/home_d.png", // ← replace with result_d.png
+    ],
+    sections: [
+      {
+        image: "https://raw.githubusercontent.com/ramim2219/DiabetesRiskPrediction/main/home_d.png",
+        title: "Risk Assessment Home",
+        body: "A health-focused machine learning application that estimates a person's risk of diabetes based on inputs such as glucose level, BMI, and age.",
+      },
+      {
+        image: "https://raw.githubusercontent.com/ramim2219/DiabetesRiskPrediction/main/home_d.png",
+        title: "Health Data Input",
+        body: "A simple form collects the key health metrics the model needs. The Django backend validates the inputs and serves a prediction in real time.",
+      },
+      {
+        image: "https://raw.githubusercontent.com/ramim2219/DiabetesRiskPrediction/main/home_d.png",
+        title: "Clear Result Screen",
+        body: "The result screen presents the risk score clearly and calmly, with the input values summarized alongside so users understand exactly what drove the estimate.",
+      },
+    ],
     link: "https://github.com/ramim2219/DiabetesRiskPrediction?tab=readme-ov-file",
     status: "live",
   },
@@ -217,7 +331,28 @@ const rawPortfolioData = [
       },
     ],
     image: "https://raw.githubusercontent.com/ramim2219/VillageScenerio/main/villageScenerio.png",
-    gallery: ["https://raw.githubusercontent.com/ramim2219/VillageScenerio/main/villageScenerio.png"],
+    gallery: [
+      "https://raw.githubusercontent.com/ramim2219/VillageScenerio/main/villageScenerio.png",
+      "https://raw.githubusercontent.com/ramim2219/VillageScenerio/main/villageScenerio.png", // ← replace with scene2.png
+      "https://raw.githubusercontent.com/ramim2219/VillageScenerio/main/villageScenerio.png", // ← replace with scene3.png
+    ],
+    sections: [
+      {
+        image: "https://raw.githubusercontent.com/ramim2219/VillageScenerio/main/villageScenerio.png",
+        title: "Full Scene Overview",
+        body: "Built for a Computer Graphics & Image Processing course, this project recreates a full village scene entirely through code.",
+      },
+      {
+        image: "https://raw.githubusercontent.com/ramim2219/VillageScenerio/main/villageScenerio.png",
+        title: "Procedural Houses & Trees",
+        body: "Houses, trees, and terrain are composed from geometric primitives and transformations, with no external image assets — everything is drawn at runtime.",
+      },
+      {
+        image: "https://raw.githubusercontent.com/ramim2219/VillageScenerio/main/villageScenerio.png",
+        title: "CGIP Concepts Applied",
+        body: "Translation, rotation, and scaling are used to position and animate scene elements, demonstrating the core CGIP concepts covered in the course.",
+      },
+    ],
     link: "https://github.com/ramim2219/VillageScenerio",
     status: "live",
   },
@@ -252,6 +387,28 @@ const rawPortfolioData = [
       "https://raw.githubusercontent.com/ramim2219/movie_finder/refs/heads/main/screencapture-easymoviefinder321-netlify-app-2024-10-13-00_20_59.png",
     gallery: [
       "https://raw.githubusercontent.com/ramim2219/movie_finder/refs/heads/main/screencapture-easymoviefinder321-netlify-app-2024-10-13-00_20_59.png",
+      "https://raw.githubusercontent.com/ramim2219/movie_finder/refs/heads/main/screencapture-easymoviefinder321-netlify-app-2024-10-13-00_20_59.png", // ← replace with search.png
+      "https://raw.githubusercontent.com/ramim2219/movie_finder/refs/heads/main/screencapture-easymoviefinder321-netlify-app-2024-10-13-00_20_59.png", // ← replace with details.png
+    ],
+    sections: [
+      {
+        image:
+          "https://raw.githubusercontent.com/ramim2219/movie_finder/refs/heads/main/screencapture-easymoviefinder321-netlify-app-2024-10-13-00_20_59.png",
+        title: "Live Search",
+        body: "Movie Finder lets users search a live movie database and browse rich details — posters, ratings, and summaries — for each result.",
+      },
+      {
+        image:
+          "https://raw.githubusercontent.com/ramim2219/movie_finder/refs/heads/main/screencapture-easymoviefinder321-netlify-app-2024-10-13-00_20_59.png",
+        title: "Rich Movie Details",
+        body: "Each result surfaces posters, ratings, release dates, and short summaries in a clean, scannable layout that keeps browsing fast.",
+      },
+      {
+        image:
+          "https://raw.githubusercontent.com/ramim2219/movie_finder/refs/heads/main/screencapture-easymoviefinder321-netlify-app-2024-10-13-00_20_59.png",
+        title: "Responsive Single-Page App",
+        body: "Built entirely in React as a single-page app, the layout adapts cleanly from desktop to mobile so search and browsing feel the same everywhere.",
+      },
     ],
     link: "https://github.com/ramim2219/movie_finder",
     status: "live",
@@ -260,7 +417,13 @@ const rawPortfolioData = [
 
 export const portfolioData = rawPortfolioData.map((project) => ({
   ...project,
-  gallery: project.gallery && project.gallery.length > 0 ? project.gallery : [project.image],
+  // gallery is now the authoritative list of images for the detail page.
+  // Falls back to [image] so nothing breaks if a project has no gallery yet.
+  gallery:
+    project.gallery && project.gallery.length > 0 ? project.gallery : [project.image],
+  // Explicit sections for the alternating layout. If omitted, the detail page
+  // auto-builds rows from gallery + features + challenges.
+  sections: project.sections && project.sections.length > 0 ? project.sections : null,
   repoUrl: isGithubUrl(project.link) ? project.link : null,
   liveUrl: isGithubUrl(project.link) ? null : project.link,
 }));

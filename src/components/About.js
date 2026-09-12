@@ -1,6 +1,7 @@
 import SectionTitle from "./SectionTitle";
 import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
+import { useRouter } from "next/router";
 import {
   Code2,
   Trophy,
@@ -21,6 +22,7 @@ import {
   Users,
   BookOpen,
 } from "lucide-react";
+import { achievementsData, certificationsData } from "../data/achievementsData";
 
 // ─── Experience Highlight Strip ───────────────────────────────────────────────
 const ExperienceHighlight = ({ href }) => (
@@ -188,6 +190,9 @@ const LeadershipHighlight = ({ href }) => (
 );
 
 // ─── Reusable Gallery Slider ──────────────────────────────────────────────────
+// images[] items: { src, caption, href? }
+//   - If href is provided, clicking the slide navigates to that route.
+//   - The zoom button (bottom-right) always opens the lightbox.
 const GallerySlider = (props) => {
   const {
     images,
@@ -199,6 +204,7 @@ const GallerySlider = (props) => {
   } = props;
   const IconComponent = icon || Camera;
 
+  const router = useRouter();
   const [current, setCurrent] = useState(0);
   const [lightbox, setLightbox] = useState(null);
   const [isHovered, setIsHovered] = useState(false);
@@ -213,6 +219,14 @@ const GallerySlider = (props) => {
     timerRef.current = setInterval(next, 3500);
     return () => clearInterval(timerRef.current);
   }, [isHovered, current]);
+
+  const handleSlideClick = (img, i) => {
+    if (img.href) {
+      router.push(img.href);
+    } else {
+      setLightbox(i);
+    }
+  };
 
   return (
     <>
@@ -252,13 +266,29 @@ const GallerySlider = (props) => {
               <div
                 key={i}
                 className={"slide" + (i === current ? " active" : "")}
-                onClick={() => setLightbox(i)}
+                onClick={() => handleSlideClick(img, i)}
               >
                 <img src={img.src} alt={img.caption} />
+
+                {/* Hover hint */}
                 <div className="slide-zoom-hint">
                   <ZoomIn size={16} />
-                  <span>Click to expand</span>
+                  <span>{img.href ? "View details" : "Click to expand"}</span>
                 </div>
+
+                {/* Zoom-only button (opens lightbox, doesn't navigate) */}
+                <button
+                  type="button"
+                  className="slide-zoom-btn"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setLightbox(i);
+                  }}
+                  aria-label="Zoom image"
+                >
+                  <ZoomIn size={16} />
+                </button>
+
                 <div className="slide-caption">
                   <div
                     className="caption-badge"
@@ -270,6 +300,12 @@ const GallerySlider = (props) => {
                     <Award size={13} color={accentColor} />
                     <span>{img.caption}</span>
                   </div>
+
+                  {img.href && (
+                    <span className="caption-read-more">
+                      Read more <ChevronRight size={13} />
+                    </span>
+                  )}
                 </div>
               </div>
             ))}
@@ -285,10 +321,24 @@ const GallerySlider = (props) => {
             />
           </div>
 
-          <button className="slider-btn slider-btn-prev" onClick={prev} aria-label="Previous">
+          <button
+            className="slider-btn slider-btn-prev"
+            onClick={(e) => {
+              e.stopPropagation();
+              prev();
+            }}
+            aria-label="Previous"
+          >
             <ChevronLeft size={18} />
           </button>
-          <button className="slider-btn slider-btn-next" onClick={next} aria-label="Next">
+          <button
+            className="slider-btn slider-btn-next"
+            onClick={(e) => {
+              e.stopPropagation();
+              next();
+            }}
+            aria-label="Next"
+          >
             <ChevronRight size={18} />
           </button>
 
@@ -297,7 +347,10 @@ const GallerySlider = (props) => {
               <button
                 key={i}
                 className={"dot" + (i === current ? " active" : "")}
-                onClick={() => setCurrent(i)}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setCurrent(i);
+                }}
                 aria-label={"Slide " + (i + 1)}
                 style={i === current ? { background: accentColor } : {}}
               />
@@ -346,22 +399,19 @@ const GallerySlider = (props) => {
 
 // ─── About Section ────────────────────────────────────────────────────────────
 const About = () => {
-  const achievementImages = [
-    { src: "/assets/img/icpc-dhaka-2024.jpg", caption: "ICPC Dhaka Regional 2024 — Ranked 213 / 307 teams" },
-    { src: "/assets/img/duet-iupc-2023.jpg", caption: "DUET IUPC 2023 — Ranked 64 / 170 teams" },
-    { src: "/assets/img/iiuc-iupc-2025.jpg", caption: "IIUC IUPC 2025 — Ranked 42nd position" },
-    { src: "/assets/img/bu_iupc_2025.jpg", caption: "BU IUPC 2025 — Ranked 6th position" },
-    { src: "/assets/img/my_activities/puc/puc.jpg", caption: "PUC IUPC 2024 — Ranked 48th position" },
-  ];
+  // Build gallery image arrays from the central data file.
+  // `href` makes each slide navigate to its detail page.
+  const achievementImages = achievementsData.map((a) => ({
+    src: a.image,
+    caption: a.rankLabel || a.title,
+    href: `/achievements/${a.id}`,
+  }));
 
-  const certificationImages = [
-    { src: "/assets/img/cpp-trainer.jpeg", caption: "Competitive Programming Trainer At PUC CSE Club" },
-    { src: "/assets/img/icpc.jpg", caption: "" },
-    { src: "/assets/img/duet.jpg", caption: "" },
-    { src: "/assets/img/iiuc.jpg", caption: "" },
-    { src: "/assets/img/puc.jpg", caption: "" },
-    { src: "/assets/img/gfg.jpg", caption: "" },
-  ];
+  const certificationImages = certificationsData.map((c) => ({
+    src: c.image,
+    caption: c.title,
+    href: `/achievements/${c.id}`,
+  }));
 
   return (
     <section id="about" className="section about-section bg-gray">
@@ -449,17 +499,29 @@ const About = () => {
                 </div>
               </div>
 
+              {/* ── Contest Highlights (now data-driven + clickable) ── */}
               <div className="achievement-card">
-                <div className="achievement-header"><Trophy size={20} /><h5>Programming Contest Highlights</h5></div>
-                <div className="contest-badges">
-                  <div className="contest-badge"><Award size={13} /><span>ICPC Dhaka 2024</span><strong>#213</strong></div>
-                  <div className="contest-badge"><Award size={13} /><span>DUET IUPC 2025</span><strong>#64</strong></div>
-                  <div className="contest-badge"><Award size={13} /><span>IIUC IUPC 2025</span><strong>#42</strong></div>
-                  <div className="contest-badge"><Award size={13} /><span>PUC IUPC 2024</span><strong>#42</strong></div>
-                  <div className="contest-badge"><Award size={13} /><span>BU IUPC 2025</span><strong>#6</strong></div>
-                  <div className="contest-badge"><Award size={13} /><span>CUET IUPC 2022</span><strong>#53</strong></div>
+                <div className="achievement-header">
+                  <Trophy size={20} />
+                  <h5>Programming Contest Highlights</h5>
                 </div>
-                <p className="contest-gallery-note">📸 See the gallery below for photos from these contests.</p>
+                <div className="contest-badges">
+                  {achievementsData.map((a) => (
+                    <Link
+                      key={a.id}
+                      href={`/achievements/${a.id}`}
+                      className="contest-badge"
+                      title={`View details about ${a.title}`}
+                    >
+                      <Award size={13} />
+                      <span>{a.title}</span>
+                      <strong>{a.rank}</strong>
+                    </Link>
+                  ))}
+                </div>
+                <p className="contest-gallery-note">
+                  📸 See the gallery below for photos from these contests — click any badge or photo for details.
+                </p>
               </div>
             </div>
           </div>
@@ -471,7 +533,7 @@ const About = () => {
             <GallerySlider
               images={achievementImages}
               title="Achievements & Participation Gallery"
-              subtitle="Contest moments & milestone highlights"
+              subtitle="Click any photo to read the full contest story"
               accentColor="#a78bfa"
               accentRgb="99,102,241"
               icon={Camera}
@@ -485,14 +547,13 @@ const About = () => {
             <GallerySlider
               images={certificationImages}
               title="Certifications Gallery"
-              subtitle="Courses, credentials & professional certificates"
+              subtitle="Click any certificate to see details"
               accentColor="#34d399"
               accentRgb="16,185,129"
               icon={BadgeCheck}
             />
           </div>
         </div>
-
       </div>
 
       <style>{`
@@ -508,31 +569,73 @@ const About = () => {
           border-radius: 6px;
           transition: all 0.25s ease;
         }
-
         .profile-btn:hover {
           background: #111;
           color: #fff;
         }
+
         .gallery-card { border-radius: 14px; overflow: hidden; border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.02); }
         .gallery-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid rgba(255,255,255,0.07); background: rgba(255,255,255,0.03); flex-wrap: wrap; gap: 8px; }
-        .rank {display: flex; justify-content: space-between;}
+        .rank { display: flex; justify-content: space-between; }
         .gallery-header-left { display: flex; align-items: center; gap: 12px; flex: 1; min-width: 0; }
         .gallery-icon-wrap { width: 42px; height: 42px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-        .gallery-title { margin: 0; font-size: 1rem; font-weight: 700; letter-spacing: 0.2px; color: #000000; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .gallery-title { margin: 0; font-size: 1rem; font-weight: 700; letter-spacing: 0.2px; color: #000; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .gallery-subtitle { margin: 2px 0 0; font-size: 0.75rem; color: #555; letter-spacing: 0.3px; }
         .gallery-counter { font-size: 0.82rem; font-weight: 600; letter-spacing: 1px; flex-shrink: 0; }
         .gallery-counter-current { font-size: 1.15rem; font-weight: 700; }
         .gallery-counter-sep { color: rgba(0,0,0,0.25); margin: 0 2px; }
         .gallery-counter-total { color: rgba(0,0,0,0.35); }
+
         .slider-wrapper { position: relative; overflow: hidden; background: #0a0a0a; aspect-ratio: 16/9; cursor: pointer; user-select: none; width: 75%; margin: 0 auto; }
         .slider-track { position: relative; width: 100%; height: 100%; }
         .slide { position: absolute; inset: 0; opacity: 0; transition: opacity 0.65s ease; pointer-events: none; }
-        .slide.active { opacity: 1; pointer-events: auto; }
+        .slide.active { opacity: 1; pointer-events: auto; cursor: pointer; }
         .slide img { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; display: block; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+
         .slide-zoom-hint { position: absolute; top: 12px; right: 12px; background: rgba(0,0,0,0.55); border: 1px solid rgba(255,255,255,0.15); color: rgba(255,255,255,0.75); border-radius: 20px; padding: 5px 10px; font-size: 0.72rem; display: flex; align-items: center; gap: 5px; backdrop-filter: blur(6px); opacity: 0; transition: opacity 0.2s; z-index: 5; }
         .slide.active:hover .slide-zoom-hint { opacity: 1; }
-        .slide-caption { position: absolute; bottom: 0; left: 0; right: 0; padding: 32px 16px 14px; background: linear-gradient(transparent, rgba(0,0,0,0.82)); z-index: 5; }
+
+        /* Zoom button on the slide (opens lightbox without navigating) */
+        .slide-zoom-btn {
+          position: absolute;
+          top: 12px;
+          left: 12px;
+          width: 34px;
+          height: 34px;
+          border-radius: 50%;
+          border: 1px solid rgba(255,255,255,0.18);
+          background: rgba(0,0,0,0.55);
+          color: #fff;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          backdrop-filter: blur(6px);
+          cursor: pointer;
+          opacity: 0;
+          transition: opacity 0.2s ease, background 0.2s ease;
+          z-index: 6;
+        }
+        .slide.active:hover .slide-zoom-btn { opacity: 1; }
+        .slide-zoom-btn:hover { background: rgba(99,102,241,0.6); }
+
+        .slide-caption { position: absolute; bottom: 0; left: 0; right: 0; padding: 32px 16px 14px; background: linear-gradient(transparent, rgba(0,0,0,0.82)); z-index: 5; display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
         .caption-badge { display: inline-flex; align-items: center; gap: 7px; border-radius: 6px; padding: 5px 12px; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.2px; backdrop-filter: blur(4px); color: #e0e7ff; }
+        .caption-read-more {
+          display: inline-flex;
+          align-items: center;
+          gap: 4px;
+          font-size: 0.75rem;
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+          color: #fff;
+          background: rgba(99,102,241,0.7);
+          border: 1px solid rgba(255,255,255,0.25);
+          padding: 5px 10px;
+          border-radius: 6px;
+          backdrop-filter: blur(6px);
+        }
+
         .slider-progress { position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: rgba(255,255,255,0.08); z-index: 10; }
         .slider-progress-fill { height: 100%; transition: width 0.4s ease; }
         .slider-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.45); border: 1px solid rgba(255,255,255,0.15); color: #fff; border-radius: 50%; width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background 0.2s, border-color 0.2s; z-index: 10; backdrop-filter: blur(6px); }
@@ -542,6 +645,7 @@ const About = () => {
         .slider-dots { position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%); display: flex; gap: 7px; z-index: 10; }
         .dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,0.3); border: none; cursor: pointer; padding: 0; transition: background 0.25s, width 0.25s, border-radius 0.25s; }
         .dot.active { width: 22px; border-radius: 4px; }
+
         .lightbox-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 9999; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(8px); animation: fadeIn 0.2s ease; padding: 16px; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         .lightbox-close { position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); color: #fff; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background 0.2s; z-index: 10001; }
@@ -552,15 +656,55 @@ const About = () => {
         .lightbox-caption { display: inline-flex; align-items: center; gap: 7px; margin-top: 12px; border-radius: 6px; padding: 6px 14px; font-size: 0.83rem; font-weight: 500; flex-wrap: wrap; justify-content: center; color: #e0e7ff; }
         .lightbox-nav { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: #fff; border-radius: 50%; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; transition: background 0.2s; }
         .lightbox-nav:hover { background: rgba(99,102,241,0.4); }
+
+        /* Contest badges — now clickable links */
         .contest-badges { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 8px; }
-        .contest-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 6px 14px; font-size: 0.8rem; color: #000000; transition: border-color 0.2s, background 0.2s; }
-        .contest-badge:hover { background: rgba(99,102,241,0.12); border-color: rgba(99,102,241,0.35); }
+        .contest-badge {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          background: rgba(255,255,255,0.05);
+          border: 1px solid rgba(255,255,255,0.1);
+          border-radius: 8px;
+          padding: 6px 14px;
+          font-size: 0.8rem;
+          color: #000;
+          text-decoration: none;
+          cursor: pointer;
+          transition: border-color 0.2s, background 0.2s, transform 0.2s;
+        }
+        .contest-badge:hover {
+          background: rgba(99,102,241,0.12);
+          border-color: rgba(99,102,241,0.35);
+          transform: translateY(-1px);
+        }
         .contest-badge svg { color: #f59e0b; }
         .contest-badge strong { color: #a78bfa; font-weight: 700; font-size: 0.85rem; }
-        .contest-gallery-note { margin: 8px 0 0; font-size: 0.75rem; color: rgba(255,255,255,0.3); font-style: italic; }
+        .contest-gallery-note { margin: 8px 0 0; font-size: 0.75rem; color: rgba(0,0,0,0.4); font-style: italic; }
+
         @media (max-width: 991px) { .slider-wrapper { width: 90%; } }
-        @media (max-width: 767px) { .slider-wrapper { width: 100%; aspect-ratio: 4/3; } .gallery-title { font-size: 0.9rem; } .gallery-subtitle { display: none; } .gallery-icon-wrap { width: 36px; height: 36px; } .lightbox-nav { width: 34px; height: 34px; } }
-        @media (max-width: 575px) { .slider-wrapper { width: 100%; aspect-ratio: 1/1; } .slider-btn { width: 28px; height: 28px; } .gallery-header { padding: 12px 14px; } .gallery-title { font-size: 0.82rem; } .caption-badge { font-size: 0.7rem; padding: 4px 8px; } .slide-zoom-hint { display: none; } .lightbox-nav { width: 30px; height: 30px; } .lightbox-content { gap: 6px; } .dot { width: 6px; height: 6px; } .dot.active { width: 16px; } .lightbox-img-wrap img { max-width: 72vw; max-height: 65vh; } }
+        @media (max-width: 767px) {
+          .slider-wrapper { width: 100%; aspect-ratio: 4/3; }
+          .gallery-title { font-size: 0.9rem; }
+          .gallery-subtitle { display: none; }
+          .gallery-icon-wrap { width: 36px; height: 36px; }
+          .lightbox-nav { width: 34px; height: 34px; }
+        }
+        @media (max-width: 575px) {
+          .slider-wrapper { width: 100%; aspect-ratio: 1/1; }
+          .slider-btn { width: 28px; height: 28px; }
+          .gallery-header { padding: 12px 14px; }
+          .gallery-title { font-size: 0.82rem; }
+          .caption-badge { font-size: 0.7rem; padding: 4px 8px; }
+          .slide-zoom-hint { display: none; }
+          .slide-zoom-btn { width: 28px; height: 28px; opacity: 1; }
+          .lightbox-nav { width: 30px; height: 30px; }
+          .lightbox-content { gap: 6px; }
+          .dot { width: 6px; height: 6px; }
+          .dot.active { width: 16px; }
+          .lightbox-img-wrap img { max-width: 72vw; max-height: 65vh; }
+          .caption-read-more { font-size: 0.65rem; padding: 4px 8px; }
+        }
       `}</style>
     </section>
   );

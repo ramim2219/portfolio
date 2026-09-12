@@ -1,7 +1,7 @@
 'use client';
 
 import SectionTitle from "./SectionTitle";
-import { portfolioData } from "./portfolioData";
+import { portfolioData } from "../data/portfolioData";
 import { useMemo, useState } from "react";
 import { useRouter } from "next/router";
 import { motion } from "framer-motion";
