@@ -4,6 +4,22 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>
+        {/* ⭐ No-flash theme script — MUST be the first thing in <Head> */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var saved = localStorage.getItem('theme');
+                  var prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+                  var theme = saved || (prefersLight ? 'light' : 'dark');
+                  document.documentElement.setAttribute('data-theme', theme);
+                } catch (e) {}
+              })();
+            `,
+          }}
+        />
+
         <meta charSet="utf-8" />
         <meta name="author" content="themepaa" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />

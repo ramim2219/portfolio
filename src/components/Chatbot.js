@@ -150,14 +150,15 @@ const Chatbot = () => {
           border-radius: 50%;
           border: none;
           cursor: pointer;
-          background: #111;
-          color: #fff;
+          background: var(--text, #111);
+          color: var(--bg, #fff);
           font-size: 20px;
           display: flex;
           align-items: center;
           justify-content: center;
           box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
-          transition: transform 0.25s ease, background 0.25s ease;
+          transition: transform 0.25s ease, background 0.25s ease,
+            color 0.25s ease;
         }
         .chatbot-fab:hover {
           transform: translateY(-3px) scale(1.05);
@@ -179,12 +180,13 @@ const Chatbot = () => {
           max-height: calc(100vh - 140px);
           display: flex;
           flex-direction: column;
-          background: #fff;
-          border: 1px solid rgba(0, 0, 0, 0.1);
+          background: var(--card-bg, #fff);
+          border: 1px solid var(--border, rgba(0, 0, 0, 0.1));
           border-radius: 16px;
           overflow: hidden;
           box-shadow: 0 20px 48px rgba(0, 0, 0, 0.22);
           animation: chatbot-pop 0.22s ease-out;
+          transition: background 0.25s ease, border-color 0.25s ease;
         }
         @keyframes chatbot-pop {
           from {
@@ -202,8 +204,9 @@ const Chatbot = () => {
           align-items: center;
           justify-content: space-between;
           padding: 12px 14px;
-          background: #111;
-          color: #fff;
+          background: var(--text, #111);
+          color: var(--bg, #fff);
+          transition: background 0.25s ease, color 0.25s ease;
         }
         .chatbot-title {
           display: flex;
@@ -223,7 +226,7 @@ const Chatbot = () => {
         .chatbot-close {
           background: transparent;
           border: none;
-          color: #fff;
+          color: inherit;
           cursor: pointer;
           font-size: 14px;
           opacity: 0.8;
@@ -236,10 +239,11 @@ const Chatbot = () => {
           flex: 1;
           overflow-y: auto;
           padding: 14px;
-          background: #f7f7f8;
+          background: var(--bg-soft, #f7f7f8);
           display: flex;
           flex-direction: column;
           gap: 10px;
+          transition: background 0.25s ease;
         }
         .chatbot-msg {
           max-width: 85%;
@@ -252,16 +256,19 @@ const Chatbot = () => {
         }
         .chatbot-msg.is-bot {
           align-self: flex-start;
-          background: #fff;
-          color: #111;
-          border: 1px solid rgba(0, 0, 0, 0.08);
+          background: var(--card-bg, #fff);
+          color: var(--text, #111);
+          border: 1px solid var(--border-soft, rgba(0, 0, 0, 0.08));
           border-bottom-left-radius: 4px;
+          transition: background 0.25s ease, color 0.25s ease,
+            border-color 0.25s ease;
         }
         .chatbot-msg.is-user {
           align-self: flex-end;
-          background: #111;
-          color: #fff;
+          background: var(--text, #111);
+          color: var(--bg, #fff);
           border-bottom-right-radius: 4px;
+          transition: background 0.25s ease, color 0.25s ease;
         }
 
         .chatbot-typing {
@@ -273,7 +280,7 @@ const Chatbot = () => {
           width: 6px;
           height: 6px;
           border-radius: 50%;
-          background: #999;
+          background: var(--text-muted, #999);
           animation: chatbot-bounce 1.2s infinite ease-in-out;
         }
         .chatbot-typing span:nth-child(2) {
@@ -298,22 +305,30 @@ const Chatbot = () => {
           align-items: flex-end;
           gap: 8px;
           padding: 10px;
-          background: #fff;
-          border-top: 1px solid rgba(0, 0, 0, 0.08);
+          background: var(--card-bg, #fff);
+          border-top: 1px solid var(--border-soft, rgba(0, 0, 0, 0.08));
+          transition: background 0.25s ease, border-color 0.25s ease;
         }
         .chatbot-input textarea {
           flex: 1;
           resize: none;
-          border: 1px solid rgba(0, 0, 0, 0.12);
+          border: 1px solid var(--border, rgba(0, 0, 0, 0.12));
           border-radius: 10px;
           padding: 8px 10px;
           font-size: 14px;
           font-family: inherit;
           outline: none;
           max-height: 90px;
+          background: var(--bg-soft, #fff);
+          color: var(--text, #111);
+          transition: background 0.25s ease, color 0.25s ease,
+            border-color 0.25s ease;
+        }
+        .chatbot-input textarea::placeholder {
+          color: var(--text-muted, #999);
         }
         .chatbot-input textarea:focus {
-          border-color: #111;
+          border-color: var(--accent, #111);
         }
         .chatbot-input button {
           flex-shrink: 0;
@@ -321,10 +336,10 @@ const Chatbot = () => {
           height: 38px;
           border-radius: 10px;
           border: none;
-          background: #111;
-          color: #fff;
+          background: var(--text, #111);
+          color: var(--bg, #fff);
           cursor: pointer;
-          transition: background 0.2s ease;
+          transition: background 0.2s ease, color 0.2s ease;
         }
         .chatbot-input button:hover:not(:disabled) {
           background: #ff9800;

@@ -3,24 +3,324 @@
 @import "swiper/css/pagination";
 @import "swiper/css/scrollbar";
 
+/* ============================================================
+   THEME VARIABLES
+   Dark is the default. Light overrides via [data-theme="light"].
+   ============================================================ */
+:root,
+[data-theme="dark"] {
+  /* Backgrounds — layered for depth */
+  --bg: #0a0a0b;              /* page background — near black, slightly cool */
+  --bg-soft: #121214;         /* section backgrounds, chat area */
+  --bg-elevated: #1a1a1d;     /* cards sitting on bg-soft */
+  --card-bg: #16161a;         /* default card background */
+
+  /* Text — three tiers of contrast */
+  --text: #f2f2f4;            /* headings, primary text */
+  --text-soft: #b8b8c0;       /* body, descriptions */
+  --text-muted: #7a7a85;      /* timestamps, meta, hints */
+
+  /* Borders — subtle, never harsh white */
+  --border: rgba(255, 255, 255, 0.08);
+  --border-soft: rgba(255, 255, 255, 0.05);
+
+  /* Header */
+  --header-bg: rgba(10, 10, 11, 0.85);
+
+  /* Accents — slightly desaturated for dark bg comfort */
+  --accent: #60a5fa;          /* softer blue, easier on eyes than #3b82f6 */
+  --accent-soft: rgba(96, 165, 250, 0.12);
+  --success: #34d399;         /* mint green */
+  --warning: #fbbf24;         /* amber */
+
+  /* Shadows — stronger in dark mode so cards pop */
+  --shadow-sm: 0 4px 20px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 12px 32px rgba(0, 0, 0, 0.65);
+
+  /* Extra tokens for gradients that appear on cards */
+  --gradient-accent: linear-gradient(135deg, #60a5fa, #a78bfa);
+}
+
+[data-theme="light"] {
+  --bg: #ffffff;
+  --bg-soft: #f8fafc;
+  --bg-elevated: #ffffff;
+  --card-bg: #ffffff;
+
+  --text: #0f172a;
+  --text-soft: #475569;
+  --text-muted: #94a3b8;
+
+  --border: rgba(0, 0, 0, 0.1);
+  --border-soft: rgba(0, 0, 0, 0.06);
+
+  --header-bg: rgba(255, 255, 255, 0.85);
+
+  --accent: #3b82f6;
+  --accent-soft: rgba(59, 130, 246, 0.1);
+  --success: #10b981;
+  --warning: #d97706;
+
+  --shadow-sm: 0 4px 20px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 12px 32px rgba(0, 0, 0, 0.1);
+
+  --gradient-accent: linear-gradient(135deg, #3b82f6, #8b5cf6);
+}
+
+/* Smooth theme transitions on major surfaces */
+body,
+.main-header,
+.about-card,
+.achievement-card,
+.edu-card,
+.research-card,
+.portfolio-box,
+.feature-box-01 {
+  transition: background-color 0.3s ease, color 0.3s ease,
+    border-color 0.3s ease;
+}
+
 html {
   scroll-padding-top: 90px;
   scroll-behavior: smooth;
 }
 
+body {
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* ============================================================
+   THEME-AWARE OVERRIDES
+   These re-color the template's hard-coded light colors when
+   data-theme="light" is active. Dark mode values are the default.
+   ============================================================ */
+
+/* Global text */
+[data-theme="dark"] body {
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* Headings that use #1e293b / #111 */
+[data-theme="dark"] h1,
+[data-theme="dark"] h2,
+[data-theme="dark"] h3,
+[data-theme="dark"] h4,
+[data-theme="dark"] h5,
+[data-theme="dark"] h6 {
+  color: var(--text);
+}
+
+/* Paragraph text using #555 / #475569 / #64748b */
+[data-theme="dark"] p,
+[data-theme="dark"] .about-content p,
+[data-theme="dark"] .about-intro p,
+[data-theme="dark"] .role-header h6,
+[data-theme="dark"] .rank,
+[data-theme="dark"] .contest-item span {
+  color: var(--text-soft);
+}
+
+/* ---- Education Timeline ---- */
+[data-theme="dark"] .edu-dot {
+  background: var(--bg);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px var(--accent-soft),
+    0 4px 12px rgba(59, 130, 246, 0.2);
+}
+
+[data-theme="dark"] .edu-card {
+  background: var(--card-bg);
+  border-color: var(--border);
+  box-shadow: var(--shadow-sm);
+}
+
+[data-theme="dark"] .edu-card:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: var(--shadow-md);
+}
+
+[data-theme="dark"] .edu-card h5 {
+  color: var(--text);
+}
+
+[data-theme="dark"] .edu-period {
+  color: var(--text-soft);
+  background: var(--bg-elevated);
+}
+
+[data-theme="dark"] .edu-icon {
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+
+[data-theme="dark"] .edu-institution {
+  color: var(--text-soft);
+  background: var(--bg-elevated);
+}
+
+/* ---- About Section ---- */
+[data-theme="dark"] .about-card {
+  background: var(--card-bg);
+  border-color: var(--border);
+  box-shadow: var(--shadow-sm);
+}
+
+[data-theme="dark"] .about-header h3 {
+  color: var(--text);
+}
+
+[data-theme="dark"] .contact-item {
+  color: var(--text-soft);
+}
+
+[data-theme="dark"] .contact-item svg {
+  color: var(--accent);
+}
+
+[data-theme="dark"] .about-contact {
+  border-top-color: var(--border-soft);
+  border-bottom-color: var(--border-soft);
+}
+
+[data-theme="dark"] .skills-summary h6 {
+  color: var(--text);
+}
+
+[data-theme="dark"] .skill-tags span {
+  background: var(--bg-elevated);
+  color: var(--text-soft);
+}
+
+[data-theme="dark"] .about-intro {
+  background: var(--card-bg);
+  border-left-color: var(--accent);
+}
+
+[data-theme="dark"] .achievement-card {
+  background: var(--card-bg);
+  border-color: var(--border);
+  box-shadow: var(--shadow-sm);
+}
+
+[data-theme="dark"] .achievement-header h5 {
+  color: var(--text);
+}
+
+[data-theme="dark"] .achievement-header svg {
+  color: var(--accent);
+}
+
+[data-theme="dark"] .achievement-item {
+  background: var(--bg-elevated);
+  border-color: var(--border-soft);
+}
+
+[data-theme="dark"] .platform-name {
+  color: var(--text);
+}
+
+[data-theme="dark"] .achievement-stats {
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+
+[data-theme="dark"] .contest-item {
+  border-bottom-color: var(--border-soft);
+}
+
+[data-theme="dark"] .contest-item strong {
+  color: var(--text);
+}
+
+[data-theme="dark"] .role-header h5 {
+  color: var(--text);
+}
+
+/* ---- Research Section ---- */
+[data-theme="dark"] .research-card {
+  background: var(--card-bg);
+  border-color: var(--border);
+}
+
+[data-theme="dark"] .research-tags span {
+  background: var(--bg-elevated);
+  color: var(--text-soft);
+}
+
+[data-theme="dark"] .badge-progress {
+  background: rgba(217, 119, 6, 0.15);
+  color: #fbbf24;
+}
+
+[data-theme="dark"] .badge-soon {
+  background: rgba(79, 70, 229, 0.15);
+  color: #a5b4fc;
+}
+
+/* ---- Header ---- */
+[data-theme="dark"] .main-header {
+  background: var(--header-bg);
+  border-bottom: 1px solid var(--border-soft);
+  backdrop-filter: blur(10px);
+}
+
+[data-theme="dark"] .nav-link {
+  color: var(--text-soft);
+}
+
+[data-theme="dark"] .nav-link.active,
+[data-theme="dark"] .nav-link:hover {
+  color: var(--text);
+}
+
+/* ---- Theme Toggle Button ---- */
+.theme-toggle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+  font-size: 15px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.25s ease,
+    border-color 0.2s ease;
+}
+
+.theme-toggle:hover {
+  background: var(--text);
+  color: var(--bg);
+  transform: rotate(15deg);
+  border-color: var(--text);
+}
+
+@media (max-width: 991px) {
+  .theme-toggle {
+    width: 46px;
+    height: 46px;
+    font-size: 17px;
+  }
+}
+
+/* ============================================================
+   ORIGINAL STYLES (unchanged)
+   ============================================================ */
 
 /* image popup */
 img.mfp-img {
   box-shadow: 0 0 8px rgb(0 0 0 / 60%);
   position: absolute;
-  /* max-height: 392px; */
   padding: 0 !important;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
 .mfp-img-container .mfp-content {
-  /* max-width: 400px !important; */
 }
 .mfp-img-container .mfp-close {
   top: -110px;
@@ -46,8 +346,6 @@ img.mfp-img {
   max-width: 100%;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
 }
-
-
 
 /* Global: stop horizontal scroll */
 html,
@@ -82,12 +380,11 @@ body {
   }
 
   .home-title {
-    font-size: 34px; /* adjust if needed */
+    font-size: 34px;
     line-height: 1.2;
     word-break: break-word;
   }
 
-  /* If effects are positioned with negative values, clamp them */
   .effect-1,
   .effect-2 {
     left: 0 !important;
@@ -95,11 +392,10 @@ body {
   }
 }
 
-
 /* ===== Education Timeline - Professional Version ===== */
 .education-section {
   position: relative;
-  padding-top: 90px ;
+  padding-top: 90px;
   padding-bottom: 80px;
 }
 
@@ -107,7 +403,6 @@ body {
   position: relative;
 }
 
-/* Middle vertical line with gradient */
 .edu-timeline-line {
   position: absolute;
   left: 50%;
@@ -115,14 +410,15 @@ body {
   bottom: 0;
   width: 1px;
   transform: translateX(-50%);
-  background: linear-gradient(to bottom, 
-    transparent 0%, 
-    #3b82f6 10%, 
-    #3b82f6 90%, 
-    transparent 100%);
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    #3b82f6 10%,
+    #3b82f6 90%,
+    transparent 100%
+  );
 }
 
-/* Each timeline item */
 .edu-item {
   position: relative;
   display: flex;
@@ -130,7 +426,6 @@ body {
   min-height: 120px;
 }
 
-/* Left / Right alignment */
 .edu-item.left {
   justify-content: flex-start;
   padding-right: calc(50% + 40px);
@@ -141,7 +436,6 @@ body {
   padding-left: calc(50% + 40px);
 }
 
-/* Enhanced dot on the middle line */
 .edu-dot {
   position: absolute;
   left: 50%;
@@ -152,7 +446,7 @@ body {
   background: white;
   border: 3px solid #3b82f6;
   box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1),
-              0 4px 12px rgba(59, 130, 246, 0.2);
+    0 4px 12px rgba(59, 130, 246, 0.2);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -166,14 +460,12 @@ body {
   background: #3b82f6;
 }
 
-/* Professional Card Design */
 .edu-card {
   background: white;
   border: 1px solid #e2e8f0;
   border-radius: 16px;
   padding: 18px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05),
-              0 1px 3px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.05);
   max-width: 520px;
   width: 100%;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -182,7 +474,7 @@ body {
 }
 
 .edu-card::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -194,12 +486,10 @@ body {
 
 .edu-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1),
-              0 2px 6px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1), 0 2px 6px rgba(0, 0, 0, 0.08);
   border-color: #cbd5e1;
 }
 
-/* Card Header */
 .edu-header {
   display: flex;
   justify-content: space-between;
@@ -227,7 +517,6 @@ body {
   justify-content: center;
 }
 
-/* Degree Title */
 .edu-card h5 {
   font-size: 18px;
   font-weight: 700;
@@ -235,7 +524,6 @@ body {
   color: #1e293b;
 }
 
-/* Meta Information */
 .edu-meta {
   display: flex;
   justify-content: space-between;
@@ -259,7 +547,6 @@ body {
   border-radius: 6px;
 }
 
-
 /* Make service cards equal height */
 .feature-box-01 {
   display: flex;
@@ -272,22 +559,22 @@ body {
   height: 100%;
 }
 
-/* Push icon to bottom for consistent alignment */
 .feature-box-01 .icon {
   margin-top: auto;
 }
-
 
 /* ===== Mobile Responsive ===== */
 @media (max-width: 991px) {
   .edu-timeline-line {
     left: 24px;
     transform: none;
-    background: linear-gradient(to bottom, 
-      transparent 0%, 
-      #3b82f6 5%, 
-      #3b82f6 95%, 
-      transparent 100%);
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      #3b82f6 5%,
+      #3b82f6 95%,
+      transparent 100%
+    );
   }
 
   .edu-item.left,
@@ -305,11 +592,11 @@ body {
   .edu-card {
     max-width: 100%;
   }
-  
+
   .edu-card::before {
     width: 3px;
   }
-  
+
   .edu-meta {
     flex-direction: column;
     align-items: flex-start;
@@ -321,22 +608,20 @@ body {
   .edu-card {
     padding: 20px;
   }
-  
+
   .edu-card h5 {
     font-size: 16px;
   }
-  
+
   .edu-header {
     flex-direction: column;
     gap: 8px;
   }
-  
+
   .edu-icon {
     align-self: flex-start;
   }
 }
-
-
 
 /* Mobile */
 @media (max-width: 576px) {
@@ -345,14 +630,11 @@ body {
   }
 }
 
-
-
 /* ===== About Section - Professional Design ===== */
 .about-section {
   padding: 80px 0;
 }
 
-/* Left Card Styling */
 .about-card {
   background: white;
   border-radius: 16px;
@@ -386,7 +668,6 @@ body {
   opacity: 0.9;
 }
 
-/* Contact Information */
 .about-contact {
   margin: 25px 0;
   padding: 20px 0;
@@ -412,7 +693,6 @@ body {
   width: 18px;
 }
 
-/* Skills Summary */
 .skills-summary {
   margin-top: 25px;
 }
@@ -442,7 +722,6 @@ body {
   font-weight: 500;
 }
 
-/* Right Content Area */
 .about-intro {
   background: white;
   border-radius: 12px;
@@ -458,7 +737,6 @@ body {
   margin: 0;
 }
 
-/* Achievement Cards */
 .achievement-card {
   background: white;
   border-radius: 14px;
@@ -486,7 +764,6 @@ body {
   color: #3b82f6;
 }
 
-/* Achievement Grid */
 .achievement-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -541,7 +818,6 @@ body {
   border-radius: 8px;
 }
 
-/* Contest List */
 .contest-list {
   display: flex;
   flex-direction: column;
@@ -581,7 +857,6 @@ body {
   color: #64748b;
 }
 
-
 .role-header {
   display: flex;
   align-items: center;
@@ -609,18 +884,16 @@ body {
   color: #10b981;
 }
 
-
-
 /* Responsive Design */
 @media (max-width: 991px) {
   .about-section {
     padding: 60px 0;
   }
-  
+
   .about-card {
     margin-bottom: 30px;
   }
-  
+
   .achievement-grid {
     grid-template-columns: 1fr;
   }
@@ -632,15 +905,15 @@ body {
   .tech-stack {
     padding: 20px;
   }
-  
+
   .about-header h3 {
     font-size: 20px;
   }
-  
+
   .tech-tags {
     gap: 8px;
   }
-  
+
   .tech-tags span {
     padding: 5px 12px;
     font-size: 12px;
@@ -659,7 +932,9 @@ body {
   transform: translateY(-4px);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.06);
 }
-.research-card.muted { opacity: 0.85; }
+.research-card.muted {
+  opacity: 0.85;
+}
 
 .badge {
   display: inline-block;
@@ -669,8 +944,14 @@ body {
   font-weight: 600;
   margin-bottom: 12px;
 }
-.badge-progress { background: #fff4e6; color: #d97706; }
-.badge-soon     { background: #eef2ff; color: #4f46e5; }
+.badge-progress {
+  background: #fff4e6;
+  color: #d97706;
+}
+.badge-soon {
+  background: #eef2ff;
+  color: #4f46e5;
+}
 
 .research-tags span {
   display: inline-block;

@@ -14,6 +14,7 @@ export const boston = {
       });
       navLi.forEach((li) => {
         let a = li.getElementsByTagName("a")[0];
+        if (!a) return;                       // ⭐ skip <li>s with no <a> (e.g. theme toggle)
         if (current !== null) {
           a.classList.remove("active");
         }

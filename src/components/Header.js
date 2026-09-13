@@ -2,6 +2,7 @@
 import { Navbar, Container, Nav } from "react-bootstrap";
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
+import ThemeToggle from "./ThemeToggle";
 
 const NAV_ITEMS = [
   { id: "home",      label: "Home" },
@@ -179,6 +180,7 @@ const Header = () => {
           </Navbar.Toggle>
 
           <Navbar.Collapse id="main-nav" className="justify-content-center">
+            {/* Nav list — every <li> MUST contain an <a> for scrollToActiveNav() */}
             <Nav as="ul" className="navbar-nav align-items-lg-center">
               {NAV_ITEMS.map((item) => (
                 <Nav.Item as="li" key={item.id}>
@@ -203,9 +205,16 @@ const Header = () => {
                 </a>
               </li>
             </Nav>
+
+            {/* ⭐ Theme toggle — OUTSIDE the <ul>, so scrollToActiveNav() never sees it */}
+            {/* <div className="d-lg-none mt-3 d-flex justify-content-center w-100">
+              <ThemeToggle />
+            </div> */}
           </Navbar.Collapse>
 
-          <div className="ms-auto d-none d-lg-block">
+          {/* ⭐ Desktop right-side actions: theme toggle + Contact button */}
+          <div className="ms-auto d-none d-lg-flex align-items-center gap-3">
+            <ThemeToggle />
             <a
               className="px-btn px-btn-theme2"
               href={hrefFor("contactus")}
