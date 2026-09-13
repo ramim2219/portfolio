@@ -15,10 +15,12 @@ export default function Document() {
         <meta name="description" content="Boston - Portfolio Template" />
         {/* title */}
         <title>Ramim Dev</title>
-        {/* Favicon */}
-        <link rel="shortcut icon" type="image/x-icon" href="fabicon.png" />
-        {/* theme css */}
-        <link href="assets/css/style.css" rel="stylesheet" />
+
+        {/* Favicon — MUST start with "/" */}
+        <link rel="shortcut icon" type="image/x-icon" href="/fabicon.png" />
+
+        {/* Theme CSS — MUST start with "/" */}
+        <link href="/assets/css/style.css" rel="stylesheet" />
       </Head>
       <body>
         <Main />

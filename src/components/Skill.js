@@ -39,6 +39,22 @@ const experiencesData = [
     ],
     href: "/experience/software-developer-trainee",
   },
+  {
+    id: 2,
+    date: "Jan 2026 - Present",
+    designation: "E-Commerce Developer",
+    company: "Ifjona LLC — US-Based Client",
+    summary:
+      "Developed and delivered a production e-commerce platform for a US-based LLC client. Worked on frontend development, API integration, responsive UI, and client-requested features. Initial project delivered in June 2026; continue to provide ongoing development and support.",
+    contributions: [
+      "Built and delivered a production e-commerce platform end-to-end for a US-based LLC client.",
+      "Developed the frontend with a responsive, mobile-first UI across all customer-facing pages.",
+      "Integrated REST APIs between the React frontend and the Laravel backend.",
+      "Implemented client-requested features and shipped iterative updates throughout the engagement.",
+      "Delivered the initial project in June 2026 and continue providing ongoing development and support.",
+    ],
+    href: "/experience/ecommerce-developer-ifjona",
+  },
 ];
 
 const CONTRIBUTIONS_PREVIEW_COUNT = 4;
@@ -319,17 +335,16 @@ const Skill = () => {
         .exp-contributions {
           list-style: none;
           padding: 0;
-          margin: 0 0 10px;
+          margin: 0 0 0px;
           display: flex;
           flex-direction: column;
-          gap: 8px;
+          gap: 0px;
         }
 
         .exp-contributions li {
           position: relative;
           padding-left: 20px;
           font-size: 13.5px;
-          line-height: 1.6;
           color: #374151;
         }
 
@@ -337,7 +352,7 @@ const Skill = () => {
           content: "";
           position: absolute;
           left: 0;
-          top: 8px;
+          top: 25px;
           width: 6px;
           height: 6px;
           border-radius: 50%;

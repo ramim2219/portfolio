@@ -385,7 +385,7 @@ main {
         padding: 0;
         list-style: none;
     }
-    li {
+    > ul > li {
         display: flex;
         padding: 20px 0;
         border-top: 2px solid $px-dark;

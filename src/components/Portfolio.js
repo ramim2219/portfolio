@@ -1,7 +1,7 @@
 'use client';
 
 import SectionTitle from "./SectionTitle";
-import { portfolioData } from "../data/portfolioData";
+import { portfolioData, isPdf, isVideo } from "../data/portfolioData";
 import { useMemo, useState } from "react";
 import { useRouter } from "next/router";
 import { motion } from "framer-motion";
@@ -38,6 +38,8 @@ const Portfolio = () => {
         <div className="row g-4">
           {currentItems.map((portfolio, index) => {
             const isWip = portfolio.status === "in_progress";
+            const coverIsPdf = isPdf(portfolio.image);
+            const coverIsVideo = isVideo(portfolio.image);
 
             return (
               <div className="col-sm-6 col-lg-4" key={portfolio.id}>
@@ -68,8 +70,27 @@ const Portfolio = () => {
                       </div>
                     )}
 
-                    {/* Image click => same as card click => case study page */}
-                    <img src={portfolio.image} alt={portfolio.title} />
+                    {/* Image / PDF / Video preview inside the card */}
+                    {coverIsVideo ? (
+                      <video
+                        className="portfolio-video"
+                        src={portfolio.image}
+                        muted
+                        loop
+                        autoPlay
+                        playsInline
+                        preload="metadata"
+                      />
+                    ) : coverIsPdf ? (
+                      <iframe
+                        className="portfolio-pdf"
+                        src={`${portfolio.image}#toolbar=0&navpanes=0&scrollbar=0&view=FitH`}
+                        title={portfolio.title}
+                        loading="lazy"
+                      />
+                    ) : (
+                      <img src={portfolio.image} alt={portfolio.title} />
+                    )}
 
                     {/* Hover affordance hinting the card is clickable */}
                     <div className="portfolio-hover-hint">
@@ -89,6 +110,7 @@ const Portfolio = () => {
                       )}
                     </div>
                   </div>
+
                   <div className="latest-projects">
                     {portfolio.link && (
                       <a
@@ -180,13 +202,14 @@ const Portfolio = () => {
           width: 100%;
         }
 
-        /* Make all images same height */
+        /* Fixed-height image area, never shrinks */
         .portfolio-img {
           width: 100%;
           height: 220px;
           overflow: hidden;
           border-radius: 12px;
-          position: relative; /* needed for badge + hover hint */
+          position: relative;
+          flex-shrink: 0;
         }
 
         /* Crop from TOP */
@@ -197,6 +220,27 @@ const Portfolio = () => {
           object-position: top;
           display: block;
           transition: transform 0.5s ease;
+        }
+
+        /* PDF preview inside card (non-interactive so card click still works) */
+        .portfolio-pdf {
+          width: 100%;
+          height: 100%;
+          border: 0;
+          display: block;
+          background: #fff;
+          pointer-events: none;
+        }
+
+        /* Video preview inside card (non-interactive so card click still works) */
+        .portfolio-video {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: top;
+          display: block;
+          background: #000;
+          pointer-events: none;
         }
 
         .portfolio-clickable:hover .portfolio-img img {
@@ -235,11 +279,12 @@ const Portfolio = () => {
           opacity: 1;
         }
 
+        /* Info area grows to fill available space between image & button */
         .portfolio-info {
           flex-grow: 1;
           display: flex;
           flex-direction: column;
-          justify-content: space-between;
+          justify-content: flex-start;
         }
 
         .portfolio-text {
@@ -354,9 +399,11 @@ const Portfolio = () => {
           color: #111;
         }
 
+        /* Button container always pinned to bottom of the card */
         .latest-projects {
           margin-top: auto;
           padding-left: 5px;
+          flex-shrink: 0;
         }
 
         /* PAGINATION */

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -15,10 +15,17 @@ import {
   Lightbulb,
   ZoomIn,
   X,
+  FileText,
+  Play,
 } from "lucide-react";
 import Header from "@/src/components/Header";
 import Footer from "@/src/components/Footer";
-import { portfolioData, getProjectById } from "@/src/data/portfolioData";
+import {
+  portfolioData,
+  getProjectById,
+  isPdf,
+  isVideo,
+} from "@/src/data/portfolioData";
 
 export async function getStaticPaths() {
   return {
@@ -42,13 +49,9 @@ export async function getStaticProps({ params }) {
 /* ─────────────────────────────────────────────────────────
    Build the alternating gallery rows.
 
-   Rules:
-   - Images come from `gallery`. If `sections[i].image` exists,
-     it overrides the gallery image for that row.
-   - The hero (gallery[0]) is only skipped if the gallery has more
-     than one image — otherwise the gallery would be empty.
-   - Row index === gallery index, so the lightbox always opens the
-     correct image.
+   Media can be an image, a PDF, or a video. The lightbox always opens
+   the SAME media the user clicked, by looking up its index in the
+   full gallery.
    ───────────────────────────────────────────────────────── */
 function buildGalleryRows(project) {
   const fullGallery =
@@ -57,10 +60,10 @@ function buildGalleryRows(project) {
       : [project.image];
 
   const heroIsCover = fullGallery[0] === project.image;
-  const galleryImages =
+  const galleryItems =
     heroIsCover && fullGallery.length > 1 ? fullGallery.slice(1) : fullGallery;
 
-  if (galleryImages.length === 0) return [];
+  if (galleryItems.length === 0) return [];
 
   const sections = project.sections || [];
 
@@ -87,20 +90,34 @@ function buildGalleryRows(project) {
     })),
   ];
 
-  return galleryImages.map((image, i) => {
+  return galleryItems.map((item, i) => {
     const realIndex = heroIsCover && fullGallery.length > 1 ? i + 1 : i;
     const section = sections[i];
+    const media = section && section.image ? section.image : item;
+
+    // Look up the exact position of the media we're showing in the full gallery.
+    const foundIdx = fullGallery.indexOf(media);
+    const imageIndex = foundIdx >= 0 ? foundIdx : realIndex;
+
     const text =
       section || fallbackText[i] || fallbackText[fallbackText.length - 1] || {};
 
     return {
-      image: section && section.image ? section.image : image,
-      imageIndex: realIndex,
+      media,
+      imageIndex,
       title: text.title || "",
       subtitle: text.subtitle || "",
       body: text.body || "",
     };
   });
+}
+
+/* Find the first image in the gallery to use as a video poster, so
+   a video hero has a real thumbnail before playback starts. */
+function findPoster(project) {
+  if (!project) return undefined;
+  const pool = [project.image, ...(project.gallery || [])];
+  return pool.find((u) => u && !isPdf(u) && !isVideo(u));
 }
 
 const ProjectDetail = ({ project, prevProject, nextProject }) => {
@@ -113,6 +130,46 @@ const ProjectDetail = ({ project, prevProject, nextProject }) => {
     setLightboxIndex((i) => (i + 1) % galleryLength);
 
   const rows = buildGalleryRows(project);
+  const posterUrl = findPoster(project);
+
+  const heroIsPdf = isPdf(project.image);
+  const heroIsVideo = isVideo(project.image);
+
+  const lightboxMedia =
+    lightboxIndex !== null ? project.gallery[lightboxIndex] : null;
+  const lightboxIsPdf = lightboxMedia ? isPdf(lightboxMedia) : false;
+  const lightboxIsVideo = lightboxMedia ? isVideo(lightboxMedia) : false;
+
+  // Silently prefetch every PDF in the gallery so the lightbox opens instantly.
+  useEffect(() => {
+    if (typeof document === "undefined") return;
+    const pdfUrls = Array.from(
+      new Set([project.image, ...project.gallery].filter((u) => isPdf(u)))
+    );
+    const links = pdfUrls.map((href) => {
+      const link = document.createElement("link");
+      link.rel = "prefetch";
+      link.as = "document";
+      link.href = href;
+      document.head.appendChild(link);
+      return link;
+    });
+    return () => {
+      links.forEach((l) => l.parentNode && l.parentNode.removeChild(l));
+    };
+  }, [project.image, project.gallery]);
+
+  // Keyboard controls: Esc closes, ←/→ navigate.
+  useEffect(() => {
+    if (lightboxIndex === null) return;
+    const onKey = (e) => {
+      if (e.key === "Escape") setLightboxIndex(null);
+      if (e.key === "ArrowLeft") showPrevImage();
+      if (e.key === "ArrowRight") showNextImage();
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [lightboxIndex]);
 
   return (
     <>
@@ -124,9 +181,7 @@ const ProjectDetail = ({ project, prevProject, nextProject }) => {
       <Header />
 
       <main className="wrapper project-detail-page">
-        {/* ─────────────────────────────────────────────
-            BACK BUTTON
-            ───────────────────────────────────────────── */}
+        {/* BACK BUTTON */}
         <section className="section project-hero">
           <div className="container">
             <Link href="/#work" className="nav-pill-btn back-top">
@@ -138,9 +193,7 @@ const ProjectDetail = ({ project, prevProject, nextProject }) => {
           </div>
         </section>
 
-        {/* ─────────────────────────────────────────────
-            INTRO BLOCK — full project story
-            ───────────────────────────────────────────── */}
+        {/* INTRO BLOCK */}
         <section className="section project-intro">
           <div className="container">
             <motion.div
@@ -185,18 +238,54 @@ const ProjectDetail = ({ project, prevProject, nextProject }) => {
                 </div>
               </div>
 
+              {/* HERO MEDIA — image, PDF, or video */}
               <div className="col-lg-6">
-                <button
-                  type="button"
-                  className="project-hero-image"
-                  onClick={() => setLightboxIndex(0)}
-                  aria-label="Open main screenshot"
-                >
-                  <img src={project.image} alt={project.title} />
-                  <span className="img-zoom-badge">
-                    <ZoomIn size={16} />
-                  </span>
-                </button>
+                {heroIsVideo ? (
+                  <div className="project-hero-image is-video">
+                    <video
+                      src={project.image}
+                      poster={posterUrl}
+                      controls
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      preload="metadata"
+                    />
+                  </div>
+                ) : heroIsPdf ? (
+                  <button
+                    type="button"
+                    className="project-hero-image is-pdf is-clickable"
+                    onClick={() => setLightboxIndex(0)}
+                    aria-label="Open PDF preview"
+                  >
+                    <iframe
+                      src={project.image}
+                      title={project.title}
+                      loading="lazy"
+                    />
+                    <span className="pdf-hover-overlay">
+                      <FileText size={18} />
+                      <span>Click to view PDF</span>
+                    </span>
+                    <span className="img-zoom-badge">
+                      <ZoomIn size={16} />
+                    </span>
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    className="project-hero-image"
+                    onClick={() => setLightboxIndex(0)}
+                    aria-label="Open main screenshot"
+                  >
+                    <img src={project.image} alt={project.title} />
+                    <span className="img-zoom-badge">
+                      <ZoomIn size={16} />
+                    </span>
+                  </button>
+                )}
               </div>
             </motion.div>
 
@@ -330,13 +419,7 @@ const ProjectDetail = ({ project, prevProject, nextProject }) => {
           </div>
         </section>
 
-        {/* ─────────────────────────────────────────────
-            GALLERY — alternating rows using Bootstrap grid
-            Row 0: [text col-md-6]  [image col-md-6]
-            Row 1: [image col-md-6] [text col-md-6]
-            Row 2: [text col-md-6]  [image col-md-6]
-            …repeats for every gallery image
-            ───────────────────────────────────────────── */}
+        {/* GALLERY — alternating rows */}
         {rows.length > 0 && (
           <section className="section project-alternating bg-gray">
             <div className="container">
@@ -352,6 +435,8 @@ const ProjectDetail = ({ project, prevProject, nextProject }) => {
 
               {rows.map((row, idx) => {
                 const isReversed = idx % 2 === 1;
+                const rowIsPdf = isPdf(row.media);
+                const rowIsVideo = isVideo(row.media);
 
                 return (
                   <motion.div
@@ -379,28 +464,62 @@ const ProjectDetail = ({ project, prevProject, nextProject }) => {
                       </div>
                     </div>
 
-                    {/* IMAGE column */}
+                    {/* MEDIA column — image, PDF, or video */}
                     <div
                       className={`col-md-6 ${
                         isReversed ? "order-md-1" : "order-md-2"
                       }`}
                     >
-                      <button
-                        type="button"
-                        className="gallery-image-card"
-                        onClick={() => setLightboxIndex(row.imageIndex)}
-                        aria-label={`Open screenshot ${row.imageIndex + 1}`}
-                      >
-                        <img
-                          src={row.image}
-                          alt={`${project.title} screenshot ${
-                            row.imageIndex + 1
-                          }`}
-                        />
-                        <span className="img-zoom-badge">
-                          <ZoomIn size={16} />
-                        </span>
-                      </button>
+                      {rowIsVideo ? (
+                        <div className="gallery-image-card is-video">
+                          <video
+                            src={row.media}
+                            poster={posterUrl}
+                            controls
+                            playsInline
+                            preload="metadata"
+                          />
+                        </div>
+                      ) : rowIsPdf ? (
+                        <button
+                          type="button"
+                          className="gallery-image-card is-pdf is-clickable"
+                          onClick={() => setLightboxIndex(row.imageIndex)}
+                          aria-label={`Open PDF preview ${row.imageIndex + 1}`}
+                        >
+                          <iframe
+                            src={row.media}
+                            title={`${project.title} document ${
+                              row.imageIndex + 1
+                            }`}
+                            loading="lazy"
+                          />
+                          <span className="pdf-hover-overlay">
+                            <FileText size={18} />
+                            <span>Click to view PDF</span>
+                          </span>
+                          <span className="img-zoom-badge">
+                            <ZoomIn size={16} />
+                          </span>
+                        </button>
+                      ) : (
+                        <button
+                          type="button"
+                          className="gallery-image-card"
+                          onClick={() => setLightboxIndex(row.imageIndex)}
+                          aria-label={`Open screenshot ${row.imageIndex + 1}`}
+                        >
+                          <img
+                            src={row.media}
+                            alt={`${project.title} screenshot ${
+                              row.imageIndex + 1
+                            }`}
+                          />
+                          <span className="img-zoom-badge">
+                            <ZoomIn size={16} />
+                          </span>
+                        </button>
+                      )}
                     </div>
                   </motion.div>
                 );
@@ -409,14 +528,17 @@ const ProjectDetail = ({ project, prevProject, nextProject }) => {
           </section>
         )}
 
-        {/* ─────────────────────────────────────────────
-            LIGHTBOX
-            ───────────────────────────────────────────── */}
+        {/* LIGHTBOX — images + PDFs + videos */}
         {lightboxIndex !== null && (
           <div
             className="project-lightbox-overlay"
             onClick={() => setLightboxIndex(null)}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Media preview"
           >
+            <div className="project-lightbox-backdrop" />
+
             <button
               type="button"
               className="project-lightbox-close"
@@ -424,7 +546,8 @@ const ProjectDetail = ({ project, prevProject, nextProject }) => {
                 e.stopPropagation();
                 setLightboxIndex(null);
               }}
-              aria-label="Close gallery"
+              aria-label="Close preview"
+              title="Close (Esc)"
             >
               <X size={22} />
             </button>
@@ -438,32 +561,62 @@ const ProjectDetail = ({ project, prevProject, nextProject }) => {
                   type="button"
                   className="project-lightbox-nav"
                   onClick={showPrevImage}
-                  aria-label="Previous screenshot"
+                  aria-label="Previous item"
                 >
                   <ChevronLeft size={26} />
                 </button>
               )}
-              <img
-                src={project.gallery[lightboxIndex]}
-                alt={`${project.title} screenshot ${lightboxIndex + 1}`}
-              />
+
+              {lightboxIsVideo ? (
+                <video
+                  className="project-lightbox-video"
+                  src={lightboxMedia}
+                  poster={posterUrl}
+                  controls
+                  autoPlay
+                  playsInline
+                />
+              ) : lightboxIsPdf ? (
+                <iframe
+                  className="project-lightbox-pdf"
+                  src={lightboxMedia}
+                  title={`${project.title} document ${lightboxIndex + 1}`}
+                />
+              ) : (
+                <img
+                  src={lightboxMedia}
+                  alt={`${project.title} screenshot ${lightboxIndex + 1}`}
+                />
+              )}
+
               {galleryLength > 1 && (
                 <button
                   type="button"
                   className="project-lightbox-nav"
                   onClick={showNextImage}
-                  aria-label="Next screenshot"
+                  aria-label="Next item"
                 >
                   <ChevronRight size={26} />
                 </button>
               )}
             </div>
+
+            {lightboxIsPdf && (
+              <div className="project-lightbox-caption">
+                <FileText size={14} />
+                PDF Document {lightboxIndex + 1} of {galleryLength}
+              </div>
+            )}
+            {lightboxIsVideo && (
+              <div className="project-lightbox-caption">
+                <Play size={14} />
+                Video {lightboxIndex + 1} of {galleryLength}
+              </div>
+            )}
           </div>
         )}
 
-        {/* ─────────────────────────────────────────────
-            PREV / NEXT NAV
-            ───────────────────────────────────────────── */}
+        {/* PREV / NEXT NAV */}
         <section className="section project-nav-section">
           <div className="container">
             <div className="project-nav-row">
@@ -592,7 +745,7 @@ const ProjectDetail = ({ project, prevProject, nextProject }) => {
           margin-left: auto;
         }
 
-        /* ─── PAGE / HERO (navbar clearance) ───────────── */
+        /* ─── PAGE / HERO ──────────────────────────────── */
         .project-hero {
           padding-top: 120px;
           padding-bottom: 0;
@@ -651,7 +804,7 @@ const ProjectDetail = ({ project, prevProject, nextProject }) => {
           gap: 14px;
         }
 
-        /* ─── SHARED IMAGE CARD TREATMENT ─────────────── */
+        /* ─── SHARED MEDIA CARD ────────────────────────── */
         .project-hero-image,
         .gallery-image-card {
           position: relative;
@@ -686,6 +839,72 @@ const ProjectDetail = ({ project, prevProject, nextProject }) => {
           transform: scale(1.04);
         }
 
+        /* PDF variants — hand cursor */
+        .project-hero-image.is-pdf,
+        .gallery-image-card.is-pdf {
+          cursor: pointer;
+        }
+        .project-hero-image.is-pdf iframe,
+        .gallery-image-card.is-pdf iframe {
+          width: 100%;
+          height: 100%;
+          border: 0;
+          display: block;
+          background: #fff;
+          pointer-events: none; /* clicks pass through to the button */
+        }
+        .project-hero-image.is-pdf:hover img,
+        .gallery-image-card.is-pdf:hover img {
+          transform: none;
+        }
+
+        /* Video variants — video plays inline, no cursor zoom, no hover overlay */
+        .project-hero-image.is-video,
+        .gallery-image-card.is-video {
+          cursor: default;
+        }
+        .project-hero-image.is-video video,
+        .gallery-image-card.is-video video {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          display: block;
+          background: #000;
+        }
+
+        /* Clickable PDF card — hand cursor */
+        .is-clickable {
+          cursor: pointer;
+        }
+        .is-clickable:focus-visible {
+          outline: 3px solid rgba(247, 175, 36, 0.55);
+          outline-offset: 3px;
+        }
+
+        /* Hover overlay for PDF cards — no blur */
+        .pdf-hover-overlay {
+          position: absolute;
+          inset: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 10px;
+          background: rgba(17, 24, 39, 0.55);
+          color: #fff;
+          font-size: 13px;
+          font-weight: 700;
+          letter-spacing: 0.4px;
+          text-transform: uppercase;
+          opacity: 0;
+          transition: opacity 0.25s ease;
+          pointer-events: none;
+          z-index: 3;
+        }
+        .is-clickable:hover .pdf-hover-overlay,
+        .is-clickable:focus-visible .pdf-hover-overlay {
+          opacity: 1;
+        }
+
         /* Shared zoom badge */
         .img-zoom-badge {
           position: absolute;
@@ -701,9 +920,10 @@ const ProjectDetail = ({ project, prevProject, nextProject }) => {
           justify-content: center;
           backdrop-filter: blur(4px);
           pointer-events: none;
+          z-index: 4;
         }
 
-        /* ─── BODY (overview / features / challenges) ──── */
+        /* ─── BODY ──────────────────────────────────────── */
         .bg-gray {
           background: #f8fafc;
         }
@@ -862,7 +1082,7 @@ const ProjectDetail = ({ project, prevProject, nextProject }) => {
           border-radius: 20px;
         }
 
-        /* ─── ALTERNATING GALLERY ROWS (Bootstrap grid) ── */
+        /* ─── ALTERNATING GALLERY ─────────────────────── */
         .project-alternating {
           padding: 70px 0 80px;
         }
@@ -900,16 +1120,24 @@ const ProjectDetail = ({ project, prevProject, nextProject }) => {
           margin-bottom: 0;
         }
 
-        /* ─── LIGHTBOX (fixed z-index + top offset) ────── */
+        /* ─── LIGHTBOX ────────────────────────────────── */
         .project-lightbox-overlay {
           position: fixed;
           inset: 0;
-          background: rgba(0, 0, 0, 0.9);
-          z-index: 100000;
+          background: rgba(0, 0, 0, 0.92);
+          z-index: 2147483646;
           display: flex;
+          flex-direction: column;
           align-items: center;
           justify-content: center;
-          padding: 90px 16px 16px;
+          padding: 80px 16px 16px;
+          animation: lightboxFadeIn 0.18s ease-out;
+        }
+
+        .project-lightbox-backdrop {
+          position: absolute;
+          inset: 0;
+          z-index: 0;
         }
 
         .project-lightbox-close {
@@ -920,26 +1148,28 @@ const ProjectDetail = ({ project, prevProject, nextProject }) => {
           height: 44px;
           border-radius: 50%;
           border: 1px solid rgba(255, 255, 255, 0.35);
-          background: rgba(255, 255, 255, 0.15);
+          background: rgba(255, 255, 255, 0.18);
           color: #fff;
           display: flex;
           align-items: center;
           justify-content: center;
           cursor: pointer;
-          z-index: 100001;
+          z-index: 2147483647;
           backdrop-filter: blur(6px);
           transition: background 0.2s ease, transform 0.2s ease;
         }
         .project-lightbox-close:hover {
-          background: rgba(239, 68, 68, 0.65);
+          background: rgba(239, 68, 68, 0.75);
           transform: scale(1.06);
         }
         .project-lightbox-close:focus-visible {
-          outline: 3px solid rgba(255, 255, 255, 0.5);
+          outline: 3px solid rgba(255, 255, 255, 0.6);
           outline-offset: 2px;
         }
 
         .project-lightbox-content {
+          position: relative;
+          z-index: 1;
           display: flex;
           align-items: center;
           gap: 16px;
@@ -955,6 +1185,45 @@ const ProjectDetail = ({ project, prevProject, nextProject }) => {
           box-shadow: 0 12px 60px rgba(0, 0, 0, 0.7);
           display: block;
           object-fit: contain;
+          animation: lightboxZoomIn 0.22s ease-out;
+        }
+
+        /* PDF inside the lightbox */
+        .project-lightbox-pdf {
+          width: min(78vw, 1040px);
+          height: calc(100vh - 200px);
+          border: 0;
+          border-radius: 10px;
+          background: #fff;
+          box-shadow: 0 12px 60px rgba(0, 0, 0, 0.7);
+          display: block;
+          animation: lightboxZoomIn 0.22s ease-out;
+        }
+
+        /* Video inside the lightbox */
+        .project-lightbox-video {
+          width: min(82vw, 1200px);
+          max-height: calc(100vh - 160px);
+          border-radius: 10px;
+          box-shadow: 0 12px 60px rgba(0, 0, 0, 0.7);
+          display: block;
+          background: #000;
+          animation: lightboxZoomIn 0.22s ease-out;
+        }
+
+        /* Caption under PDF/video lightbox */
+        .project-lightbox-caption {
+          position: relative;
+          z-index: 1;
+          margin-top: 14px;
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          font-size: 12.5px;
+          font-weight: 700;
+          letter-spacing: 0.4px;
+          text-transform: uppercase;
+          color: rgba(255, 255, 255, 0.85);
         }
 
         .project-lightbox-nav {
@@ -976,11 +1245,20 @@ const ProjectDetail = ({ project, prevProject, nextProject }) => {
           background: rgba(99, 102, 241, 0.55);
         }
 
+        @keyframes lightboxFadeIn {
+          from { opacity: 0; }
+          to   { opacity: 1; }
+        }
+        @keyframes lightboxZoomIn {
+          from { opacity: 0; transform: scale(0.96); }
+          to   { opacity: 1; transform: scale(1); }
+        }
+
         .project-nav-section {
           padding: 0 0 70px;
         }
 
-        /* ─── RESPONSIVE ───────────────────────────────── */
+        /* ─── RESPONSIVE ──────────────────────────────── */
         @media (max-width: 991px) {
           .project-hero {
             padding-top: 100px;
@@ -1013,7 +1291,15 @@ const ProjectDetail = ({ project, prevProject, nextProject }) => {
             max-width: 140px;
           }
           .project-lightbox-overlay {
-            padding: 80px 12px 12px;
+            padding: 70px 12px 12px;
+          }
+          .project-lightbox-pdf {
+            width: 88vw;
+            height: calc(100vh - 220px);
+          }
+          .project-lightbox-video {
+            width: 90vw;
+            max-height: calc(100vh - 200px);
           }
         }
 
@@ -1045,6 +1331,14 @@ const ProjectDetail = ({ project, prevProject, nextProject }) => {
           .project-lightbox-content img {
             max-width: 90vw;
             max-height: calc(100vh - 140px);
+          }
+          .project-lightbox-pdf {
+            width: 88vw;
+            height: calc(100vh - 200px);
+          }
+          .project-lightbox-video {
+            width: 92vw;
+            max-height: calc(100vh - 220px);
           }
         }
       `}</style>

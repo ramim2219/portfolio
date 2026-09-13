@@ -12,6 +12,7 @@ import ImageView from "@/src/components/popup/ImageView";
 import { boston } from "@/src/utils";
 import { Fragment, useEffect } from "react";
 import Education from "@/src/components/Education";
+import Chatbot from "@/src/components/Chatbot"; 
 
 const Index = () => {
   useEffect(() => {
@@ -76,6 +77,7 @@ const Index = () => {
       {/* Footer */}
       <Footer />
       {/* End Footer */}
+      <Chatbot />
     </Fragment>
   );
 };
