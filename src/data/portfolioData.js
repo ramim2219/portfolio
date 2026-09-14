@@ -89,10 +89,10 @@ const rawPortfolioData = [
     ],
 
     image:
-      "/assets/img/my_activities/Projects/Ifjona/Ifjona/Home.pdf",
+      "/assets/img/my_activities/Projects/Ifjona/Ifjona/home.pdf",
 
     gallery: [
-      "/assets/img/my_activities/Projects/Ifjona/Ifjona/Home.pdf",
+      "/assets/img/my_activities/Projects/Ifjona/Ifjona/home.pdf",
       "/assets/img/my_activities/Projects/Ifjona/Admin Page Functionalities/Dashboard.pdf",
       "/assets/img/my_activities/Projects/Ifjona/Admin Page Functionalities/adding products.pdf",
       "/assets/img/my_activities/Projects/Ifjona/Admin Page Functionalities/order managemnt.pdf",
