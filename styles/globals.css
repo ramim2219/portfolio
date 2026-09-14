@@ -962,3 +962,196 @@ body {
   background: #f3f4f6;
   color: #374151;
 }
+
+/* ============================================================
+   DARK MODE FIXES — detail pages, research, about, skills
+   These components set colors inside <style jsx> blocks, which
+   win over the generic tag-based dark-mode rules above due to
+   CSS specificity. Re-assert the theme variables with !important
+   so text and backgrounds stay visible in night mode.
+   ============================================================ */
+
+/* Section wrapper reused across many pages */
+[data-theme="dark"] .bg-gray {
+  background: var(--bg-soft) !important;
+}
+
+/* ---- Headings / emphasized text ---- */
+[data-theme="dark"] .project-title,
+[data-theme="dark"] .achievement-title,
+[data-theme="dark"] .hero-title,
+[data-theme="dark"] .project-section-heading,
+[data-theme="dark"] .achievement-section-heading,
+[data-theme="dark"] .alt-title,
+[data-theme="dark"] .project-info-card h5,
+[data-theme="dark"] .project-tech-card h5,
+[data-theme="dark"] .achievement-info-card h5,
+[data-theme="dark"] .project-info-list li strong,
+[data-theme="dark"] .achievement-info-list li strong,
+[data-theme="dark"] .block-head h2,
+[data-theme="dark"] .sub-head,
+[data-theme="dark"] .category-card h4,
+[data-theme="dark"] .models-table th,
+[data-theme="dark"] .models-table .num,
+[data-theme="dark"] .stack-card h4,
+[data-theme="dark"] .thesis-gallery-title,
+[data-theme="dark"] .highlight-label,
+[data-theme="dark"] .publication-cta h3,
+[data-theme="dark"] .skill-box h3,
+[data-theme="dark"] .experience-box h3,
+[data-theme="dark"] .exp-role,
+[data-theme="dark"] .exp-hi-role,
+[data-theme="dark"] .gallery-title,
+[data-theme="dark"] .contest-badge {
+  color: var(--text) !important;
+}
+
+/* ---- Body copy / descriptions ---- */
+[data-theme="dark"] .project-lead,
+[data-theme="dark"] .achievement-lead,
+[data-theme="dark"] .project-full-desc,
+[data-theme="dark"] .achievement-full-desc,
+[data-theme="dark"] .challenge-row p,
+[data-theme="dark"] .alt-body,
+[data-theme="dark"] .project-features li,
+[data-theme="dark"] .achievement-highlights li,
+[data-theme="dark"] .hero-meta-chip,
+[data-theme="dark"] .hero-meta,
+[data-theme="dark"] .hero-authors,
+[data-theme="dark"] .block-lead,
+[data-theme="dark"] .abstract-text,
+[data-theme="dark"] .objectives-list li,
+[data-theme="dark"] .models-table td,
+[data-theme="dark"] .publication-cta p,
+[data-theme="dark"] .research-desc,
+[data-theme="dark"] .skill-name,
+[data-theme="dark"] .exp-summary,
+[data-theme="dark"] .exp-contributions li,
+[data-theme="dark"] .exp-hi-org,
+[data-theme="dark"] .gallery-subtitle {
+  color: var(--text-soft) !important;
+}
+
+/* ---- Meta / muted text ---- */
+[data-theme="dark"] .project-info-list li span,
+[data-theme="dark"] .achievement-info-list li span,
+[data-theme="dark"] .exp-hi-date,
+[data-theme="dark"] .exp-hi-sep,
+[data-theme="dark"] .gallery-counter-sep,
+[data-theme="dark"] .gallery-counter-total,
+[data-theme="dark"] .contest-gallery-note,
+[data-theme="dark"] .fact-label,
+[data-theme="dark"] .category-card p,
+[data-theme="dark"] .stack-card p,
+[data-theme="dark"] .thesis-gallery-desc,
+[data-theme="dark"] .exp-company {
+  color: var(--text-muted) !important;
+}
+
+/* ---- Card / panel surfaces ---- */
+[data-theme="dark"] .project-features li,
+[data-theme="dark"] .achievement-highlights li,
+[data-theme="dark"] .challenge-card,
+[data-theme="dark"] .project-info-card,
+[data-theme="dark"] .project-tech-card,
+[data-theme="dark"] .achievement-info-card,
+[data-theme="dark"] .highlight-card,
+[data-theme="dark"] .dataset-fact,
+[data-theme="dark"] .category-card,
+[data-theme="dark"] .stack-card,
+[data-theme="dark"] .thesis-gallery-item,
+[data-theme="dark"] .publication-cta,
+[data-theme="dark"] .skill-chip {
+  background: var(--card-bg) !important;
+  border-color: var(--border) !important;
+}
+
+/* ---- Inset placeholders / chips ---- */
+[data-theme="dark"] .project-hero-image,
+[data-theme="dark"] .gallery-image-card,
+[data-theme="dark"] .achievement-gallery-item,
+[data-theme="dark"] .award-photo-wrap,
+[data-theme="dark"] .hero-meta-chip,
+[data-theme="dark"] .thesis-gallery-image-btn,
+[data-theme="dark"] .models-table th {
+  background: var(--bg-elevated) !important;
+  border-color: var(--border) !important;
+}
+
+/* ---- Dividers ---- */
+[data-theme="dark"] .gallery-alt-row,
+[data-theme="dark"] .table-wrap {
+  border-color: var(--border) !important;
+}
+[data-theme="dark"] .models-table td {
+  border-color: var(--border-soft) !important;
+}
+[data-theme="dark"] .exp-line {
+  background: var(--border) !important;
+}
+
+/* ---- Page-level background (Research page had a hardcoded white body) ---- */
+[data-theme="dark"] .research-page {
+  background: var(--bg) !important;
+  color: var(--text) !important;
+}
+
+/* Best-model row: tint with the accent instead of a light gradient */
+[data-theme="dark"] .best-row {
+  background: var(--accent-soft) !important;
+}
+
+/* Small outlined link buttons that default to solid black */
+[data-theme="dark"] .profile-btn {
+  color: var(--text) !important;
+  border-color: var(--border) !important;
+}
+[data-theme="dark"] .profile-btn:hover {
+  background: var(--text) !important;
+  color: var(--bg) !important;
+}
+
+
+/* ============================================================
+   DARK MODE FIXES — header / navbar
+   Template CSS (assets/css/style.css) hardcodes nav colors for a
+   permanently light header, so these need !important to win.
+   ============================================================ */
+
+[data-theme="dark"] .main-header,
+[data-theme="dark"] .main-header.is-scrolled {
+  background: var(--header-bg) !important;
+}
+
+/* Mobile dropdown panel — template gives it its own white background */
+[data-theme="dark"] .navbar-collapse {
+  background: var(--header-bg) !important;
+}
+
+/* Nav links */
+[data-theme="dark"] .main-header .nav-link,
+[data-theme="dark"] .main-header .navbar-nav .nav-link {
+  color: var(--text-soft) !important;
+}
+[data-theme="dark"] .main-header .nav-link:hover,
+[data-theme="dark"] .main-header .nav-link.active {
+  color: var(--text) !important;
+}
+
+/* Hamburger toggler — the three <span> bars */
+[data-theme="dark"] .navbar-toggler {
+  border-color: var(--border) !important;
+}
+[data-theme="dark"] .navbar-toggler span,
+[data-theme="dark"] .navbar-toggler-icon {
+  background-color: var(--text) !important;
+}
+
+/* Logo — give it a light chip so dark strokes in the image never
+   blend into the dark header background */
+[data-theme="dark"] .navbar-logo {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 4px 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+}

@@ -69,6 +69,109 @@ export const experienceData = [
     ],
   },
   {
+    id: "ifjona-ecommerce-marketplace",
+    title: "Ifjona E-commerce Marketplace",
+    subtitle: "Full-Stack Developer · React.js · Laravel · MySQL · Jan 2025 – Present",
+    org: "Ifjona",
+    period: "January 2025 – Present",
+    status: "Ongoing",
+    tag: "Full-Stack Project",
+    description:
+      "A full-stack e-commerce marketplace built with React.js, Laravel, and MySQL. Includes a dynamic admin panel, VPS deployment, WebSocket integration, AI integration, and secure payment integration — with a thesis-backed multilingual review analysis engine.",
+    fullDescription:
+      "Ifjona is a production e-commerce marketplace built end-to-end, from database design to deployment. The platform gives store owners a dynamic admin panel to manage products, orders, and customers, while shoppers get a fast, modern storefront. Real-time features are powered by WebSockets, AI is used to enhance parts of the shopping experience, and payments are processed through a secure, integrated gateway. A standout feature is the Review Management module — the core of my undergraduate thesis — which automatically classifies negative customer reviews across four issue categories (Product, Delivery, Monetary, Customer Service) in Bangla, English, and Banglish. The app is deployed and running live on a VPS.",
+    image: "/assets/img/puc.png", // replace with ifjona logo when available
+    roleInfo: [
+      { label: "Duration", value: "Jan 2025 – Present" },
+      { label: "Type", value: "Full-Stack Build" },
+      { label: "Stack", value: "React.js · Laravel · MySQL" },
+      { label: "Status", value: "Live — ifjona.com" },
+    ],
+    topics: [
+      "React.js",
+      "Laravel",
+      "MySQL",
+      "WebSocket",
+      "FastAPI",
+      "NLP",
+      "Multilingual Text Classification",
+      "Payment Gateway",
+      "VPS Deployment",
+    ],
+    responsibilities: [
+      "Built a dynamic, role-based admin panel for managing products, orders, and customers.",
+      "Integrated WebSocket connections so inventory and order updates push instantly to both the storefront and admin panel instead of relying on polling.",
+      "Added AI-assisted features to enhance product discovery and the shopping experience.",
+      "Integrated a secure, end-to-end payment gateway with server-side validation, keeping sensitive payment logic off the client.",
+      "Deployed and maintained the platform on a production VPS.",
+      "Built a multilingual (Bangla, English, Banglish) negative-review classification engine in FastAPI — the core of my undergraduate thesis — auto-triggered on reviews rated ≤3 and sorted into four issue categories: Product, Delivery, Monetary, and Customer Service.",
+    ],
+    outcomes: [
+      {
+        title: "Live Production Marketplace",
+        text: "Designed and shipped a full-stack e-commerce platform end-to-end — from database design to VPS deployment — now running live at ifjona.com.",
+      },
+      {
+        title: "Real-Time Sync at Scale",
+        text: "Replaced polling with WebSocket connections so inventory and order status update instantly across the storefront and admin dashboard for many concurrent shoppers.",
+      },
+      {
+        title: "Thesis Feature Shipped to Production",
+        text: "Integrated my undergraduate thesis — a multilingual negative-review classification engine — directly into the admin panel, giving store owners an automated, data-driven view of recurring product complaints.",
+      },
+      {
+        title: "Secure Payment Handling",
+        text: "Integrated a secure payment gateway with server-side validation, keeping checkout simple for customers while sensitive payment logic stays off the client.",
+      },
+    ],
+    gallery: [
+      {
+        src: "/assets/img/my_activities/Projects/Ifjona/Ifjona/Home.pdf",
+        caption: "Homepage",
+      },
+      {
+        src: "/assets/img/my_activities/Projects/Ifjona/Admin Page Functionalities/Dashboard.pdf",
+        caption: "Admin Dashboard Overview",
+      },
+      {
+        src: "/assets/img/my_activities/Projects/Ifjona/Admin Page Functionalities/adding products.pdf",
+        caption: "Product Management",
+      },
+      {
+        src: "/assets/img/my_activities/Projects/Ifjona/Admin Page Functionalities/order managemnt.pdf",
+        caption: "Order & Shipment Management",
+      },
+      {
+        src: "/assets/img/my_activities/Projects/Ifjona/Admin Page Functionalities/Review MAnagement.pdf",
+        caption: "Thesis Feature — Review Management",
+      },
+      {
+        src: "/assets/img/my_activities/Projects/Ifjona/Admin Page Functionalities/coupon management.pdf",
+        caption: "Coupons, Offers & Promotions",
+      },
+      {
+        src: "/assets/img/my_activities/Projects/Ifjona/Admin Page Functionalities/tax report generator.pdf",
+        caption: "Tax Reports & Compliance",
+      },
+      {
+        src: "/assets/img/my_activities/Projects/Ifjona/Ifjona/shop_page.pdf",
+        caption: "Customer-Facing Storefront",
+      },
+      {
+        src: "/assets/img/my_activities/Projects/Ifjona/Ifjona/checkout.pdf",
+        caption: "Secure Checkout",
+      },
+      {
+        src: "/assets/img/my_activities/Projects/Ifjona/Ifjona/order_tracking.pdf",
+        caption: "Real-Time Order Tracking",
+      },
+      {
+        src: "/assets/img/my_activities/Projects/Ifjona/Ifjona/live chat.pdf",
+        caption: "Live Chat Support",
+      },
+    ],
+  },
+  {
     id: "ifjona-remote-developer",
     title: "Remote Full-Stack Developer (Contract)",
     subtitle: "IFJONA — US-based E-commerce Client · 2024 – Present",

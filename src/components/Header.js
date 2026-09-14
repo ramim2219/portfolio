@@ -11,7 +11,7 @@ const NAV_ITEMS = [
   { id: "skill",     label: "Experience" },
   { id: "research",  label: "Research" },
   { id: "work",      label: "Portfolio" },
-  { id: "services",  label: "Services" },
+  // { id: "services",  label: "Services" },
   { id: "contactus", label: "Contact", mobileOnly: true },
 ];
 
@@ -169,15 +169,20 @@ const Header = () => {
             />
           </Navbar.Brand>
 
-          <Navbar.Toggle
-            aria-controls="main-nav"
-            aria-label={expanded ? "Close navigation menu" : "Open navigation menu"}
-            className="navbar-toggler"
-          >
-            <span />
-            <span />
-            <span />
-          </Navbar.Toggle>
+          {/* ⭐ Mobile-only group: theme toggle sits beside the hamburger,
+              in the fixed bar itself — not inside the dropdown menu. */}
+          <div className="d-flex d-lg-none align-items-center gap-2 mobile-bar-actions">
+            <ThemeToggle />
+            <Navbar.Toggle
+              aria-controls="main-nav"
+              aria-label={expanded ? "Close navigation menu" : "Open navigation menu"}
+              className="navbar-toggler"
+            >
+              <span />
+              <span />
+              <span />
+            </Navbar.Toggle>
+          </div>
 
           <Navbar.Collapse id="main-nav" className="justify-content-center">
             {/* Nav list — every <li> MUST contain an <a> for scrollToActiveNav() */}
@@ -205,11 +210,6 @@ const Header = () => {
                 </a>
               </li>
             </Nav>
-
-            {/* ⭐ Theme toggle — OUTSIDE the <ul>, so scrollToActiveNav() never sees it */}
-            {/* <div className="d-lg-none mt-3 d-flex justify-content-center w-100">
-              <ThemeToggle />
-            </div> */}
           </Navbar.Collapse>
 
           {/* ⭐ Desktop right-side actions: theme toggle + Contact button */}

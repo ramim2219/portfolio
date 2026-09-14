@@ -8,7 +8,7 @@ const Chatbot = () => {
     {
       role: "assistant",
       content:
-        "Hi! I'm the AI assistant for this portfolio. Ask me about projects, skills, or experience.",
+        "Hi! I'm the AI assistant for Ramim. Ask me about projects, skills, or experience.",
     },
   ]);
   const [input, setInput] = useState("");
@@ -87,7 +87,7 @@ const Chatbot = () => {
           <div className="chatbot-header">
             <div className="chatbot-title">
               <span className="chatbot-dot" />
-              AI Assistant
+              Ramim's AI Assistant
             </div>
             <button
               type="button"

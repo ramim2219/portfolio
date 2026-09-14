@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Link from "next/link";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import {
   ArrowLeft,
@@ -10,6 +11,7 @@ import {
   Clock,
   Lightbulb,
   Building2,
+  X,
 } from "lucide-react";
 import Header from "@/src/components/Header";
 import Footer from "@/src/components/Footer";
@@ -29,6 +31,10 @@ export async function getStaticProps({ params }) {
 }
 
 const ExperienceDetail = ({ role }) => {
+  const [lightboxIndex, setLightboxIndex] = useState(null);
+  const gallery = role.gallery || [];
+  const hasGallery = gallery.length > 0;
+
   return (
     <>
       <Head>
@@ -167,6 +173,32 @@ const ExperienceDetail = ({ role }) => {
                       </div>
                     </>
                   )}
+
+                  {/* ── Screenshot gallery — only renders when role.gallery exists ── */}
+                  {hasGallery && (
+                    <>
+                      <h3 className="project-section-heading">Screenshots</h3>
+                      <div className="gallery-grid">
+                        {gallery.map((item, i) => (
+                          <motion.button
+                            key={i}
+                            type="button"
+                            className="gallery-thumb"
+                            onClick={() => setLightboxIndex(i)}
+                            initial={{ opacity: 0, y: 14 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.35, delay: i * 0.05 }}
+                          >
+                            <img src={item.src} alt={item.caption} />
+                            <span className="gallery-thumb-caption">
+                              {item.caption}
+                            </span>
+                          </motion.button>
+                        ))}
+                      </div>
+                    </>
+                  )}
                 </motion.div>
               </div>
 
@@ -223,6 +255,56 @@ const ExperienceDetail = ({ role }) => {
             </div>
           </div>
         </section>
+
+        {/* Lightbox — sits outside the grid, covers the viewport */}
+        {hasGallery && lightboxIndex !== null && (
+          <div
+            className="gallery-lightbox-overlay"
+            onClick={() => setLightboxIndex(null)}
+          >
+            <button
+              className="gallery-lightbox-close"
+              onClick={() => setLightboxIndex(null)}
+              aria-label="Close"
+            >
+              <X size={20} />
+            </button>
+            <div
+              className="gallery-lightbox-content"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                className="gallery-lightbox-nav"
+                onClick={() =>
+                  setLightboxIndex(
+                    (lightboxIndex - 1 + gallery.length) % gallery.length
+                  )
+                }
+                aria-label="Previous"
+              >
+                <ChevronLeft size={26} />
+              </button>
+              <div className="gallery-lightbox-img-wrap">
+                <img
+                  src={gallery[lightboxIndex].src}
+                  alt={gallery[lightboxIndex].caption}
+                />
+                <p className="gallery-lightbox-caption">
+                  {gallery[lightboxIndex].caption}
+                </p>
+              </div>
+              <button
+                className="gallery-lightbox-nav"
+                onClick={() =>
+                  setLightboxIndex((lightboxIndex + 1) % gallery.length)
+                }
+                aria-label="Next"
+              >
+                <ChevronRight size={26} />
+              </button>
+            </div>
+          </div>
+        )}
 
         {/* ─────────────────────────────
             BOTTOM NAV
@@ -570,6 +652,46 @@ const ExperienceDetail = ({ role }) => {
           color: #4338ca;
         }
 
+        /* Screenshot gallery */
+        .gallery-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+          gap: 14px;
+        }
+        .gallery-thumb {
+          position: relative;
+          border: 1px solid #e2e8f0;
+          border-radius: 12px;
+          overflow: hidden;
+          background: #0a0a0a;
+          aspect-ratio: 4 / 3;
+          padding: 0;
+          cursor: pointer;
+          display: block;
+          text-align: left;
+        }
+        .gallery-thumb img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          display: block;
+          transition: transform 0.35s ease;
+        }
+        .gallery-thumb:hover img {
+          transform: scale(1.05);
+        }
+        .gallery-thumb-caption {
+          position: absolute;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          padding: 8px 10px;
+          font-size: 12px;
+          font-weight: 600;
+          color: #fff;
+          background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+        }
+
         /* Sidebar cards */
         .project-info-card,
         .project-tech-card {
@@ -644,6 +766,83 @@ const ExperienceDetail = ({ role }) => {
         .project-nav-section { padding: 0 0 80px; }
 
         /* ─────────────────────────────
+           LIGHTBOX (global — rendered outside the scoped tree's normal flow)
+           ───────────────────────────── */
+        :global(.gallery-lightbox-overlay) {
+          position: fixed;
+          inset: 0;
+          background: rgba(0, 0, 0, 0.92);
+          z-index: 9999;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          backdrop-filter: blur(8px);
+          padding: 16px;
+        }
+        :global(.gallery-lightbox-close) {
+          position: absolute;
+          top: 16px;
+          right: 16px;
+          background: rgba(255, 255, 255, 0.1);
+          border: 1px solid rgba(255, 255, 255, 0.15);
+          color: #fff;
+          border-radius: 50%;
+          width: 40px;
+          height: 40px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          transition: background 0.2s;
+        }
+        :global(.gallery-lightbox-close:hover) {
+          background: rgba(239, 68, 68, 0.4);
+        }
+        :global(.gallery-lightbox-content) {
+          display: flex;
+          align-items: center;
+          gap: 16px;
+          max-width: 92vw;
+          justify-content: center;
+        }
+        :global(.gallery-lightbox-img-wrap) {
+          text-align: center;
+        }
+        :global(.gallery-lightbox-img-wrap img) {
+          width: auto;
+          height: auto;
+          max-width: 80vw;
+          max-height: 78vh;
+          border-radius: 10px;
+          object-fit: contain;
+          box-shadow: 0 12px 60px rgba(0, 0, 0, 0.7);
+          display: block;
+          margin: 0 auto;
+        }
+        :global(.gallery-lightbox-caption) {
+          margin-top: 12px;
+          color: #e0e7ff;
+          font-size: 13.5px;
+        }
+        :global(.gallery-lightbox-nav) {
+          background: rgba(255, 255, 255, 0.08);
+          border: 1px solid rgba(255, 255, 255, 0.15);
+          color: #fff;
+          border-radius: 50%;
+          width: 44px;
+          height: 44px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          flex-shrink: 0;
+          transition: background 0.2s;
+        }
+        :global(.gallery-lightbox-nav:hover) {
+          background: rgba(99, 102, 241, 0.4);
+        }
+
+        /* ─────────────────────────────
            RESPONSIVE
            ───────────────────────────── */
         @media (max-width: 991px) {
@@ -693,6 +892,17 @@ const ExperienceDetail = ({ role }) => {
           .hero-meta-chip {
             font-size: 11.5px;
             padding: 6px 11px;
+          }
+        }
+
+        @media (max-width: 575px) {
+          .gallery-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+          }
+          :global(.gallery-lightbox-img-wrap img) {
+            max-width: 72vw;
+            max-height: 65vh;
           }
         }
       `}</style>

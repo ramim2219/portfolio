@@ -25,37 +25,70 @@ import {
 import { achievementsData, certificationsData } from "../data/achievementsData";
 
 // ─── Experience Highlight Strip ───────────────────────────────────────────────
-const ExperienceHighlight = ({ href }) => (
+// Each entry here mirrors a card in src/data/experienceData.js. Add a new
+// object to `experienceItems` (with a matching href) whenever a new role
+// is added there.
+const experienceItems = [
+  {
+    href: "/experience/software-developer-trainee",
+    image: "/assets/img/puc.png",
+    alt: "Premier University, Chittagong",
+    role: "Software Developer Trainee",
+    org: "Premier University, Chittagong",
+    date: "Dec 2025 – Present",
+    badge: "now",
+  },
+  {
+    href: "/projects/1",
+    image: "/assets/img/ifjona.svg", 
+    alt: "IFJONA E-commerce marketplace", 
+    role: "Full Stack Software Developer", 
+    org: "IFJONA LLC", 
+    date: "Jan 2026 – Present", 
+    badge: "now",
+  },
+];
+
+const ExperienceHighlight = () => (
   <div className="exp-highlight-wrap">
     <div className="exp-highlight-label">
       <Briefcase size={13} />
       <span>Experience</span>
     </div>
     <div className="exp-highlight-items">
-      <div className="exp-hi-card exp-hi-current">
-        <div className="exp-hi-left">
-          <div className="exp-hi-icon exp-hi-icon-active">
-            <img src="/assets/img/puc.png" alt="PUC" />
+      {experienceItems.map((item, i) => (
+        <div key={item.href}>
+          {i > 0 && <div className="exp-hi-divider" />}
+          <div className="exp-hi-card exp-hi-current">
+            <div className="exp-hi-left">
+              <div className="exp-hi-icon exp-hi-icon-active">
+                <img src={item.image} alt={item.alt} />
+              </div>
+              <div className="exp-hi-dot-active"><span className="exp-hi-pulse" /></div>
+            </div>
+            <div className="exp-hi-body">
+              <div className="exp-hi-top">
+                <span className="exp-hi-role">{item.role}</span>
+                {item.badge === "now" ? (
+                  <span className="exp-hi-badge-now">● Now</span>
+                ) : (
+                  <span className="exp-hi-badge-done">Completed</span>
+                )}
+              </div>
+              <div className="exp-hi-bottom">
+                <span className="exp-hi-org">{item.org}</span>
+                <span className="exp-hi-sep">·</span>
+                <span className="exp-hi-date">{item.date}</span>
+              </div>
+              <Link href={item.href} className="exp-hi-learn-more">
+                <BookOpen size={13} />
+                <span>Learn More</span>
+                <ChevronRight size={13} />
+              </Link>
+            </div>
           </div>
-          <div className="exp-hi-dot-active"><span className="exp-hi-pulse" /></div>
         </div>
-        <div className="exp-hi-body">
-          <div className="exp-hi-top">
-            <span className="exp-hi-role">Software Developer Trainee</span>
-            <span className="exp-hi-badge-now">● Now</span>
-          </div>
-          <div className="exp-hi-bottom">
-            <span className="exp-hi-org">Premier University, Chittagong</span>
-            <span className="exp-hi-sep">·</span>
-            <span className="exp-hi-date">Dec 2025 – Present</span>
-          </div>
-          <Link href={href} className="exp-hi-learn-more">
-            <BookOpen size={13} />
-            <span>Learn More</span>
-            <ChevronRight size={13} />
-          </Link>
-        </div>
-      </div>
+      ))}
     </div>
     <style>{`
       .exp-highlight-wrap { border-radius: 14px; border: 1px solid rgba(99,102,241,0.22); background: linear-gradient(135deg, rgba(99,102,241,0.06) 0%, rgba(168,85,247,0.04) 100%); overflow: hidden; margin-bottom: 20px; }
@@ -421,7 +454,7 @@ const About = () => {
         {/* ── Row 0: Experience + Leadership Highlight ── */}
         <div className="row mb-4 g-3">
           <div className="col-lg-6 col-md-12">
-            <ExperienceHighlight href="/experience/software-developer-trainee" />
+            <ExperienceHighlight />
           </div>
           <div className="col-lg-6 col-md-12">
             <LeadershipHighlight href="/leadership/competitive-programming-trainer" />

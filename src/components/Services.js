@@ -63,7 +63,42 @@ const Services = () => {
           ))}
         </div>
       </div>
+
+      <style jsx>{`
+        /* ============================================================
+           DARK MODE — feature-box-01 gets its colors entirely from
+           the template stylesheet (assumes a permanently light card),
+           so we override explicitly here.
+           ============================================================ */
+        :global([data-theme="dark"] .feature-box-01) {
+          background: var(--card-bg);
+          border: 1px solid var(--border);
+        }
+
+        :global([data-theme="dark"] .feature-box-01 h5) {
+          color: var(--text);
+        }
+
+        :global([data-theme="dark"] .feature-box-01 p) {
+          color: var(--text-soft);
+        }
+
+        :global([data-theme="dark"] .feature-box-01 .number span) {
+          color: var(--text-muted) !important;
+          opacity: 0.5;
+        }
+
+        :global([data-theme="dark"] .feature-box-01 .icon) {
+          color: var(--accent);
+          background: var(--accent-soft);
+        }
+
+        :global([data-theme="dark"] .feature-box-01 .icon i) {
+          color: var(--accent);
+        }
+      `}</style>
     </section>
   );
 };
+
 export default Services;

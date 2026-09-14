@@ -27,7 +27,7 @@ const Portfolio = () => {
   };
 
   return (
-    <section id="work" className="section work-section">
+    <section id="work" className="section work-section bg-gray">
       <div className="container">
         <SectionTitle
           heading={"Latest Projects"}
@@ -430,6 +430,69 @@ const Portfolio = () => {
           border-color: #ccc;
           background-color: #fff;
           cursor: not-allowed;
+        }
+        /* ============================================================
+          DARK MODE — this card renders its own background/colors via
+          the template stylesheet, so it needs explicit overrides here
+          rather than relying on globals.css alone.
+        ============================================================ */
+
+        :global([data-theme="dark"] .portfolio-box) {
+          background: var(--card-bg);
+          border: 1px solid var(--border);
+        }
+
+        :global([data-theme="dark"] .portfolio-info h6) {
+          color: var(--text);
+        }
+
+        :global([data-theme="dark"] .portfolio-text span) {
+          color: var(--text-soft);
+        }
+
+        :global([data-theme="dark"] .portfolio-wip-note) {
+          color: var(--text-muted);
+        }
+
+        /* Link button — hardcoded black border/text won't read on a dark card */
+        :global([data-theme="dark"] .portfolio-linkbtn) {
+          border-color: var(--text);
+          color: var(--text);
+        }
+        :global([data-theme="dark"] .portfolio-linkbtn::before) {
+          background: var(--text);
+        }
+        :global([data-theme="dark"] .portfolio-linkbtn:hover) {
+          color: var(--bg);
+        }
+
+        :global([data-theme="dark"] .portfolio-linkbtn.is-wip) {
+          border-color: #ff9800;
+          color: #ff9800;
+        }
+        :global([data-theme="dark"] .portfolio-linkbtn.is-wip:hover) {
+          color: var(--bg);
+        }
+
+        /* Pagination — hardcoded black/white scheme */
+        :global([data-theme="dark"] .pagination .page-link) {
+          color: var(--text);
+          background-color: var(--card-bg);
+          border-color: var(--border);
+        }
+        :global([data-theme="dark"] .pagination .page-link:hover) {
+          background-color: var(--text);
+          color: var(--bg);
+        }
+        :global([data-theme="dark"] .pagination .page-item.active .page-link) {
+          background-color: var(--accent);
+          border-color: var(--accent);
+          color: var(--bg);
+        }
+        :global([data-theme="dark"] .pagination .page-item.disabled .page-link) {
+          color: var(--text-muted);
+          border-color: var(--border);
+          background-color: var(--card-bg);
         }
       `}</style>
     </section>

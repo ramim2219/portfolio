@@ -56,7 +56,7 @@ const Index = () => {
         {/* End Work Section */}
 
         {/* Services Section */}
-        <Services />
+        {/* <Services /> */}
         {/* End Services Section */}
 
         {/* testimonial Section */}

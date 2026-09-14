@@ -131,7 +131,16 @@ const Research = () => {
           width: 4px;
           background: linear-gradient(180deg, #ff7a18, #af002d);
         }
-
+        /* Dark mode: match the highlight card to the rest of the section instead of staying on its light cream background */
+        :global([data-theme="dark"] .research-section .edu-card.research-highlight) {
+          background: linear-gradient(135deg, var(--card-bg) 0%, var(--bg-elevated) 100%);
+        }
+        :global([data-theme="dark"] .research-section .research-subtitle) {
+          color: var(--warning);
+        }
+        :global([data-theme="dark"] .research-section .research-desc) {
+          color: var(--text-soft);
+        }
         .research-subtitle {
           font-size: 12px;
           font-weight: 700;

@@ -40,11 +40,11 @@ const rawPortfolioData = [
   {
     id: 1,
     title: "Ifjona E-commerce Marketplace",
-    subtitle: "React.js · Laravel · MySQL",
+    subtitle: "Client Project · US-Based E-commerce · React.js · Laravel · MySQL",
     description:
-      "A full-stack e-commerce marketplace built with React.js, Laravel, and MySQL. Includes a dynamic admin panel, VPS deployment, WebSocket integration, AI integration, and secure payment integration — with a thesis-backed multilingual review analysis engine.",
+      "A full-stack e-commerce marketplace built for a US-based e-commerce client, using React.js, Laravel, and MySQL. Includes a dynamic admin panel, VPS deployment, WebSocket integration, AI integration, and secure payment integration — with a thesis-backed multilingual review analysis engine. Live and actively maintained for the client since January 2026.",
     fullDescription:
-      "Ifjona is a production e-commerce marketplace built end-to-end, from database design to deployment. The platform gives store owners a dynamic admin panel to manage products, orders, and customers, while shoppers get a fast, modern storefront. Real-time features are powered by WebSockets, AI is used to enhance parts of the shopping experience, and payments are processed through a secure, integrated gateway. A standout feature is the Review Management module — the core of my undergraduate thesis — which automatically classifies negative customer reviews across four issue categories (Product, Delivery, Monetary, Customer Service) in Bangla, English, and Banglish. The app is deployed and running live on a VPS.",
+      "Ifjona is a production e-commerce marketplace built end-to-end for a US-based e-commerce client — from database design to deployment — live and actively maintained since January 2026. The platform gives the store owner a dynamic admin panel to manage products, orders, and customers, while shoppers get a fast, modern storefront. Real-time features are powered by WebSockets, AI is used to enhance parts of the shopping experience, and payments are processed through a secure, integrated gateway. A standout feature is the Review Management module — the core of my undergraduate thesis — which automatically classifies negative customer reviews across four issue categories (Product, Delivery, Monetary, Customer Service) in Bangla, English, and Banglish. The app is deployed and running live on a VPS for the client.",
     techStack: [
       "React.js",
       "Laravel",
@@ -57,6 +57,7 @@ const rawPortfolioData = [
       "VPS Deployment",
     ],
     features: [
+      "Delivered as a client project for a US-based e-commerce business",
       "Dynamic, role-based admin panel",
       "Real-time order & inventory updates via WebSocket",
       "AI-assisted shopping experience",
@@ -64,8 +65,8 @@ const rawPortfolioData = [
       "Deployed and running on a production VPS",
       "Thesis feature: automated negative-review issue detection (Bangla, English & Banglish)",
     ],
-    role: "Full-Stack Developer",
-    duration: "",
+    role: "Full-Stack Developer (Client Project)",
+    duration: "January 2026 – Present",
     challenges: [
       {
         challenge:

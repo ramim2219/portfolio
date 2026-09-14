@@ -53,7 +53,7 @@ const experiencesData = [
       "Implemented client-requested features and shipped iterative updates throughout the engagement.",
       "Delivered the initial project in June 2026 and continue providing ongoing development and support.",
     ],
-    href: "/experience/ecommerce-developer-ifjona",
+    href: "/projects/1",
   },
 ];
 
