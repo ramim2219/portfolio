@@ -223,6 +223,46 @@ const rawCertifications = [
     gallery: ["/assets/img/gfg.jpg"],
     link: "",
   },
+  {
+    id: "ucsd-algorithmic-toolbox",
+    type: "certification",
+    title: "Algorithmic Toolbox",
+    subtitle: "UC San Diego · Coursera",
+    date: "Sep 15, 2026",
+    issuer: "University of California San Diego",
+    description:
+      "Successfully completed the Algorithmic Toolbox course, authorized by University of California San Diego and offered through Coursera.",
+    fullDescription:
+      "Algorithmic Toolbox is the first course in the Data Structures and Algorithms specialization offered by UC San Diego on Coursera. The course covers fundamental algorithmic techniques — greedy algorithms, divide-and-conquer, dynamic programming, and randomized algorithms — along with rigorous complexity analysis and implementation practice. Completed with a verified certificate.",
+    highlights: [
+      "Greedy algorithms, divide-and-conquer, dynamic programming",
+      "Algorithmic complexity analysis (Big-O, master theorem)",
+      "Verified Coursera certificate — UC San Diego",
+    ],
+    image: "/assets/img/my_activities/Certificates/ucsd-algorithmic-toolbox.jpeg",
+    gallery: ["/assets/img/my_activities/Certificates/ucsd-algorithmic-toolbox.jpeg"],
+    link: "https://www.coursera.org/account/accomplishments/verify/9BCDGCZJB16H",
+  },
+  {
+    id: "stanford-supervised-ml",
+    type: "certification",
+    title: "Supervised Machine Learning: Regression and Classification",
+    subtitle: "DeepLearning.AI & Stanford Online · Coursera",
+    date: "Jun 20, 2026",
+    issuer: "DeepLearning.AI & Stanford Online",
+    description:
+      "Successfully completed Supervised Machine Learning: Regression and Classification, authorized by DeepLearning.AI and Stanford Online, offered through Coursera.",
+    fullDescription:
+      "The first course of the Machine Learning Specialization taught by Andrew Ng, covering supervised learning fundamentals: linear regression, logistic regression, gradient descent, regularization, and practical implementation in Python. Completed with a verified certificate.",
+    highlights: [
+      "Linear and logistic regression from first principles",
+      "Gradient descent, feature engineering, regularization",
+      "Verified Coursera certificate — DeepLearning.AI & Stanford",
+    ],
+    image: "/assets/img/my_activities/Certificates/stanford-supervised-ml.jpeg",
+    gallery: ["/assets/img/my_activities/Certificates/stanford-supervised-ml.jpeg"],
+    link: "https://www.coursera.org/account/accomplishments/verify/I4WE19BO8AD2",
+  },
 ];
 
 const normalize = (item) => ({
