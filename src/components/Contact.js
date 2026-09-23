@@ -13,14 +13,14 @@ const contactInfo = [
   {
     id: 2,
     label: "Mail",
-    value: "shafayetullah200119@gmail.com",
-    link: "mailto:shafayetullah200119@gmail.com",
+    value: "shafayet@ramim.tech",
+    link: "mailto:shafayet@ramim.tech",
     icon: "fas fa-envelope",
   },
   {
     id: 3,
     label: "Visit My Office",
-    value: "North Mohora , Chittagong",
+    value: "Mohora , Chandgaon , Chittagong",
     link: "https://maps.app.goo.gl/J77ANarBUtRvbsiKA",
     icon: "fas fa-map-marker-alt",
   },
