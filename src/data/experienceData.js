@@ -71,7 +71,7 @@ export const experienceData = [
   {
     id: "ifjona-ecommerce-marketplace",
     title: "Ifjona E-commerce Marketplace",
-    subtitle: "Full-Stack Developer · React.js · Laravel · MySQL · Jan 2025 – Present",
+    subtitle: "Full-Stack Developer · React.js · Laravel · MySQL · Jan 2026 – jun 2026",
     org: "Ifjona",
     period: "January 2026 – June 2026",
     status: "Ongoing",
@@ -176,7 +176,7 @@ export const experienceData = [
     title: "Remote Full-Stack Developer (Contract)",
     subtitle: "IFJONA — US-based E-commerce Client · 2024 – Present",
     org: "IFJONA (US-based client)",
-    period: "2024 – Present",
+    period: "january 2026 – june 2026",
     status: "Ongoing",
     tag: "Remote Contract",
     description:
