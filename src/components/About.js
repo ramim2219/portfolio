@@ -44,7 +44,7 @@ const experienceItems = [
     alt: "IFJONA E-commerce marketplace", 
     role: "Full Stack Software Developer", 
     org: "IFJONA LLC", 
-    date: "Jan 2026 – Present", 
+    date: "Jan 2026 – Jun 2026", 
     badge: "now",
   },
 ];

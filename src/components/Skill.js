@@ -59,7 +59,7 @@ const experiencesData = [
   },
   {
     id: 2,
-    date: "Jan 2026 - Present",
+    date: "Jan 2026 - Jun 2026",
     designation: "E-Commerce Developer",
     company: "Ifjona LLC — US-Based Client",
     summary:

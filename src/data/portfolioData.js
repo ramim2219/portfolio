@@ -66,7 +66,7 @@ const rawPortfolioData = [
       "Thesis feature: automated negative-review issue detection (Bangla, English & Banglish)",
     ],
     role: "Full-Stack Developer (Client Project)",
-    duration: "January 2026 – Present",
+    duration: "January 2026 – June 2026",
     challenges: [
       {
         challenge:
