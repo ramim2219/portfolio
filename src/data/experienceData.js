@@ -73,7 +73,7 @@ export const experienceData = [
     title: "Ifjona E-commerce Marketplace",
     subtitle: "Full-Stack Developer · React.js · Laravel · MySQL · Jan 2025 – Present",
     org: "Ifjona",
-    period: "January 2025 – Present",
+    period: "January 2026 – June 2026",
     status: "Ongoing",
     tag: "Full-Stack Project",
     description:
@@ -82,7 +82,7 @@ export const experienceData = [
       "Ifjona is a production e-commerce marketplace built end-to-end, from database design to deployment. The platform gives store owners a dynamic admin panel to manage products, orders, and customers, while shoppers get a fast, modern storefront. Real-time features are powered by WebSockets, AI is used to enhance parts of the shopping experience, and payments are processed through a secure, integrated gateway. A standout feature is the Review Management module — the core of my undergraduate thesis — which automatically classifies negative customer reviews across four issue categories (Product, Delivery, Monetary, Customer Service) in Bangla, English, and Banglish. The app is deployed and running live on a VPS.",
     image: "/assets/img/puc.png", // replace with ifjona logo when available
     roleInfo: [
-      { label: "Duration", value: "Jan 2025 – Present" },
+      { label: "Duration", value: "Jan 2026 – June 2026" },
       { label: "Type", value: "Full-Stack Build" },
       { label: "Stack", value: "React.js · Laravel · MySQL" },
       { label: "Status", value: "Live — ifjona.com" },
