@@ -9,9 +9,9 @@ export const experienceData = [
   {
     id: "software-developer-trainee",
     title: "Software Developer Trainee",
-    subtitle: "Premier University, Chittagong · Dec 2025 – Present",
+    subtitle: "Premier University, Chittagong · Dec 2025 – Oct 2026",
     org: "Premier University, Chittagong",
-    period: "Dec 2025 – Present",
+    period: "Dec 2025 – Oct 2026",
     status: "Current",
     tag: "Current Role",
     description:
@@ -126,7 +126,7 @@ export const experienceData = [
     ],
     gallery: [
       {
-        src: "/assets/img/my_activities/Projects/Ifjona/Ifjona/Home.pdf",
+        src: "/assets/img/my_activities/Projects/Ifjona/Ifjona/home.pdf",
         caption: "Homepage",
       },
       {

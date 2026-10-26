@@ -1,23 +1,15 @@
-import Preloader from "@/src/components/Preloader";
+import dynamic from "next/dynamic";
 import { ThemeProvider } from "@/src/context/ThemeContext";
 import "@/styles/globals.css";
-import { Fragment, useEffect, useState } from "react";
+
+// Avoid server-rendering the browser-dependent assistant. Same original widget and design.
+const Chatbot = dynamic(() => import("@/src/components/Chatbot"), { ssr: false });
 
 export default function App({ Component, pageProps }) {
-  const [loader, setLoader] = useState(true);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setLoader(false);
-    }, 1500);
-  }, []);
-
   return (
     <ThemeProvider>
-      <Fragment>
-        {loader && <Preloader />}
-        <Component {...pageProps} />
-      </Fragment>
+      <Component {...pageProps} />
+      <Chatbot />
     </ThemeProvider>
   );
 }

@@ -3,7 +3,6 @@ import Footer from "@/src/components/Footer";
 import Header from "@/src/components/Header";
 import Home from "@/src/components/Home";
 import Portfolio from "@/src/components/Portfolio";
-import Services from "@/src/components/Services";
 import Skill from "@/src/components/Skill";
 import Research from "@/src/components/Research";   // ⭐ NEW
 import Testimonial from "@/src/components/Testimonial";
@@ -12,16 +11,17 @@ import ImageView from "@/src/components/popup/ImageView";
 import { boston } from "@/src/utils";
 import { Fragment, useEffect } from "react";
 import Education from "@/src/components/Education";
-import Chatbot from "@/src/components/Chatbot"; 
+import SEO from "@/src/components/site/SEO";
+import { PersonSchema } from "@/src/components/OriginalRouteLayout"; 
 
 const Index = () => {
   useEffect(() => {
-    boston.scrollToActiveNav();
     boston.imgToSvg();
   }, []);
 
   return (
     <Fragment>
+      <SEO schemas={[PersonSchema()]} />
       <ImageView />
       {/* End */}
 
@@ -77,7 +77,7 @@ const Index = () => {
       {/* Footer */}
       <Footer />
       {/* End Footer */}
-      <Chatbot />
+
     </Fragment>
   );
 };

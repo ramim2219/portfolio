@@ -4,6 +4,12 @@ import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 import ThemeToggle from "./ThemeToggle";
 
+// Identical original visual navigation; only href targets now use Next.js routes.
+const SECTION_ROUTES = {
+  home: "/", about: "/about", education: "/education", skill: "/experience",
+  research: "/research", work: "/projects", contactus: "/contact"
+};
+
 const NAV_ITEMS = [
   { id: "home",      label: "Home" },
   { id: "about",     label: "About" },
@@ -17,11 +23,15 @@ const NAV_ITEMS = [
 
 const ROUTE_TO_SECTION = [
   { prefix: "/projects",     section: "work" },
+  { prefix: "/contact", section: "contactus" },
+  { prefix: "/education", section: "education" },
+  { prefix: "/skills", section: "skill" },
+  { prefix: "/about", section: "about" },
   { prefix: "/research",     section: "research" },
   { prefix: "/publications", section: "research" },
   { prefix: "/thesis",       section: "research" },
   { prefix: "/achievements", section: "about" },
-  { prefix: "/experience",   section: "about" },
+  { prefix: "/experience",   section: "skill" },
   { prefix: "/leadership",   section: "about" },
 ];
 
@@ -46,7 +56,7 @@ const Header = () => {
   const pathname = mounted && router.isReady ? router.pathname : "/";
   const onHomePage = pathname === "/";
   const homePrefix = onHomePage ? "" : "/";
-  const hrefFor = (id) => `${homePrefix}#${id}`;
+  const hrefFor = (id) => SECTION_ROUTES[id] || "/";
 
   // Route section wins on non-home pages; scroll-spy wins on home
   const routeSection =
@@ -158,7 +168,7 @@ const Header = () => {
       >
         <Container>
           <Navbar.Brand
-            href="/#home"
+            href="/"
             onClick={handleNavClick("home")}
             className="brand-wrap"
           >

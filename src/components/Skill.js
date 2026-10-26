@@ -39,7 +39,7 @@ const skillGroups = [
 const experiencesData = [
   {
     id: 1,
-    date: "Dec 2025 - Present",
+    date: "Dec 2025 - Oct 2026",
     designation: "Software Developer Trainee",
     company: "Premier University, Chittagong",
     summary:
@@ -77,7 +77,7 @@ const experiencesData = [
 
 const CONTRIBUTIONS_PREVIEW_COUNT = 4;
 
-const Skill = () => {
+const Skill = ({ mode = "all" }) => {
   const [expandedIds, setExpandedIds] = useState({});
 
   const toggleExpanded = (id) => {
@@ -88,15 +88,15 @@ const Skill = () => {
     <section id="skill" className="section experience-section bg-gray">
       <div className="container">
         <SectionTitle
-          heading={"Skills and Experience"}
-          subHeading={"Experience"}
+          heading={mode === "skills" ? "Technical Skills" : mode === "experience" ? "Professional Experience" : "Skills and Experience"}
+          subHeading={mode === "skills" ? "Skills" : "Experience"}
           text={
             "Front-end and full-stack developer building admin systems, reports, and e-commerce platforms with React.js, Laravel, and ASP.NET."
           }
         />
 
         {/* Skills band — full width, grouped so it reads at a glance */}
-        <div className="skills-panel">
+        {mode !== "experience" && <div className="skills-panel">
           <h3>My Skills</h3>
           <div className="skills-groups">
             {skillGroups.map((group) => (
@@ -113,10 +113,10 @@ const Skill = () => {
               </div>
             ))}
           </div>
-        </div>
+        </div>}
 
         {/* Experience — two-up card grid so each entry uses full width instead of a tall narrow column */}
-        <div className="experience-panel">
+        {mode !== "skills" && <div className="experience-panel">
           <h3>Experience</h3>
           <div className="exp-grid">
             {experiencesData.map((experience, index) => {
@@ -180,19 +180,19 @@ const Skill = () => {
               );
             })}
           </div>
-        </div>
+        </div>}
 
         {/* Availability banner — replaces the old side avatar block, full width so nothing is left hanging */}
         <div className="hire-banner">
           <div className="hire-banner-avatar">
-            <img src="assets/img/avatar.png" alt="" />
+            <img src="/assets/img/avatar.png" alt="" />
             <span className="hire-status" aria-hidden="true" />
           </div>
           <div className="hire-banner-text">
             <strong>Open to new opportunities</strong>
             <span>Let&apos;s build something reliable together.</span>
           </div>
-          <a className="px-btn px-btn-theme2" href="#contactus">
+          <a className="px-btn px-btn-theme2" href="/contact">
             Hire me
           </a>
         </div>

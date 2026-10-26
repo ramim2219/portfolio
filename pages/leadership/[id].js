@@ -1,4 +1,4 @@
-import Head from "next/head";
+import SEO from "@/src/components/site/SEO";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import {
@@ -31,10 +31,7 @@ export async function getStaticProps({ params }) {
 const LeadershipDetail = ({ role }) => {
   return (
     <>
-      <Head>
-        <title>{role.title} | Ramim Dev</title>
-        <meta name="description" content={role.description} />
-      </Head>
+      <SEO title={role.title} description={role.description} path={`/leadership/${role.id}`} type="article" />
 
       <Header />
 
@@ -45,7 +42,7 @@ const LeadershipDetail = ({ role }) => {
         <section className="section project-hero">
           <div className="container">
             {/* Top back pill */}
-            <Link href="/#about" className="nav-pill-btn back-top">
+            <Link href="/leadership" className="nav-pill-btn back-top">
               <span className="pill-arrow">
                 <ArrowLeft size={18} />
               </span>
@@ -227,7 +224,7 @@ const LeadershipDetail = ({ role }) => {
         <section className="section project-nav-section">
           <div className="container">
             <div className="project-nav-row">
-              <Link href="/#about" className="nav-pill-btn nav-prev">
+              <Link href="/leadership" className="nav-pill-btn nav-prev">
                 <span className="pill-arrow">
                   <ChevronLeft size={18} />
                 </span>
@@ -237,7 +234,7 @@ const LeadershipDetail = ({ role }) => {
                 </span>
               </Link>
 
-              <Link href="/#work" className="nav-pill-btn nav-next">
+              <Link href="/projects" className="nav-pill-btn nav-next">
                 <span className="pill-text pill-text-right">
                   <small>See</small>
                   <strong>Portfolio</strong>

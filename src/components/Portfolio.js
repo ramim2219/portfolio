@@ -79,7 +79,7 @@ const Portfolio = () => {
                         loop
                         autoPlay
                         playsInline
-                        preload="metadata"
+                        preload="none"
                       />
                     ) : coverIsPdf ? (
                       <iframe
@@ -89,7 +89,7 @@ const Portfolio = () => {
                         loading="lazy"
                       />
                     ) : (
-                      <img src={portfolio.image} alt={portfolio.title} />
+                      <img src={portfolio.image} alt={portfolio.title} loading="lazy" decoding="async" />
                     )}
 
                     {/* Hover affordance hinting the card is clickable */}

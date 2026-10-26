@@ -1,6 +1,6 @@
 //projects/[id].js
 import { useState, useEffect } from "react";
-import Head from "next/head";
+import SEO from "@/src/components/site/SEO";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import {
@@ -174,10 +174,7 @@ const ProjectDetail = ({ project, prevProject, nextProject }) => {
 
   return (
     <>
-      <Head>
-        <title>{project.title} | Ramim Dev</title>
-        <meta name="description" content={project.description} />
-      </Head>
+      <SEO title={project.title} description={project.description} path={`/projects/${project.id}`} type="article" />
 
       <Header />
 
@@ -185,7 +182,7 @@ const ProjectDetail = ({ project, prevProject, nextProject }) => {
         {/* BACK BUTTON */}
         <section className="section project-hero">
           <div className="container">
-            <Link href="/#work" className="nav-pill-btn back-top">
+            <Link href="/projects" className="nav-pill-btn back-top">
               <span className="pill-arrow">
                 <ArrowLeft size={18} />
               </span>

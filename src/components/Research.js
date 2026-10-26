@@ -85,7 +85,7 @@ const Research = () => {
           transition={{ duration: 0.5, delay: 0.3 }}
           viewport={{ once: true }}
         >
-          <Link href="/research" className="research-more-btn">
+          <Link href="/research/thesis" className="research-more-btn">
             <span className="btn-label">View Full Research</span>
             <span className="btn-arrow">
               <ArrowRight size={18} />

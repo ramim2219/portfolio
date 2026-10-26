@@ -38,6 +38,106 @@ export const isVideo = (url) =>
 
 const rawPortfolioData = [
   {
+    id: 9,
+    title: "EstateHR — Real Estate Management System (REMS)",
+    subtitle: "Real Estate HR Suite · Laravel · Role-Based Dashboards · Project & Workforce Management",
+    description:
+      "EstateHR is a real estate workforce and project operations system that brings employees, construction projects, site assignments, attendance, tasks, leave, and payroll into one workspace. Dedicated role-based dashboards give HR, project managers, field staff, and accounts teams the tools relevant to their responsibilities.",
+    fullDescription:
+      "EstateHR (Real Estate Management System) is a role-oriented application designed to simplify employee and site operations for a real estate business. The platform presents a shared workspace with distinct views for HR administrators, project managers, engineers, supervisors, and accounts personnel. HR can navigate employee records, departments, designations, work schedules, projects, site assignments, attendance, leave, salary structures, payroll, and employee documents. Project managers have visibility into managed projects, assigned tasks, site work, and their priorities; field staff can focus on attendance, task lists, and leave requests; and accounts personnel can work with salary structures, payroll, and salary payment records. The screenshots demonstrate a consistent dashboard design with operational summaries, prioritized task lists, project overview cards, and role-appropriate navigation. The result is a connected view of people, projects, and everyday work instead of scattered administrative screens.",
+    techStack: [
+      "Laravel",
+      "PHP",
+      "Role-Based Access Control (RBAC)",
+      "Employee Management",
+      "Project Management",
+      "Attendance & Leave Management",
+      "Payroll Management",
+      "Responsive Admin Dashboard",
+    ],
+    features: [
+      "Separate role-focused dashboards for HR Admin, Project Manager, Engineer, Supervisor, and Accounts",
+      "Employee directory with departments, designations, and work schedules",
+      "Real estate project overview and construction site assignments",
+      "Task management with priorities, statuses, and project context",
+      "Attendance tracking with check-in and check-out shortcuts",
+      "Leave requests, leave types, and holiday management",
+      "Salary structure, payroll, and salary payment modules",
+      "Employee document management for company records",
+      "Dashboard summaries for workforce, assigned work, projects, and payroll",
+      "Role-specific navigation to keep everyday workflows focused and easy to find",
+    ],
+    role: "Full-Stack Developer (Academic Project)",
+    duration: "",
+    challenges: [
+      {
+        challenge:
+          "HR, project managers, site supervisors, employees, and accounts staff need different information, but a single overloaded dashboard makes routine tasks harder to find.",
+        solution:
+          "Organized the application into role-specific dashboards and navigation menus. Each view prioritizes the relevant modules, key figures, and actions for that user group.",
+      },
+      {
+        challenge:
+          "Real estate operations connect multiple construction sites, assigned employees, and project-specific tasks, making progress difficult to understand from disconnected lists.",
+        solution:
+          "Designed project overview cards and task lists that display project context, priority, and status, giving managers and field staff a focused view of assigned work.",
+      },
+      {
+        challenge:
+          "Attendance, leave requests, salary structures, and payroll all belong to the employee lifecycle but are often handled in separate administrative workflows.",
+        solution:
+          "Grouped workforce, time-off, and finance modules under a shared workspace so HR, employees, and accounts roles can access the records relevant to their responsibilities.",
+      },
+      {
+        challenge:
+          "A broad enterprise dashboard needs to remain readable as the number of modules and responsibilities increases.",
+        solution:
+          "Used a consistent layout with clearly grouped sidebar menus, summary cards, recent-task tables, project previews, and quick-access links across each role-specific screen.",
+      },
+    ],
+    image: "/assets/img/my_activities/Projects/rems/login.webp",
+    gallery: [
+      "/assets/img/my_activities/Projects/rems/login.webp",
+      "/assets/img/my_activities/Projects/rems/hr-panel.webp",
+      "/assets/img/my_activities/Projects/rems/project-manager.webp",
+      "/assets/img/my_activities/Projects/rems/engineer.webp",
+      "/assets/img/my_activities/Projects/rems/supervisor.webp",
+      "/assets/img/my_activities/Projects/rems/accounts.webp",
+    ],
+    sections: [
+      {
+        image: "/assets/img/my_activities/Projects/rems/hr-panel.webp",
+        title: "HR Administration — Workforce & Operations",
+        body: "The HR Admin workspace brings together employees, departments, designations, work schedules, projects, site assignments, attendance, tasks, leave, holidays, payroll, and employee documents. A summary area and recent-task list provide an overview of day-to-day company operations without switching between disconnected tools.",
+      },
+      {
+        image: "/assets/img/my_activities/Projects/rems/project-manager.webp",
+        title: "Project Manager — Sites, Workload & Task Priorities",
+        body: "The project manager sees managed projects, pending project tasks, site assignments, and prioritized work items. Project summary cards and a recent-task list help connect on-site activities to the right real estate development, with status and urgency visible at a glance.",
+      },
+      {
+        image: "/assets/img/my_activities/Projects/rems/engineer.webp",
+        title: "Engineer Workspace — Assigned Field Work",
+        body: "A focused dashboard for technical staff displays assigned tasks and quick access to attendance, leave requests, payroll, salary payments, and employee documents. By limiting navigation to relevant modules, field employees can concentrate on their assigned responsibilities.",
+      },
+      {
+        image: "/assets/img/my_activities/Projects/rems/supervisor.webp",
+        title: "Supervisor Workspace — Daily Execution",
+        body: "Supervisors have a compact overview of pending work, attendance check-in and check-out, leave requests, and employee information. Recent tasks show work priorities and progress statuses, helping supervisors track the day-to-day responsibilities associated with their sites.",
+      },
+      {
+        image: "/assets/img/my_activities/Projects/rems/accounts.webp",
+        title: "Accounts — Salary Structures & Payroll Monitoring",
+        body: "The accounts view concentrates on salary structures, payroll processing, and salary payments. Dashboard counters distinguish draft payrolls from approved but unpaid payrolls, making the financial workflow easier to scan while keeping unrelated HR and project menus out of the way.",
+      },
+    ],
+    // No verified public demo or repository URL was provided.
+    link: null,
+    repoUrl: null,
+    liveUrl: null,
+    status: "completed",
+  },
+  {
     id: 1,
     title: "Ifjona E-commerce Marketplace",
     subtitle: "Client Project · US-Based E-commerce · React.js · Laravel · MySQL",
@@ -229,7 +329,7 @@ const rawPortfolioData = [
 
     gallery: [
       "/assets/img/my_activities/Projects/Employee/home.png",
-      "/assets/img/my_activities/Projects/Employee/employee_positions.jpg",
+      "/assets/img/my_activities/Projects/Employee/employee_positions.JPG",
       "/assets/img/my_activities/Projects/Employee/employee_list.png",
       "/assets/img/my_activities/Projects/Employee/add_employee.JPG",
       "/assets/img/my_activities/Projects/Employee/employee_attendence.JPG",
@@ -247,7 +347,7 @@ const rawPortfolioData = [
         body: "The landing view after an admin logs in. From here the owner has quick access to positions, employees, attendance, salary, posts, and tasks — the full control surface of the company in one place.",
       },
       {
-        image: "/assets/img/my_activities/Projects/Employee/employee_positions.jpg",
+        image: "/assets/img/my_activities/Projects/Employee/employee_positions.JPG",
         title: "Position-Based Access Control",
         body: "The admin defines each position in the company and maps it to a specific set of menus. Every employee inherits their visible features from their assigned position — so an accountant sees salary and reporting screens, while a field employee only sees attendance and tasks. Access is enforced on both the UI and the server, keeping sensitive data protected.",
       },
@@ -710,7 +810,7 @@ const rawPortfolioData = [
 
     gallery: [
       "/assets/img/my_activities/Projects/amazon-distributors/home.pdf",
-      "/assets/img/my_activities/Projects/amazon-distributors/filter.jpg",
+      "/assets/img/my_activities/Projects/amazon-distributors/filter.JPG",
     ],
 
     sections: [
@@ -722,7 +822,7 @@ const rawPortfolioData = [
       },
       {
         image:
-          "/assets/img/my_activities/Projects/amazon-distributors/filter.jpg",
+          "/assets/img/my_activities/Projects/amazon-distributors/filter.JPG",
         title: "15+ Live Filters, One Dataset",
         body: "The filter panel is the heart of the app. A global search box scans every text field at once, while dedicated filters let the user drill down by industry, country, state, city, timezone, contact availability, email presence, social presence, founded-year range, employee range, and revenue range. Quick and advanced filters stack — every keystroke narrows the result set in real time, and the visible-columns panel lets the user toggle exactly which of the 19 fields appear in the table and in the CSV / Excel export.",
       },

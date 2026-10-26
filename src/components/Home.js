@@ -6,11 +6,11 @@ const Home = () => {
   return (
     <section id="home" className="home-section">
       <div className="effect-1">
-        <img src="assets/img/effect-1.svg" className="svg" alt="image" />
+        <img src="/assets/img/effect-1.svg" className="svg" alt="image" />
       </div>
 
       <div className="effect-2">
-        <img src="assets/img/effect-2.svg" className="svg" alt="image" />
+        <img src="/assets/img/effect-2.svg" className="svg" alt="image" />
       </div>
 
       <div className="container">
@@ -48,7 +48,7 @@ const Home = () => {
 
               <div className="btn-bar">
                 {/* Let's Talk */}
-                <a className="px-btn px-btn-theme me-3" href="#contactus">
+                <a className="px-btn px-btn-theme me-3" href="/contact">
                   Let's Talk
                 </a>
 
@@ -98,7 +98,7 @@ const Home = () => {
             <div className="home-image-outer">
               <div className="home-image-wrap">
                 <div className="home-image">
-                  <img src="assets/img/home-banner.png" alt="image" />
+                  <img src="/assets/img/home-banner.png" alt="Shafayet Ullah Ramim — Software Developer" fetchPriority="high" decoding="async" />
                 </div>
 
                 {/* ✅ Social column — sits to the right of the image, gentle heartbeat pulse */}

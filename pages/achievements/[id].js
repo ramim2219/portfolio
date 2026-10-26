@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Head from "next/head";
+import SEO from "@/src/components/site/SEO";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import {
@@ -56,10 +56,7 @@ const AchievementDetail = ({ item, prevItem, nextItem }) => {
 
   return (
     <>
-      <Head>
-        <title>{item.title} | Ramim Dev</title>
-        <meta name="description" content={item.description} />
-      </Head>
+      <SEO title={item.title} description={item.description} path={`/achievements/${item.id}`} type="article" />
 
       <Header />
 
@@ -68,7 +65,7 @@ const AchievementDetail = ({ item, prevItem, nextItem }) => {
         <section className="section achievement-hero">
           <div className="container">
             {/* ✅ Top back button — amber pill */}
-            <Link href="/#about" className="nav-pill-btn back-top">
+            <Link href="/achievements" className="nav-pill-btn back-top">
               <span className="pill-arrow">
                 <ArrowLeft size={18} />
               </span>

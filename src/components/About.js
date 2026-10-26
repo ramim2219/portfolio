@@ -35,8 +35,8 @@ const experienceItems = [
     alt: "Premier University, Chittagong",
     role: "Software Developer Trainee",
     org: "Premier University, Chittagong",
-    date: "Dec 2025 – Present",
-    badge: "now",
+    date: "Dec 2025 – Oct 2026",
+    badge: "done",
   },
   {
     href: "/projects/1",
@@ -62,7 +62,7 @@ const ExperienceHighlight = () => (
           <div className="exp-hi-card exp-hi-current">
             <div className="exp-hi-left">
               <div className="exp-hi-icon exp-hi-icon-active">
-                <img src={item.image} alt={item.alt} />
+                <img src={item.image} alt={item.alt} loading="lazy" decoding="async" />
               </div>
               <div className="exp-hi-dot-active"><span className="exp-hi-pulse" /></div>
             </div>
@@ -165,7 +165,7 @@ const LeadershipHighlight = ({ href }) => (
       <div className="exp-hi-card exp-hi-current">
         <div className="exp-hi-left">
           <div className="exp-hi-icon exp-hi-icon-active">
-            <img src="/assets/img/puc.png" alt="PUC CSE Club" />
+            <img src="/assets/img/puc.png" alt="PUC CSE Club" loading="lazy" decoding="async" />
           </div>
           <div className="exp-hi-dot-active"><span className="exp-hi-pulse" /></div>
         </div>
@@ -301,7 +301,7 @@ const GallerySlider = (props) => {
                 className={"slide" + (i === current ? " active" : "")}
                 onClick={() => handleSlideClick(img, i)}
               >
-                <img src={img.src} alt={img.caption} />
+                <img src={img.src} alt={img.caption} loading="lazy" decoding="async" />
 
                 {/* Hover hint */}
                 <div className="slide-zoom-hint">

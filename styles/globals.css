@@ -1155,3 +1155,7 @@ body {
   padding: 4px 10px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
 }
+/* Isolated route support: original home layout is unchanged. */
+.original-route-page { padding-top: 90px; min-height: 80vh; }
+.original-route-page > section:first-child { scroll-margin-top: 90px; }
+@media (max-width: 767px) { .original-route-page { padding-top: 76px; } }

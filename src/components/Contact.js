@@ -1,4 +1,3 @@
-import emailjs from "@emailjs/browser";
 import { useState } from "react";
 import SectionTitle from "./SectionTitle";
 
@@ -40,52 +39,64 @@ const Contact = () => {
   const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  const [notice, setNotice] = useState("");
+  const [website, setWebsite] = useState(""); // Hidden honeypot field for bots.
+
   const onChange = (e) => {
-    setMailData({ ...mailData, [e.target.name]: e.target.value });
+    setMailData((previous) => ({ ...previous, [e.target.name]: e.target.value }));
+    setError(false);
+    setSuccess(false);
+    setNotice("");
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
+    if (loading) return;
 
+    const form = {
+      name: name.trim(),
+      email: email.trim(),
+      subject: subject.trim(),
+      message: message.trim(),
+      website,
+    };
+
+    const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email);
     if (
-      name.length === 0 ||
-      email.length === 0 ||
-      message.length === 0 ||
-      subject.length === 0
+      form.name.length < 2 || form.name.length > 100 ||
+      !isValidEmail || form.email.length > 254 ||
+      form.subject.length < 3 || form.subject.length > 150 ||
+      form.message.length < 10 || form.message.length > 5000
     ) {
       setError(true);
-    } else {
-      setLoading(true);
+      setSuccess(false);
+      setNotice("Please provide your name, a valid email, a subject, and a message (at least 10 characters).");
+      return;
+    }
 
-      emailjs
-        .send(
-          process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
-          process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID,
-          mailData,
-          process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY
-        )
-        .then(
-          (response) => {
-            setError(false);
-            setSuccess(true);
-            setLoading(false);
-
-            setTimeout(() => {
-              setSuccess(false);
-            }, 3000);
-
-            setMailData({
-              name: "",
-              email: "",
-              message: "",
-              subject: "",
-            });
-          },
-          (err) => {
-            console.log(err.text);
-            setLoading(false);
-          }
-        );
+    setLoading(true);
+    setError(false);
+    setSuccess(false);
+    setNotice("");
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok) {
+        throw new Error(result.error || "Message could not be sent. Please try again.");
+      }
+      setSuccess(true);
+      setMailData({ name: "", email: "", message: "", subject: "" });
+      setWebsite("");
+      setNotice("Message submitted successfully! I'll get back to you soon.");
+    } catch (err) {
+      setError(true);
+      setNotice(err.message || "Unable to send your message right now.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -107,20 +118,26 @@ const Contact = () => {
                   Our friendly team would love to hear from you.
                 </p>
 
-                <form id="contact-form" onSubmit={(e) => onSubmit(e)}>
+                <form id="contact-form" onSubmit={onSubmit}>
+                  {/* Hidden spam-trap: legitimate visitors will never see or fill it. */}
+                  <div aria-hidden="true" style={{ position: "absolute", left: "-10000px", height: 0, overflow: "hidden" }}>
+                    <label htmlFor="website">Website</label>
+                    <input id="website" name="website" type="text" autoComplete="off" tabIndex={-1} value={website} onChange={(e) => setWebsite(e.target.value)} />
+                  </div>
                   <div className="row gx-3 gy-4">
                     <div className="col-md-6">
                       <div className="form-group">
-                        <label className="form-label">First name</label>
+                        <label className="form-label" htmlFor="name">First name</label>
                         <input
                           name="name"
                           onChange={onChange}
                           value={name}
                           id="name"
                           placeholder="Name *"
-                          className={`form-control ${
-                            error ? (name.length !== 0 ? "" : "invalid") : ""
-                          }`}
+                          className={`form-control ${error && name.trim().length < 2 ? "invalid" : ""}`}
+                          autoComplete="name"
+                          maxLength={100}
+                          required
                           type="text"
                         />
                       </div>
@@ -128,16 +145,17 @@ const Contact = () => {
 
                     <div className="col-md-6">
                       <div className="form-group">
-                        <label className="form-label">Your Email</label>
+                        <label className="form-label" htmlFor="email">Your Email</label>
                         <input
                           name="email"
                           onChange={onChange}
                           value={email}
                           id="email"
                           placeholder="Email *"
-                          className={`form-control ${
-                            error ? (email.length !== 0 ? "" : "invalid") : ""
-                          }`}
+                          className={`form-control ${error && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim()) ? "invalid" : ""}`}
+                          autoComplete="email"
+                          maxLength={254}
+                          required
                           type="email"
                         />
                       </div>
@@ -145,20 +163,16 @@ const Contact = () => {
 
                     <div className="col-12">
                       <div className="form-group">
-                        <label className="form-label">Subject</label>
+                        <label className="form-label" htmlFor="subject">Subject</label>
                         <input
                           name="subject"
                           onChange={onChange}
                           value={subject}
                           id="subject"
                           placeholder="Subject *"
-                          className={`form-control ${
-                            error
-                              ? subject.length !== 0
-                                ? ""
-                                : "invalid"
-                              : ""
-                          }`}
+                          className={`form-control ${error && subject.trim().length < 3 ? "invalid" : ""}`}
+                          maxLength={150}
+                          required
                           type="text"
                         />
                       </div>
@@ -166,7 +180,7 @@ const Contact = () => {
 
                     <div className="col-md-12">
                       <div className="form-group">
-                        <label className="form-label">Your message</label>
+                        <label className="form-label" htmlFor="message">Your message</label>
                         <textarea
                           name="message"
                           onChange={onChange}
@@ -174,25 +188,22 @@ const Contact = () => {
                           id="message"
                           placeholder="Your message *"
                           rows={3}
-                          className={`form-control ${
-                            error
-                              ? message.length !== 0
-                                ? ""
-                                : "invalid"
-                              : ""
-                          }`}
+                          className={`form-control ${error && message.trim().length < 10 ? "invalid" : ""}`}
+                          maxLength={5000}
+                          minLength={10}
+                          required
                         />
                       </div>
 
                       {success && (
-                        <span id="suce_message" className="text-success">
-                          ✅ Message Sent Successfully!
+                        <span id="suce_message" className="text-success" role="status" aria-live="polite">
+                          ✅ {notice}
                         </span>
                       )}
 
                       {error && (
-                        <span className="text-danger">
-                          ⚠️ Please fill in all fields.
+                        <span className="text-danger" role="alert">
+                          ⚠️ {notice}
                         </span>
                       )}
                     </div>
@@ -245,7 +256,7 @@ const Contact = () => {
 
               <div className="text-center pt-5">
                 <img
-                  src="assets/img/contact.svg"
+                  src="/assets/img/contact.svg"
                   className="svg"
                   alt="image"
                 />
