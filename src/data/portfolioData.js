@@ -25,7 +25,15 @@
 //   Files inside `public/` are served from the site root ("/").
 //   So `public/assets/img/x.png` must be referenced as "/assets/img/x.png".
 
-const isGithubUrl = (url) => typeof url === "string" && url.includes("github.com");
+const isGithubUrl = (url) => {
+  if (typeof url !== "string" || !url.trim()) return false;
+  try {
+    const hostname = new URL(url).hostname.toLowerCase();
+    return hostname === "github.com" || hostname === "www.github.com";
+  } catch {
+    return false;
+  }
+};
 
 /** Returns true when the given URL points to a PDF file. */
 export const isPdf = (url) =>
@@ -37,6 +45,238 @@ export const isVideo = (url) =>
   /\.(mp4|webm|ogg|mov|m4v)$/i.test(url.split("?")[0]);
 
 const rawPortfolioData = [
+  {
+    "id": 10,
+    "title": "JNRMart — E-commerce, POS & Business Management Platform",
+    "subtitle": "Multi-Vendor E-commerce · POS · Company Management · Warehouse Requisitions · RBAC",
+    "description": "An in-development full-stack platform combining a customer-facing shopping website with company administration, POS sales-order creation, product and warehouse workflows, requisition management and role-based menu permissions.",
+    "fullDescription": "JNRMart is an ongoing integrated commerce and business-management project. The current screenshots show a customer-facing storefront with promotional campaigns and product browsing, a filterable product catalogue, a super-admin company management screen, a POS order-entry interface, warehouse requisition creation and a role-based menu-delegation interface. The POS screen supports selecting an assigned warehouse and product variants or scanning QR/barcodes, with options for combos, coupons, discounts and tax. Requisition forms describe an approval step before warehouse delivery. The larger platform also targets employee management and other business workflows as development continues. The architecture is being built around a React.js frontend and Laravel APIs backed by MySQL, based on the project information supplied by its developer. Features shown in screenshots are presented as visible interfaces rather than proof of production deployment or completed end-to-end integrations.",
+    "techStack": [
+      "React.js",
+      "JavaScript",
+      "Laravel",
+      "PHP",
+      "MySQL",
+      "REST APIs",
+      "Role-Based Access Control (RBAC)",
+      "E-commerce",
+      "POS",
+      "Warehouse & Requisition Management"
+    ],
+    "features": [
+      "E-commerce landing page with promotional banners, product discovery and category navigation",
+      "Product catalogue UI with category, brand, price-range and product-flag filters, sorting and pagination",
+      "Shopping entry points for wishlist, account, cart and Add to Cart actions",
+      "Super-admin company directory with search, company type, status and maintenance actions",
+      "POS sales-order form with order type, delivery method, customer details and assigned warehouse",
+      "QR/barcode input and parent-product / variant selection for sales-order items",
+      "Order-entry controls for combos, coupon codes, seller discounts and tax percentage",
+      "Inter-warehouse requisition forms with product quantities, notes and manager approval notice",
+      "RBAC menu delegation interface for individual users and user types",
+      "Administration navigation for inventory, suppliers, purchase orders, promotions, shipment and sales-return modules",
+      "Ongoing integration of e-commerce, employee and business-management workflows"
+    ],
+    "role": "Full-Stack Developer (Ongoing Project)",
+    "duration": "Ongoing",
+    "challenges": [
+      {
+        "challenge": "Presenting customer shopping features and complex internal business tools within one connected product.",
+        "solution": "Separate the customer-facing storefront from role-oriented administrative interfaces while maintaining a shared product and company domain."
+      },
+      {
+        "challenge": "Building POS order entry that supports multiple product variants, barcode input and different commercial rules.",
+        "solution": "Provide an order-entry workflow with warehouse selection, barcode and variant inputs, and explicit fields for combos, coupons, seller discounts and tax."
+      },
+      {
+        "challenge": "Preventing warehouse stock requests from bypassing the intended approval sequence.",
+        "solution": "Use a requisition form that identifies source and destination warehouses, tracks requested items and communicates manager approval as a prerequisite to delivery."
+      },
+      {
+        "challenge": "Making a large administration system manageable for users with different responsibilities.",
+        "solution": "Offer menu delegation by user or user type, and present only the menus authorized for delegation within the administration interface."
+      }
+    ],
+    "image": "/assets/img/my_activities/Projects/jnrmart/00-jnrmart-cover-card.webp",
+    "gallery": [
+      "/assets/img/my_activities/Projects/jnrmart/00-jnrmart-cover.webp",
+      "/assets/img/my_activities/Projects/jnrmart/01-storefront-homepage.webp",
+      "/assets/img/my_activities/Projects/jnrmart/02-product-catalogue.webp",
+      "/assets/img/my_activities/Projects/jnrmart/03-company-management.webp",
+      "/assets/img/my_activities/Projects/jnrmart/04-pos-order-management.webp",
+      "/assets/img/my_activities/Projects/jnrmart/05-warehouse-requisition.webp",
+      "/assets/img/my_activities/Projects/jnrmart/06-rbac-delegation.webp"
+    ],
+    "sections": [
+      {
+        "image": "/assets/img/my_activities/Projects/jnrmart/01-storefront-homepage.webp",
+        "title": "Customer-Facing E-commerce Homepage",
+        "body": "The JNRMart storefront showcases a promotional hero banner, product search, featured categories, home-appliance offers and trending electronics. The header provides wishlist, account and cart entry points. This screenshot represents the current customer-facing homepage during development."
+      },
+      {
+        "image": "/assets/img/my_activities/Projects/jnrmart/02-product-catalogue.webp",
+        "title": "Product Catalogue, Filters & Cart Actions",
+        "body": "The Offer Zone catalogue includes category and brand checkboxes, a price-range slider, product flags, sorting, pagination, discount tags and Add to Cart buttons. Product presentation and image completeness are still being refined as the storefront develops."
+      },
+      {
+        "image": "/assets/img/my_activities/Projects/jnrmart/03-company-management.webp",
+        "title": "Company Management & Multi-Business Administration",
+        "body": "A super-admin company management screen lists registered businesses with company type, contact details and status, alongside search, Add Company, Edit and Delete controls. It illustrates the company-management foundation for the broader multi-vendor architecture, without assuming that every seller workflow is already complete."
+      },
+      {
+        "image": "/assets/img/my_activities/Projects/jnrmart/04-pos-order-management.webp",
+        "title": "POS Sales Order & Barcode Workflow",
+        "body": "The Create Sales Order screen provides POS order type, delivery method, assigned warehouse, customer details, QR/barcode scanning, parent-product and variant selection, order items, combo insertion, coupon code, seller discounts and tax fields. The visible action creates a pending order; the screenshot does not establish that a payment has already been processed."
+      },
+      {
+        "image": "/assets/img/my_activities/Projects/jnrmart/05-warehouse-requisition.webp",
+        "title": "Inter-Warehouse Requisition Requests",
+        "body": "The Send Requisition screen lets a user select source and destination warehouses, add products with requested quantities, and include notes. The interface states that a source-warehouse manager must approve the request before delivery. Related menu entries expose receiving, approval and requisition-list views."
+      },
+      {
+        "image": "/assets/img/my_activities/Projects/jnrmart/06-rbac-delegation.webp",
+        "title": "Role-Based Menu Delegation",
+        "body": "The Delegate Menus screen supports assigning menu access to a selected user or user type. It displays the menus available to delegate, with assigned indicators and actions to assign or unassign, covering operational areas such as inventory, requisitions, orders, offers and sales returns. The screenshot demonstrates a permissions-management interface, not a security penetration test."
+      }
+    ],
+    "link": null,
+    "repoUrl": "https://github.com/ramim2219/JNRmart",
+    "liveUrl": null,
+    "status": "in_progress"
+  },
+  {
+    id: 1,
+    title: "Ifjona E-commerce Marketplace",
+    subtitle: "Client Project · US-Based E-commerce · React.js · Laravel · MySQL",
+    description:
+      "A full-stack e-commerce marketplace built for a US-based e-commerce client, using React.js, Laravel, and MySQL. Includes a dynamic admin panel, VPS deployment, WebSocket integration, AI integration, and secure payment integration — with a thesis-backed multilingual review analysis engine. Live and actively maintained for the client since January 2026.",
+    fullDescription:
+      "Ifjona is a production e-commerce marketplace built end-to-end for a US-based e-commerce client — from database design to deployment — live and actively maintained since January 2026. The platform gives the store owner a dynamic admin panel to manage products, orders, and customers, while shoppers get a fast, modern storefront. Real-time features are powered by WebSockets, AI is used to enhance parts of the shopping experience, and payments are processed through a secure, integrated gateway. A standout feature is the Review Management module — the core of my undergraduate thesis — which automatically classifies negative customer reviews across four issue categories (Product, Delivery, Monetary, Customer Service) in Bangla, English, and Banglish. The app is deployed and running live on a VPS for the client.",
+    techStack: [
+      "React.js",
+      "Laravel",
+      "MySQL",
+      "WebSocket",
+      "FastAPI",
+      "NLP",
+      "Multilingual Text Classification",
+      "Payment Gateway",
+      "VPS Deployment",
+    ],
+    features: [
+      "Delivered as a client project for a US-based e-commerce business",
+      "Dynamic, role-based admin panel",
+      "Real-time order & inventory updates via WebSocket",
+      "AI-assisted shopping experience",
+      "Secure end-to-end payment integration",
+      "Deployed and running on a production VPS",
+      "Thesis feature: automated negative-review issue detection (Bangla, English & Banglish)",
+    ],
+    role: "Full-Stack Developer (Client Project)",
+    duration: "January 2026 – June 2026",
+    challenges: [
+      {
+        challenge:
+          "Keeping order status, inventory, and the admin dashboard in sync in real time across many concurrent shoppers.",
+        solution:
+          "Integrated WebSocket connections so inventory and order updates push instantly to both the storefront and admin panel instead of relying on polling.",
+      },
+      {
+        challenge:
+          "Handling payments securely while keeping checkout simple for customers.",
+        solution:
+          "Integrated a secure payment gateway with server-side validation, keeping sensitive payment logic off the client.",
+      },
+      {
+        challenge:
+          "Manually reading hundreds of customer reviews to spot recurring product problems — made worse because shoppers write in Bangla, English, or Banglish (e.g. “Product ta ekdom faltu”).",
+        solution:
+          "Built a multilingual review-analysis service in FastAPI that automatically triggers whenever a review's rating is ≤ 3 and classifies the complaint into one of four issue types — Product Issue, Delivery Issue, Monetary Issue, or Customer Service Issue — giving admins an instant, aggregate view of product problem areas.",
+      },
+    ],
+
+    image:
+      "/assets/img/my_activities/Projects/Ifjona/Ifjona/home-card.webp",
+
+    gallery: [
+      "/assets/img/my_activities/Projects/Ifjona/Ifjona/home.webp",
+      "/assets/img/my_activities/Projects/Ifjona/Admin Page Functionalities/Dashboard.webp",
+      "/assets/img/my_activities/Projects/Ifjona/Admin Page Functionalities/adding products.webp",
+      "/assets/img/my_activities/Projects/Ifjona/Admin Page Functionalities/order managemnt.webp",
+      "/assets/img/my_activities/Projects/Ifjona/Admin Page Functionalities/Review MAnagement.webp",
+      "/assets/img/my_activities/Projects/Ifjona/Admin Page Functionalities/coupon management.webp",
+      "/assets/img/my_activities/Projects/Ifjona/Admin Page Functionalities/tax report generator.webp",
+      "/assets/img/my_activities/Projects/Ifjona/Ifjona/shop_page.webp",
+      "/assets/img/my_activities/Projects/Ifjona/Ifjona/checkout.webp",
+      "/assets/img/my_activities/Projects/Ifjona/Ifjona/order_tracking.webp",
+      "/assets/img/my_activities/Projects/Ifjona/Ifjona/live chat.webp",
+    ],
+
+    sections: [
+      {
+        image:
+          "/assets/img/my_activities/Projects/Ifjona/Admin Page Functionalities/Dashboard.webp",
+        title: "Admin Dashboard Overview",
+        body: "The central control panel gives store owners a real-time snapshot of sales, orders, inventory, and customer activity — all from a single view. Built with role-based access so admins, managers, and staff only see what's relevant to them.",
+      },
+      {
+        image:
+          "/assets/img/my_activities/Projects/Ifjona/Admin Page Functionalities/adding products.webp",
+        title: "Product Management",
+        body: "Add, edit, and organize products with categories, states, locations, and currency support. Inventory changes push instantly to the storefront via WebSocket, so shoppers never see stale stock.",
+      },
+      {
+        image:
+          "/assets/img/my_activities/Projects/Ifjona/Admin Page Functionalities/order managemnt.webp",
+        title: "Order & Shipment Management",
+        body: "Track every order from placement to delivery. Update statuses, monitor fulfillment, and handle shipment records in real time — all backed by server-side validation.",
+      },
+      {
+        image:
+          "/assets/img/my_activities/Projects/Ifjona/Admin Page Functionalities/Review MAnagement.webp",
+        title: "⭐ Thesis Feature — Automated Negative Review Issue Detection",
+        body: "This module is the heart of my undergraduate thesis, integrated directly into the Ifjona admin panel. Whenever a customer leaves a review with a rating of 3 or below, a FastAPI-powered NLP service automatically analyzes the review text and classifies the complaint into one of four issue categories — Product Issue, Delivery Issue, Monetary Issue, or Customer Service Issue. The system is multilingual, handling Bangla, English, and Banglish (mixed-script) reviews like “Product ta ekdom faltu.” This gives admins an instant, aggregated view of what's actually going wrong per product — replacing hours of manual review reading with a single, data-driven dashboard that highlights each product's most common complaint category.",
+      },
+      {
+        image:
+          "/assets/img/my_activities/Projects/Ifjona/Admin Page Functionalities/coupon management.webp",
+        title: "Coupons, Offers & Promotions",
+        body: "Create discount codes, run promotional campaigns, and schedule flash sales. Every coupon is validated server-side to prevent abuse and keep pricing logic trustworthy.",
+      },
+      {
+        image:
+          "/assets/img/my_activities/Projects/Ifjona/Admin Page Functionalities/tax report generator.webp",
+        title: "Tax Reports & Compliance",
+        body: "Generate state-based tax reports and export them for accounting. Configurable tax rules keep the platform compliant across regions without manual calculations.",
+      },
+      {
+        image:
+          "/assets/img/my_activities/Projects/Ifjona/Ifjona/shop_page.webp",
+        title: "Customer-Facing Storefront",
+        body: "Shoppers browse a fast, modern storefront with search, categories, and filters — powered by React on the front end and Laravel on the back end, with AI-assisted recommendations enhancing discovery.",
+      },
+      {
+        image:
+          "/assets/img/my_activities/Projects/Ifjona/Ifjona/checkout.webp",
+        title: "Secure Checkout",
+        body: "A streamlined checkout flow with server-side payment validation. Sensitive payment logic stays off the client, keeping transactions both simple and secure.",
+      },
+      {
+        image:
+          "/assets/img/my_activities/Projects/Ifjona/Ifjona/order_tracking.webp",
+        title: "Real-Time Order Tracking",
+        body: "Customers follow their order from confirmation to delivery through a live tracking view. Status updates propagate instantly via WebSocket, so there's no need to refresh the page.",
+      },
+      {
+        image:
+          "/assets/img/my_activities/Projects/Ifjona/Ifjona/live chat.webp",
+        title: "Live Chat Support",
+        body: "Built on WebSocket connections, live chat lets customers reach support instantly while admins respond from the same dashboard — closing the loop between the storefront and back office.",
+      },
+    ],
+
+    link: "https://www.ifjona.com/",
+    status: "live",
+  },
   {
     id: 9,
     title: "EstateHR — Real Estate Management System (REMS)",
@@ -95,7 +335,7 @@ const rawPortfolioData = [
           "Used a consistent layout with clearly grouped sidebar menus, summary cards, recent-task tables, project previews, and quick-access links across each role-specific screen.",
       },
     ],
-    image: "/assets/img/my_activities/Projects/rems/login.webp",
+    image: "/assets/img/my_activities/Projects/rems/login-card.webp",
     gallery: [
       "/assets/img/my_activities/Projects/rems/login.webp",
       "/assets/img/my_activities/Projects/rems/hr-panel.webp",
@@ -136,140 +376,6 @@ const rawPortfolioData = [
     repoUrl: null,
     liveUrl: null,
     status: "completed",
-  },
-  {
-    id: 1,
-    title: "Ifjona E-commerce Marketplace",
-    subtitle: "Client Project · US-Based E-commerce · React.js · Laravel · MySQL",
-    description:
-      "A full-stack e-commerce marketplace built for a US-based e-commerce client, using React.js, Laravel, and MySQL. Includes a dynamic admin panel, VPS deployment, WebSocket integration, AI integration, and secure payment integration — with a thesis-backed multilingual review analysis engine. Live and actively maintained for the client since January 2026.",
-    fullDescription:
-      "Ifjona is a production e-commerce marketplace built end-to-end for a US-based e-commerce client — from database design to deployment — live and actively maintained since January 2026. The platform gives the store owner a dynamic admin panel to manage products, orders, and customers, while shoppers get a fast, modern storefront. Real-time features are powered by WebSockets, AI is used to enhance parts of the shopping experience, and payments are processed through a secure, integrated gateway. A standout feature is the Review Management module — the core of my undergraduate thesis — which automatically classifies negative customer reviews across four issue categories (Product, Delivery, Monetary, Customer Service) in Bangla, English, and Banglish. The app is deployed and running live on a VPS for the client.",
-    techStack: [
-      "React.js",
-      "Laravel",
-      "MySQL",
-      "WebSocket",
-      "FastAPI",
-      "NLP",
-      "Multilingual Text Classification",
-      "Payment Gateway",
-      "VPS Deployment",
-    ],
-    features: [
-      "Delivered as a client project for a US-based e-commerce business",
-      "Dynamic, role-based admin panel",
-      "Real-time order & inventory updates via WebSocket",
-      "AI-assisted shopping experience",
-      "Secure end-to-end payment integration",
-      "Deployed and running on a production VPS",
-      "Thesis feature: automated negative-review issue detection (Bangla, English & Banglish)",
-    ],
-    role: "Full-Stack Developer (Client Project)",
-    duration: "January 2026 – June 2026",
-    challenges: [
-      {
-        challenge:
-          "Keeping order status, inventory, and the admin dashboard in sync in real time across many concurrent shoppers.",
-        solution:
-          "Integrated WebSocket connections so inventory and order updates push instantly to both the storefront and admin panel instead of relying on polling.",
-      },
-      {
-        challenge:
-          "Handling payments securely while keeping checkout simple for customers.",
-        solution:
-          "Integrated a secure payment gateway with server-side validation, keeping sensitive payment logic off the client.",
-      },
-      {
-        challenge:
-          "Manually reading hundreds of customer reviews to spot recurring product problems — made worse because shoppers write in Bangla, English, or Banglish (e.g. “Product ta ekdom faltu”).",
-        solution:
-          "Built a multilingual review-analysis service in FastAPI that automatically triggers whenever a review's rating is ≤ 3 and classifies the complaint into one of four issue types — Product Issue, Delivery Issue, Monetary Issue, or Customer Service Issue — giving admins an instant, aggregate view of product problem areas.",
-      },
-    ],
-
-    image:
-      "/assets/img/my_activities/Projects/Ifjona/Ifjona/home.pdf",
-
-    gallery: [
-      "/assets/img/my_activities/Projects/Ifjona/Ifjona/home.pdf",
-      "/assets/img/my_activities/Projects/Ifjona/Admin Page Functionalities/Dashboard.pdf",
-      "/assets/img/my_activities/Projects/Ifjona/Admin Page Functionalities/adding products.pdf",
-      "/assets/img/my_activities/Projects/Ifjona/Admin Page Functionalities/order managemnt.pdf",
-      "/assets/img/my_activities/Projects/Ifjona/Admin Page Functionalities/Review MAnagement.pdf",
-      "/assets/img/my_activities/Projects/Ifjona/Admin Page Functionalities/coupon management.pdf",
-      "/assets/img/my_activities/Projects/Ifjona/Admin Page Functionalities/tax report generator.pdf",
-      "/assets/img/my_activities/Projects/Ifjona/Ifjona/shop_page.pdf",
-      "/assets/img/my_activities/Projects/Ifjona/Ifjona/checkout.pdf",
-      "/assets/img/my_activities/Projects/Ifjona/Ifjona/order_tracking.pdf",
-      "/assets/img/my_activities/Projects/Ifjona/Ifjona/live chat.pdf",
-    ],
-
-    sections: [
-      {
-        image:
-          "/assets/img/my_activities/Projects/Ifjona/Admin Page Functionalities/Dashboard.pdf",
-        title: "Admin Dashboard Overview",
-        body: "The central control panel gives store owners a real-time snapshot of sales, orders, inventory, and customer activity — all from a single view. Built with role-based access so admins, managers, and staff only see what's relevant to them.",
-      },
-      {
-        image:
-          "/assets/img/my_activities/Projects/Ifjona/Admin Page Functionalities/adding products.pdf",
-        title: "Product Management",
-        body: "Add, edit, and organize products with categories, states, locations, and currency support. Inventory changes push instantly to the storefront via WebSocket, so shoppers never see stale stock.",
-      },
-      {
-        image:
-          "/assets/img/my_activities/Projects/Ifjona/Admin Page Functionalities/order managemnt.pdf",
-        title: "Order & Shipment Management",
-        body: "Track every order from placement to delivery. Update statuses, monitor fulfillment, and handle shipment records in real time — all backed by server-side validation.",
-      },
-      {
-        image:
-          "/assets/img/my_activities/Projects/Ifjona/Admin Page Functionalities/Review MAnagement.pdf",
-        title: "⭐ Thesis Feature — Automated Negative Review Issue Detection",
-        body: "This module is the heart of my undergraduate thesis, integrated directly into the Ifjona admin panel. Whenever a customer leaves a review with a rating of 3 or below, a FastAPI-powered NLP service automatically analyzes the review text and classifies the complaint into one of four issue categories — Product Issue, Delivery Issue, Monetary Issue, or Customer Service Issue. The system is multilingual, handling Bangla, English, and Banglish (mixed-script) reviews like “Product ta ekdom faltu.” This gives admins an instant, aggregated view of what's actually going wrong per product — replacing hours of manual review reading with a single, data-driven dashboard that highlights each product's most common complaint category.",
-      },
-      {
-        image:
-          "/assets/img/my_activities/Projects/Ifjona/Admin Page Functionalities/coupon management.pdf",
-        title: "Coupons, Offers & Promotions",
-        body: "Create discount codes, run promotional campaigns, and schedule flash sales. Every coupon is validated server-side to prevent abuse and keep pricing logic trustworthy.",
-      },
-      {
-        image:
-          "/assets/img/my_activities/Projects/Ifjona/Admin Page Functionalities/tax report generator.pdf",
-        title: "Tax Reports & Compliance",
-        body: "Generate state-based tax reports and export them for accounting. Configurable tax rules keep the platform compliant across regions without manual calculations.",
-      },
-      {
-        image:
-          "/assets/img/my_activities/Projects/Ifjona/Ifjona/shop_page.pdf",
-        title: "Customer-Facing Storefront",
-        body: "Shoppers browse a fast, modern storefront with search, categories, and filters — powered by React on the front end and Laravel on the back end, with AI-assisted recommendations enhancing discovery.",
-      },
-      {
-        image:
-          "/assets/img/my_activities/Projects/Ifjona/Ifjona/checkout.pdf",
-        title: "Secure Checkout",
-        body: "A streamlined checkout flow with server-side payment validation. Sensitive payment logic stays off the client, keeping transactions both simple and secure.",
-      },
-      {
-        image:
-          "/assets/img/my_activities/Projects/Ifjona/Ifjona/order_tracking.pdf",
-        title: "Real-Time Order Tracking",
-        body: "Customers follow their order from confirmation to delivery through a live tracking view. Status updates propagate instantly via WebSocket, so there's no need to refresh the page.",
-      },
-      {
-        image:
-          "/assets/img/my_activities/Projects/Ifjona/Ifjona/live chat.pdf",
-        title: "Live Chat Support",
-        body: "Built on WebSocket connections, live chat lets customers reach support instantly while admins respond from the same dashboard — closing the loop between the storefront and back office.",
-      },
-    ],
-
-    link: "https://www.ifjona.com/",
-    status: "live",
   },
   {
     id: 2,
@@ -325,69 +431,69 @@ const rawPortfolioData = [
       },
     ],
 
-    image: "/assets/img/my_activities/Projects/Employee/home.png",
+    image: "/assets/img/my_activities/Projects/Employee/home-card.webp",
 
     gallery: [
-      "/assets/img/my_activities/Projects/Employee/home.png",
-      "/assets/img/my_activities/Projects/Employee/employee_positions.JPG",
-      "/assets/img/my_activities/Projects/Employee/employee_list.png",
-      "/assets/img/my_activities/Projects/Employee/add_employee.JPG",
-      "/assets/img/my_activities/Projects/Employee/employee_attendence.JPG",
-      "/assets/img/my_activities/Projects/Employee/sellary_calculation.JPG",
-      "/assets/img/my_activities/Projects/Employee/create_post.png",
-      "/assets/img/my_activities/Projects/Employee/create_task.JPG",
-      "/assets/img/my_activities/Projects/Employee/task_overview.JPG",
-      "/assets/img/my_activities/Projects/Employee/works_graph.JPG",
+      "/assets/img/my_activities/Projects/Employee/home.webp",
+      "/assets/img/my_activities/Projects/Employee/employee_positions.webp",
+      "/assets/img/my_activities/Projects/Employee/employee_list.webp",
+      "/assets/img/my_activities/Projects/Employee/add_employee.webp",
+      "/assets/img/my_activities/Projects/Employee/employee_attendence.webp",
+      "/assets/img/my_activities/Projects/Employee/sellary_calculation.webp",
+      "/assets/img/my_activities/Projects/Employee/create_post.webp",
+      "/assets/img/my_activities/Projects/Employee/create_task.webp",
+      "/assets/img/my_activities/Projects/Employee/task_overview.webp",
+      "/assets/img/my_activities/Projects/Employee/works_graph.webp",
     ],
 
     sections: [
       {
-        image: "/assets/img/my_activities/Projects/Employee/home.png",
+        image: "/assets/img/my_activities/Projects/Employee/home.webp",
         title: "Dashboard Home",
         body: "The landing view after an admin logs in. From here the owner has quick access to positions, employees, attendance, salary, posts, and tasks — the full control surface of the company in one place.",
       },
       {
-        image: "/assets/img/my_activities/Projects/Employee/employee_positions.JPG",
+        image: "/assets/img/my_activities/Projects/Employee/employee_positions.webp",
         title: "Position-Based Access Control",
         body: "The admin defines each position in the company and maps it to a specific set of menus. Every employee inherits their visible features from their assigned position — so an accountant sees salary and reporting screens, while a field employee only sees attendance and tasks. Access is enforced on both the UI and the server, keeping sensitive data protected.",
       },
       {
-        image: "/assets/img/my_activities/Projects/Employee/employee_list.png",
+        image: "/assets/img/my_activities/Projects/Employee/employee_list.webp",
         title: "Employee Directory",
         body: "A consolidated list of every employee in the company with their assigned position, contact details, and status. Admins can search, filter, and open any employee record to edit details or review history.",
       },
       {
-        image: "/assets/img/my_activities/Projects/Employee/add_employee.JPG",
+        image: "/assets/img/my_activities/Projects/Employee/add_employee.webp",
         title: "Add & Onboard Employees",
         body: "Adding a new employee is a guided flow: fill in personal details, assign a position, and the correct access permissions are applied automatically. The new record immediately appears in the employee list and starts contributing to attendance, salary, and task workflows.",
       },
       {
-        image: "/assets/img/my_activities/Projects/Employee/employee_attendence.JPG",
+        image: "/assets/img/my_activities/Projects/Employee/employee_attendence.webp",
         title: "Daily Attendance (Two Entries Per Day)",
         body: "Each employee logs in and out twice a day — one check-in/check-out pair per shift. Every entry writes directly to the database and is timestamped, giving the admin an accurate, tamper-resistant record of who worked and when. This attendance data feeds directly into the salary calculation engine.",
       },
       {
-        image: "/assets/img/my_activities/Projects/Employee/sellary_calculation.JPG",
+        image: "/assets/img/my_activities/Projects/Employee/sellary_calculation.webp",
         title: "Hourly Salary Calculation with Overtime & Deductions",
         body: "Salary is computed on an hourly basis. If an employee is contracted for 4 hours a day (roughly 80 hours a month without off-days) and actually logs 84 hours, the extra 4 hours are paid as overtime. If they log fewer hours than their target, the shortfall is deducted. This gives the admin an automatic, fair, and transparent monthly payout calculation without manual spreadsheets.",
       },
       {
-        image: "/assets/img/my_activities/Projects/Employee/create_post.png",
+        image: "/assets/img/my_activities/Projects/Employee/create_post.webp",
         title: "Company Posts & Replies",
         body: "An internal social feed where any authorised employee can create posts and reply to others. This lightweight communication layer keeps announcements, questions, and updates inside the same system — strengthening the team's internal network without dragging everyone onto a third-party chat app.",
       },
       {
-        image: "/assets/img/my_activities/Projects/Employee/create_task.JPG",
+        image: "/assets/img/my_activities/Projects/Employee/create_task.webp",
         title: "Task Assignment with Deadlines",
         body: "Admins can create tasks for specific employees and set a deadline for each. Deadlines are visible to both sides, giving the owner a clear tool for delegating work and holding people accountable without chasing updates over messaging.",
       },
       {
-        image: "/assets/img/my_activities/Projects/Employee/task_overview.JPG",
+        image: "/assets/img/my_activities/Projects/Employee/task_overview.webp",
         title: "Task Completion Overview",
         body: "A single screen that aggregates every task in the system — grouped by status, owner, and deadline. Admins can see at a glance what's in progress, what's overdue, and what's been completed, and drill into any task for details.",
       },
       {
-        image: "/assets/img/my_activities/Projects/Employee/works_graph.JPG",
+        image: "/assets/img/my_activities/Projects/Employee/works_graph.webp",
         title: "Work-Hours Contribution Graph",
         body: "A visual report that aggregates each employee's logged working hours and displays them side-by-side. Management can instantly spot top contributors, identify workload imbalances, and back up performance reviews with concrete data instead of guesswork.",
       },
@@ -474,30 +580,30 @@ const rawPortfolioData = [
     ],
 
     image:
-      "/assets/img/my_activities/Projects/daraz_extractor/home.pdf",
+      "/assets/img/my_activities/Projects/daraz_extractor/home-card.webp",
 
     gallery: [
-      "/assets/img/my_activities/Projects/daraz_extractor/home.pdf",
-      "/assets/img/my_activities/Projects/daraz_extractor/single_product.pdf",
-      "/assets/img/my_activities/Projects/daraz_extractor/catrgory_search.pdf",
+      "/assets/img/my_activities/Projects/daraz_extractor/home.webp",
+      "/assets/img/my_activities/Projects/daraz_extractor/single_product.webp",
+      "/assets/img/my_activities/Projects/daraz_extractor/catrgory_search.webp",
     ],
 
     sections: [
       {
         image:
-          "/assets/img/my_activities/Projects/daraz_extractor/home.pdf",
+          "/assets/img/my_activities/Projects/daraz_extractor/home.webp",
         title: "Built for a Thesis Dataset Problem",
         body: "This project exists because of a concrete limitation I hit while preparing data for my undergraduate thesis on multilingual review analysis. Chrome scraping extensions on Daraz only capture the ~5 reviews visible on a single page — assembling 100 reviews meant clicking through 20 pages, and there was no way to pre-filter out the obviously positive 4- and 5-star reviews. The whole tool is designed to eliminate that manual work entirely.",
       },
       {
         image:
-          "/assets/img/my_activities/Projects/daraz_extractor/single_product.pdf",
+          "/assets/img/my_activities/Projects/daraz_extractor/single_product.webp",
         title: "Single Product Scraping",
         body: "The user selects 'Single Product' as the scraper type, pastes the product URL, and applies filters — rating mode (All / Specific / Range), page range (start → end), and the columns to export. The Express backend walks every requested page of that product and returns the full review dataset in one shot. A product with 102 pages of reviews can be sliced down to pages 1–20 for fast sampling, or scraped end-to-end to collect 100,000+ reviews in a single run.",
       },
       {
         image:
-          "/assets/img/my_activities/Projects/daraz_extractor/catrgory_search.pdf",
+          "/assets/img/my_activities/Projects/daraz_extractor/catrgory_search.webp",
         title: "Category-Wide Scraping",
         body: "The user selects 'Category' as the scraper type and pastes a category URL. The backend first enumerates every product inside that category, then walks the review pages for each one — turning an entire category's worth of customer feedback into a single structured dataset with one request. The same rating and page-range filters apply across every product, and results download as CSV or Excel, ready to drop into a notebook or feed the FastAPI review-classification engine built for Ifjona.",
       },
@@ -569,23 +675,23 @@ const rawPortfolioData = [
     ],
 
     image:
-      "/assets/img/my_activities/Projects/xlsx_splitter/home.png",
+      "/assets/img/my_activities/Projects/xlsx_splitter/home-card.webp",
 
     gallery: [
-      "/assets/img/my_activities/Projects/xlsx_splitter/home.png",
-      "/assets/img/my_activities/Projects/xlsx_splitter/testing.png",
+      "/assets/img/my_activities/Projects/xlsx_splitter/home.webp",
+      "/assets/img/my_activities/Projects/xlsx_splitter/testing.webp",
     ],
 
     sections: [
       {
         image:
-          "/assets/img/my_activities/Projects/xlsx_splitter/home.png",
+          "/assets/img/my_activities/Projects/xlsx_splitter/home.webp",
         title: "Built for a Thesis Annotation Problem",
         body: "This tool exists because of a concrete bottleneck in my undergraduate thesis workflow. Annotating a large Excel dataset — 100,000+ rows in a single .xlsx — is painfully slow in Excel, and splitting it manually into annotation-sized chunks is a hundreds-of-steps chore. The whole app is designed to make that prep step disappear. The landing screen is a single drop zone: drag a large .xlsx file in or click to browse, and the file is read directly by the browser — no upload, no server round-trip.",
       },
       {
         image:
-          "/assets/img/my_activities/Projects/xlsx_splitter/testing.png",
+          "/assets/img/my_activities/Projects/xlsx_splitter/testing.webp",
         title: "Live Split Test — 50 Rows Per File",
         body: "A real split run: a full .xlsx workbook is dropped in and the rows-per-file field is set to 50. The tool parses the workbook in the browser, slices the data into equal-sized chunks, and preserves the header row in every output file. All resulting parts are then bundled into a single .zip archive and downloaded in one click — turning what would otherwise be a long chain of copy-paste-save operations into a single action.",
       },
@@ -642,11 +748,11 @@ const rawPortfolioData = [
     ],
 
     image:
-      "/assets/img/my_activities/Projects/villageScenerio/home.mp4",
+      "/assets/img/my_activities/Projects/villageScenerio/home-poster-card.webp",
 
     gallery: [
       "/assets/img/my_activities/Projects/villageScenerio/home.mp4",
-      "/assets/img/my_activities/Projects/villageScenerio/villageScenerio.png",
+      "/assets/img/my_activities/Projects/villageScenerio/villageScenerio.webp",
     ],
 
     sections: [
@@ -658,7 +764,7 @@ const rawPortfolioData = [
       },
       {
         image:
-          "/assets/img/my_activities/Projects/villageScenerio/villageScenerio.png",
+          "/assets/img/my_activities/Projects/villageScenerio/villageScenerio.webp",
         title: "Full Scene Overview",
         body: "A wide shot of the complete village. Houses, trees, and terrain are layered from primitives with careful placement and shading so the composition reads clearly from the default camera view. The project was built to demonstrate the core Computer Graphics & Image Processing concepts — primitives, transformations, projections, and composition — in a single, self-contained C++ program.",
       },
@@ -722,17 +828,17 @@ const rawPortfolioData = [
 
     // Grid card cover + hero image
     image:
-      "/assets/img/my_activities/Projects/hand_senitiser/home.jpg",
+      "/assets/img/my_activities/Projects/hand_senitiser/home-card.webp",
 
     gallery: [
-      "/assets/img/my_activities/Projects/hand_senitiser/home.jpg",
-      "/assets/img/my_activities/Projects/hand_senitiser/showcase.jpg",
+      "/assets/img/my_activities/Projects/hand_senitiser/home.webp",
+      "/assets/img/my_activities/Projects/hand_senitiser/showcase.webp",
     ],
 
     sections: [
       {
         image:
-          "/assets/img/my_activities/Projects/hand_senitiser/showcase.jpg",
+          "/assets/img/my_activities/Projects/hand_senitiser/showcase.webp",
         title: "Touchless Dispensing with Arduino",
         body: "A complete, working embedded system built for the Microprocessors & Microcontrollers Laboratory (EEE 372). When a hand enters the detection range of the IR sensor, the Arduino reads the signal and drives a servo motor to press the sanitizer pump for a calibrated interval — then returns to its resting position. The whole circuit is assembled on a breadboard using jumper wires, with the Arduino board serving as the brain of the device.",
       },
@@ -806,23 +912,23 @@ const rawPortfolioData = [
     ],
 
     image:
-      "/assets/img/my_activities/Projects/amazon-distributors/home.pdf",
+      "/assets/img/my_activities/Projects/amazon-distributors/home-card.webp",
 
     gallery: [
-      "/assets/img/my_activities/Projects/amazon-distributors/home.pdf",
-      "/assets/img/my_activities/Projects/amazon-distributors/filter.JPG",
+      "/assets/img/my_activities/Projects/amazon-distributors/home.webp",
+      "/assets/img/my_activities/Projects/amazon-distributors/filter.webp",
     ],
 
     sections: [
       {
         image:
-          "/assets/img/my_activities/Projects/amazon-distributors/home.pdf",
+          "/assets/img/my_activities/Projects/amazon-distributors/home.webp",
         title: "From a Screenshot to a Live Directory",
         body: "The client handed me an image containing roughly 2,437 rows of Amazon wholesale distributor data — company names, websites, emails, contacts, locations, founding years, employee counts, revenue figures, and social links — and asked for a website that would let him find any distributor in seconds. There was no spreadsheet to start from. I transcribed the full dataset into a structured JSON file and built the entire React app around it — a clean, responsive directory that loads all 2,437 records directly in the browser.",
       },
       {
         image:
-          "/assets/img/my_activities/Projects/amazon-distributors/filter.JPG",
+          "/assets/img/my_activities/Projects/amazon-distributors/filter.webp",
         title: "15+ Live Filters, One Dataset",
         body: "The filter panel is the heart of the app. A global search box scans every text field at once, while dedicated filters let the user drill down by industry, country, state, city, timezone, contact availability, email presence, social presence, founded-year range, employee range, and revenue range. Quick and advanced filters stack — every keystroke narrows the result set in real time, and the visible-columns panel lets the user toggle exactly which of the 19 fields appear in the table and in the CSV / Excel export.",
       },
@@ -888,30 +994,30 @@ const rawPortfolioData = [
     ],
 
     image:
-      "/assets/img/my_activities/Projects/cse_helper/home.png",
+      "/assets/img/my_activities/Projects/cse_helper/home-card.webp",
 
     gallery: [
-      "/assets/img/my_activities/Projects/cse_helper/home.png",
-      "/assets/img/my_activities/Projects/cse_helper/topicList.png",
-      "/assets/img/my_activities/Projects/cse_helper/course.png",
+      "/assets/img/my_activities/Projects/cse_helper/home.webp",
+      "/assets/img/my_activities/Projects/cse_helper/topicList.webp",
+      "/assets/img/my_activities/Projects/cse_helper/course.webp",
     ],
 
     sections: [
       {
         image:
-          "/assets/img/my_activities/Projects/cse_helper/home.png",
+          "/assets/img/my_activities/Projects/cse_helper/home.webp",
         title: "A Daily Learning Blog, Built to Last",
         body: "CSE Helper is where I write down what I learn each day. The home view is the entry point to the blog — a clean landing surface that leads into the two content pillars: the competitive programming roadmap and the CSE core-course notes. Everything on the page is served from a MySQL database through an Express.js API and rendered by React, so new posts and topics appear without any code changes. The goal is to turn one-off study sessions into a permanent, searchable record of my CS journey.",
       },
       {
         image:
-          "/assets/img/my_activities/Projects/cse_helper/topicList.png",
+          "/assets/img/my_activities/Projects/cse_helper/topicList.webp",
         title: "Competitive Programming Roadmap & Topic Lists",
         body: "The competitive programming section is organised as a structured roadmap rather than an unordered pile of problems. Topics are broken into individual entries, each with its own notes and explanations, so the path from fundamentals upward is visible and progress is trackable. The topic list view makes it easy to jump to any specific area, revisit a concept before a contest, or see exactly what has been covered and what is still ahead.",
       },
       {
         image:
-          "/assets/img/my_activities/Projects/cse_helper/course.png",
+          "/assets/img/my_activities/Projects/cse_helper/course.webp",
         title: "CSE Core Course Notes",
         body: "Alongside competitive programming, the site hosts notes for core CSE courses — Theory of Computation, Object-Oriented Programming, and more. Each course is broken down into topics with explanations, definitions, and examples, turning dense textbook material into small, revisitable pages. Having these notes in the same system as the blog and roadmap means everything I study lives in one place, backed by MySQL and served through the same Express.js API — ready to review before exams, interviews, or whenever a concept needs a refresher.",
       },
@@ -947,6 +1053,21 @@ export const portfolioData = rawPortfolioData.map((project) => ({
         ? null
         : project.link,
 }));
+
+/**
+ * Primary action on /projects (also used by the homepage project grid).
+ * Live Site wins when both destinations are available; otherwise GitHub.
+ * The project overview still displays both destinations independently.
+ */
+export const getProjectPrimaryAction = (project) => {
+  if (project?.liveUrl) {
+    return { href: project.liveUrl, label: "Live Site", type: "live" };
+  }
+  if (project?.repoUrl) {
+    return { href: project.repoUrl, label: "Source Code", type: "repo" };
+  }
+  return null;
+};
 
 export const getProjectById = (id) =>
   portfolioData.find((project) => String(project.id) === String(id));

@@ -216,6 +216,8 @@ const ProjectDetail = ({ project, prevProject, nextProject }) => {
                       href={project.liveUrl}
                       target="_blank"
                       rel="noopener noreferrer"
+                      title="Visit the live project"
+                      aria-label={`Visit live site for ${project.title} (opens in new tab)`}
                       className="px-btn px-btn-theme"
                     >
                       <ExternalLink size={16} className="me-2" />
@@ -227,6 +229,8 @@ const ProjectDetail = ({ project, prevProject, nextProject }) => {
                       href={project.repoUrl}
                       target="_blank"
                       rel="noopener noreferrer"
+                      title="View project source code"
+                      aria-label={`View source code for ${project.title} (opens in new tab)`}
                       className="px-btn px-btn-theme2"
                     >
                       <Github size={16} className="me-2" />

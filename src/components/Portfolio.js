@@ -1,7 +1,7 @@
 'use client';
 
 import SectionTitle from "./SectionTitle";
-import { portfolioData, isPdf, isVideo } from "../data/portfolioData";
+import { portfolioData, getProjectPrimaryAction, isPdf, isVideo } from "../data/portfolioData";
 import { useMemo, useState } from "react";
 import { useRouter } from "next/router";
 import { motion } from "framer-motion";
@@ -40,6 +40,7 @@ const Portfolio = () => {
             const isWip = portfolio.status === "in_progress";
             const coverIsPdf = isPdf(portfolio.image);
             const coverIsVideo = isVideo(portfolio.image);
+            const primaryAction = getProjectPrimaryAction(portfolio);
 
             return (
               <div className="col-sm-6 col-lg-4" key={portfolio.id}>
@@ -58,7 +59,11 @@ const Portfolio = () => {
                   }}
                   onClick={() => viewDetails(portfolio.id)}
                   onKeyDown={(e) => {
-                    if (e.key === "Enter") viewDetails(portfolio.id);
+                    if (e.target !== e.currentTarget) return;
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      viewDetails(portfolio.id);
+                    }
                   }}
                 >
                   <div className="portfolio-img">
@@ -112,29 +117,26 @@ const Portfolio = () => {
                   </div>
 
                   <div className="latest-projects">
-                    {portfolio.link && (
+                    {primaryAction && (
                       <a
-                        href={portfolio.link}
+                        href={primaryAction.href}
                         target="_blank"
                         rel="noopener noreferrer"
                         onClick={(e) => e.stopPropagation()}
+                        onKeyDown={(e) => e.stopPropagation()}
                         className={`portfolio-linkbtn ${isWip ? "is-wip" : ""}`}
-                        title={portfolio.repoUrl ? "Open source code" : "Open live site"}
+                        title={primaryAction.type === "live" ? "Open live site" : "Open source code"}
+                        aria-label={`${primaryAction.label} for ${portfolio.title} (opens in new tab)`}
                       >
-                        {isWip ? (
-                          <>
-                            <i className="fas fa-flask me-1" />
-                            Preview
-                          </>
-                        ) : portfolio.repoUrl ? (
-                          <>
-                            <i className="fab fa-github me-1" />
-                            Source Code
-                          </>
-                        ) : (
+                        {primaryAction.type === "live" ? (
                           <>
                             <i className="fas fa-arrow-up-right-from-square me-1" />
                             Live Site
+                          </>
+                        ) : (
+                          <>
+                            <i className="fab fa-github me-1" />
+                            Source Code
                           </>
                         )}
                       </a>

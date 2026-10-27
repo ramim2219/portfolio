@@ -45,7 +45,7 @@ const experienceItems = [
     role: "Full Stack Software Developer", 
     org: "IFJONA LLC", 
     date: "Jan 2026 – Jun 2026", 
-    badge: "now",
+    badge: "done",
   },
 ];
 

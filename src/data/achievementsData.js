@@ -159,8 +159,8 @@ const rawCertifications = [
     fullDescription:
       "Official certificate of participation in the International Collegiate Programming Contest (ICPC) Dhaka Regional 2024.",
     highlights: ["Official ICPC participation certificate"],
-    image: "/assets/img/icpc.jpg",
-    gallery: ["/assets/img/icpc.jpg"],
+    image: "/assets/img/icpc.webp",
+    gallery: ["/assets/img/icpc.webp"],
     link: "",
   },
   {
@@ -174,8 +174,8 @@ const rawCertifications = [
     fullDescription:
       "Certificate of participation in the DUET Inter-University Programming Contest 2023.",
     highlights: ["DUET IUPC 2023 participation"],
-    image: "/assets/img/duet.jpg",
-    gallery: ["/assets/img/duet.jpg"],
+    image: "/assets/img/duet.webp",
+    gallery: ["/assets/img/duet.webp"],
     link: "",
   },
   {
@@ -189,8 +189,8 @@ const rawCertifications = [
     fullDescription:
       "Certificate of participation in the IIUC Inter-University Programming Contest 2025.",
     highlights: ["IIUC IUPC 2025 participation"],
-    image: "/assets/img/iiuc.jpg",
-    gallery: ["/assets/img/iiuc.jpg"],
+    image: "/assets/img/iiuc.webp",
+    gallery: ["/assets/img/iiuc.webp"],
     link: "",
   },
   {
@@ -204,8 +204,8 @@ const rawCertifications = [
     fullDescription:
       "Certificate of participation in the PUC Inter-University Programming Contest 2024.",
     highlights: ["PUC IUPC 2024 participation"],
-    image: "/assets/img/puc.jpg",
-    gallery: ["/assets/img/puc.jpg"],
+    image: "/assets/img/puc.webp",
+    gallery: ["/assets/img/puc.webp"],
     link: "",
   },
   {
@@ -219,8 +219,8 @@ const rawCertifications = [
     fullDescription:
       "Certificate awarded by GeeksforGeeks for coursework and problem-solving achievement.",
     highlights: ["GeeksforGeeks certification"],
-    image: "/assets/img/gfg.jpg",
-    gallery: ["/assets/img/gfg.jpg"],
+    image: "/assets/img/gfg.webp",
+    gallery: ["/assets/img/gfg.webp"],
     link: "",
   },
   {
@@ -239,8 +239,8 @@ const rawCertifications = [
       "Algorithmic complexity analysis (Big-O, master theorem)",
       "Verified Coursera certificate — UC San Diego",
     ],
-    image: "/assets/img/my_activities/Certificates/ucsd-algorithmic-toolbox.jpeg",
-    gallery: ["/assets/img/my_activities/Certificates/ucsd-algorithmic-toolbox.jpeg"],
+    image: "/assets/img/my_activities/Certificates/ucsd-algorithmic-toolbox.webp",
+    gallery: ["/assets/img/my_activities/Certificates/ucsd-algorithmic-toolbox.webp"],
     link: "https://www.coursera.org/account/accomplishments/verify/9BCDGCZJB16H",
   },
   {
@@ -259,8 +259,8 @@ const rawCertifications = [
       "Gradient descent, feature engineering, regularization",
       "Verified Coursera certificate — DeepLearning.AI & Stanford",
     ],
-    image: "/assets/img/my_activities/Certificates/stanford-supervised-ml.jpeg",
-    gallery: ["/assets/img/my_activities/Certificates/stanford-supervised-ml.jpeg"],
+    image: "/assets/img/my_activities/Certificates/stanford-supervised-ml.webp",
+    gallery: ["/assets/img/my_activities/Certificates/stanford-supervised-ml.webp"],
     link: "https://www.coursera.org/account/accomplishments/verify/I4WE19BO8AD2",
   },
 ];
