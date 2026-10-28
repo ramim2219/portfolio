@@ -6,11 +6,11 @@ const Home = () => {
   return (
     <section id="home" className="home-section">
       <div className="effect-1">
-        <img src="/assets/img/effect-1.svg" className="svg" alt="image" />
+        <img src="/assets/img/effect-1.svg" className="svg" alt="" aria-hidden="true" />
       </div>
 
       <div className="effect-2">
-        <img src="/assets/img/effect-2.svg" className="svg" alt="image" />
+        <img src="/assets/img/effect-2.svg" className="svg" alt="" aria-hidden="true" />
       </div>
 
       <div className="container">
@@ -98,7 +98,7 @@ const Home = () => {
             <div className="home-image-outer">
               <div className="home-image-wrap">
                 <div className="home-image">
-                  <img src="/assets/img/home-banner-optimized.webp" alt="Shafayet Ullah Ramim — Software Developer" fetchPriority="high" decoding="async" />
+                  <img src="/assets/img/home-banner-optimized.webp" alt="Shafayet Ullah Ramim — Software Developer" width={588} height={645} fetchPriority="high" loading="eager" decoding="async" />
                 </div>
 
                 {/* ✅ Social column — sits to the right of the image, gentle heartbeat pulse */}

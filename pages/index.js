@@ -1,3 +1,4 @@
+import Head from "next/head";
 import Contact from "@/src/components/Contact";
 import Footer from "@/src/components/Footer";
 import Header from "@/src/components/Header";
@@ -21,6 +22,7 @@ const Index = () => {
 
   return (
     <Fragment>
+      <Head><link rel="preload" as="image" href="/assets/img/home-banner-optimized.webp" /></Head>
       <SEO schemas={[PersonSchema()]} />
       <ImageView />
       {/* End */}

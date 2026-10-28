@@ -61,12 +61,14 @@ function buildGalleryRows(project) {
       : [project.image];
 
   const heroIsCover = fullGallery[0] === project.image;
-  const galleryItems =
-    heroIsCover && fullGallery.length > 1 ? fullGallery.slice(1) : fullGallery;
+  const sections = project.sections || [];
+  // If the first gallery item is a dedicated hero, don't accidentally
+  // shift the corresponding section titles/images by one row.
+  const skipHero = fullGallery.length > 1 &&
+    (heroIsCover || sections.length === fullGallery.length - 1);
+  const galleryItems = skipHero ? fullGallery.slice(1) : fullGallery;
 
   if (galleryItems.length === 0) return [];
-
-  const sections = project.sections || [];
 
   const fallbackText = [
     {
@@ -92,7 +94,7 @@ function buildGalleryRows(project) {
   ];
 
   return galleryItems.map((item, i) => {
-    const realIndex = heroIsCover && fullGallery.length > 1 ? i + 1 : i;
+    const realIndex = skipHero ? i + 1 : i;
     const section = sections[i];
     const media = section && section.image ? section.image : item;
 
@@ -132,33 +134,22 @@ const ProjectDetail = ({ project, prevProject, nextProject }) => {
 
   const rows = buildGalleryRows(project);
   const posterUrl = findPoster(project);
-
-  const heroIsPdf = isPdf(project.image);
-  const heroIsVideo = isVideo(project.image);
+  // Grid `image` is a small thumbnail. Detail hero uses full gallery media.
+  // If the first gallery item is a video, retain the original static poster
+  // in the hero; the playable clip stays in the gallery/lightbox.
+  const galleryHero = project.gallery?.[0];
+  const heroMedia = isVideo(galleryHero) && !isVideo(project.image)
+    ? project.image
+    : (galleryHero || project.image);
+  const heroIsPdf = isPdf(heroMedia);
+  const heroIsVideo = isVideo(heroMedia);
 
   const lightboxMedia =
     lightboxIndex !== null ? project.gallery[lightboxIndex] : null;
   const lightboxIsPdf = lightboxMedia ? isPdf(lightboxMedia) : false;
   const lightboxIsVideo = lightboxMedia ? isVideo(lightboxMedia) : false;
 
-  // Silently prefetch every PDF in the gallery so the lightbox opens instantly.
-  useEffect(() => {
-    if (typeof document === "undefined") return;
-    const pdfUrls = Array.from(
-      new Set([project.image, ...project.gallery].filter((u) => isPdf(u)))
-    );
-    const links = pdfUrls.map((href) => {
-      const link = document.createElement("link");
-      link.rel = "prefetch";
-      link.as = "document";
-      link.href = href;
-      document.head.appendChild(link);
-      return link;
-    });
-    return () => {
-      links.forEach((l) => l.parentNode && l.parentNode.removeChild(l));
-    };
-  }, [project.image, project.gallery]);
+  // Do not prefetch PDF assets: they can be very large and are loaded on demand.
 
   // Keyboard controls: Esc closes, ←/→ navigate.
   useEffect(() => {
@@ -245,14 +236,14 @@ const ProjectDetail = ({ project, prevProject, nextProject }) => {
                 {heroIsVideo ? (
                   <div className="project-hero-image is-video">
                     <video
-                      src={project.image}
+                      src={heroMedia}
                       poster={posterUrl}
                       controls
                       autoPlay
                       muted
                       loop
                       playsInline
-                      preload="metadata"
+                      preload="none"
                     />
                   </div>
                 ) : heroIsPdf ? (
@@ -263,7 +254,7 @@ const ProjectDetail = ({ project, prevProject, nextProject }) => {
                     aria-label="Open PDF preview"
                   >
                     <iframe
-                      src={project.image}
+                      src={heroMedia}
                       title={project.title}
                       loading="lazy"
                     />
@@ -282,7 +273,7 @@ const ProjectDetail = ({ project, prevProject, nextProject }) => {
                     onClick={() => setLightboxIndex(0)}
                     aria-label="Open main screenshot"
                   >
-                    <img src={project.image} alt={project.title} />
+                    <img src={heroMedia} alt={project.title} loading="eager" fetchPriority="high" decoding="async" />
                     <span className="img-zoom-badge">
                       <ZoomIn size={16} />
                     </span>
@@ -479,7 +470,7 @@ const ProjectDetail = ({ project, prevProject, nextProject }) => {
                             poster={posterUrl}
                             controls
                             playsInline
-                            preload="metadata"
+                            preload="none"
                           />
                         </div>
                       ) : rowIsPdf ? (

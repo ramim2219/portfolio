@@ -17,7 +17,7 @@ export const leadershipData = [
       "Trained junior students of the PUC CSE Club in competitive programming — from their first line of C++ to representing the university at regional IUPC and ICPC contests.",
     fullDescription:
       "As the Competitive Programming Trainer at PUC CSE Club, I designed and ran a structured training program that took students from programming basics to contest-level problem solving. I built the syllabus myself, curated practice problems, ran live solving sessions, and mentored teams preparing for inter-university contests.",
-    image: "/assets/img/cpp-trainer.jpeg",
+    image: "/assets/img/my_activities/Trainer_award/award.webp",
     // Info sidebar
     roleInfo: [
       { label: "Duration", value: "14 months" },

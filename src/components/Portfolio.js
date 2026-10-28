@@ -94,7 +94,7 @@ const Portfolio = () => {
                         loading="lazy"
                       />
                     ) : (
-                      <img src={portfolio.image} alt={portfolio.title} loading="lazy" decoding="async" />
+                      <img src={portfolio.image} alt={portfolio.title} loading={router.pathname === "/projects" && index < 3 ? "eager" : "lazy"} fetchPriority={router.pathname === "/projects" && index === 0 ? "high" : "auto"} decoding="async" />
                     )}
 
                     {/* Hover affordance hinting the card is clickable */}
@@ -157,6 +157,7 @@ const Portfolio = () => {
                   className="page-link"
                   onClick={() => goTo(currentPage - 1)}
                   disabled={currentPage === 1}
+                  aria-label="Previous projects page"
                 >
                   <i className="fas fa-chevron-left" />
                 </button>
@@ -167,7 +168,7 @@ const Portfolio = () => {
                   key={n}
                   className={`page-item ${currentPage === n ? "active" : ""}`}
                 >
-                  <button className="page-link" onClick={() => goTo(n)}>
+                  <button className="page-link" onClick={() => goTo(n)} aria-label={`Go to projects page ${n}`} aria-current={currentPage === n ? "page" : undefined}>
                     {n}
                   </button>
                 </li>
@@ -180,6 +181,7 @@ const Portfolio = () => {
                   className="page-link"
                   onClick={() => goTo(currentPage + 1)}
                   disabled={currentPage === totalPages}
+                  aria-label="Next projects page"
                 >
                   <i className="fas fa-chevron-right" />
                 </button>

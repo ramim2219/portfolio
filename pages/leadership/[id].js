@@ -70,7 +70,7 @@ const LeadershipDetail = ({ role }) => {
               <div className="col-lg-6">
                 <div className="award-photo-wrap">
                   <img
-                    src="/assets/img/my_activities/Trainer_award/award.jpeg"
+                    src="/assets/img/my_activities/Trainer_award/award.webp"
                     alt={`${role.title} — receiving award from Kingshuk Dhar`}
                   />
 

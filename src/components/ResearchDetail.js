@@ -99,7 +99,7 @@ const THESIS_GALLERY = [
       "The printed and bound copy of the thesis, submitted to the Department of CSE for final approval.",
   },
   {
-    src: "/assets/img/my_activities/thesis/thesis-4.pdf",
+    src: "/assets/img/my_activities/Projects/Ifjona/Admin Page Functionalities/Review MAnagement.webp",
     caption: "Real-Time Deployment",
     description:
       "The thesis model integrated into a live e-commerce admin panel — automatically detecting negative complaint issues from incoming customer reviews in real time.",

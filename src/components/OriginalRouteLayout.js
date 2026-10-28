@@ -9,7 +9,7 @@ export function PersonSchema() {
   return {
     "@context": "https://schema.org", "@type": "Person", name: site.name,
     url: site.origin, jobTitle: site.role,
-    image: `${site.origin}/assets/img/home-banner.png`,
+    image: `${site.origin}/assets/img/home-banner-optimized.webp`,
     address: { "@type": "PostalAddress", addressLocality: "Chattogram", addressCountry: "BD" },
     sameAs: Object.values(site.socials),
     knowsAbout: ["React.js", "Next.js", "Laravel", "ASP.NET", "MySQL", "Flutter", "Full-stack development"]

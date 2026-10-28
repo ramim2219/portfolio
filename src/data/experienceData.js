@@ -12,15 +12,15 @@ export const experienceData = [
     subtitle: "Premier University, Chittagong · Dec 2025 – Oct 2026",
     org: "Premier University, Chittagong",
     period: "Dec 2025 – Oct 2026",
-    status: "Current",
-    tag: "Current Role",
+    status: "Completed",
+    tag: "Completed",
     description:
       "Front-end developer on a 6-member team (5 frontend · 1 SQA) building admin-facing panels with React.js against APIs delivered by the senior engineering team. Shipped 50+ production reports and 9+ management panels now in active university use.",
     fullDescription:
       "As a Software Developer Trainee at Premier University, Chittagong, I work on the university's internal admin systems — the platform used by teachers, admins, accountants, and office staff for day-to-day academic and administrative operations. I sit on a 6-person team (5 frontend developers and 1 SQA engineer) and report to a senior engineering lead who designs the backend APIs. My work spans building management panels in React.js, designing production-grade PDF reports, and — in two cases — building the backend APIs myself in ASP.NET after being entrusted to own those modules end-to-end.",
     image: "/assets/img/puc.png",
     roleInfo: [
-      { label: "Duration", value: "Ongoing" },
+      { label: "Duration", value: "Dec 2025 – Oct 2026" },
       { label: "Type", value: "Traineeship" },
       { label: "Team", value: "6 members (5 FE · 1 SQA)" },
       { label: "Location", value: "Chittagong, BD" },
@@ -126,47 +126,47 @@ export const experienceData = [
     ],
     gallery: [
       {
-        src: "/assets/img/my_activities/Projects/Ifjona/Ifjona/home.pdf",
+        src: "/assets/img/my_activities/Projects/Ifjona/Ifjona/home.webp",
         caption: "Homepage",
       },
       {
-        src: "/assets/img/my_activities/Projects/Ifjona/Admin Page Functionalities/Dashboard.pdf",
+        src: "/assets/img/my_activities/Projects/Ifjona/Admin Page Functionalities/Dashboard.webp",
         caption: "Admin Dashboard Overview",
       },
       {
-        src: "/assets/img/my_activities/Projects/Ifjona/Admin Page Functionalities/adding products.pdf",
+        src: "/assets/img/my_activities/Projects/Ifjona/Admin Page Functionalities/adding products.webp",
         caption: "Product Management",
       },
       {
-        src: "/assets/img/my_activities/Projects/Ifjona/Admin Page Functionalities/order managemnt.pdf",
+        src: "/assets/img/my_activities/Projects/Ifjona/Admin Page Functionalities/order managemnt.webp",
         caption: "Order & Shipment Management",
       },
       {
-        src: "/assets/img/my_activities/Projects/Ifjona/Admin Page Functionalities/Review MAnagement.pdf",
+        src: "/assets/img/my_activities/Projects/Ifjona/Admin Page Functionalities/Review MAnagement.webp",
         caption: "Thesis Feature — Review Management",
       },
       {
-        src: "/assets/img/my_activities/Projects/Ifjona/Admin Page Functionalities/coupon management.pdf",
+        src: "/assets/img/my_activities/Projects/Ifjona/Admin Page Functionalities/coupon management.webp",
         caption: "Coupons, Offers & Promotions",
       },
       {
-        src: "/assets/img/my_activities/Projects/Ifjona/Admin Page Functionalities/tax report generator.pdf",
+        src: "/assets/img/my_activities/Projects/Ifjona/Admin Page Functionalities/tax report generator.webp",
         caption: "Tax Reports & Compliance",
       },
       {
-        src: "/assets/img/my_activities/Projects/Ifjona/Ifjona/shop_page.pdf",
+        src: "/assets/img/my_activities/Projects/Ifjona/Ifjona/shop_page.webp",
         caption: "Customer-Facing Storefront",
       },
       {
-        src: "/assets/img/my_activities/Projects/Ifjona/Ifjona/checkout.pdf",
+        src: "/assets/img/my_activities/Projects/Ifjona/Ifjona/checkout.webp",
         caption: "Secure Checkout",
       },
       {
-        src: "/assets/img/my_activities/Projects/Ifjona/Ifjona/order_tracking.pdf",
+        src: "/assets/img/my_activities/Projects/Ifjona/Ifjona/order_tracking.webp",
         caption: "Real-Time Order Tracking",
       },
       {
-        src: "/assets/img/my_activities/Projects/Ifjona/Ifjona/live chat.pdf",
+        src: "/assets/img/my_activities/Projects/Ifjona/Ifjona/live chat.webp",
         caption: "Live Chat Support",
       },
     ],

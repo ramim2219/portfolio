@@ -1,0 +1,1161 @@
+@import "swiper/css";
+@import "swiper/css/navigation";
+@import "swiper/css/pagination";
+@import "swiper/css/scrollbar";
+
+/* ============================================================
+   THEME VARIABLES
+   Dark is the default. Light overrides via [data-theme="light"].
+   ============================================================ */
+:root,
+[data-theme="dark"] {
+  /* Backgrounds — layered for depth */
+  --bg: #0a0a0b;              /* page background — near black, slightly cool */
+  --bg-soft: #121214;         /* section backgrounds, chat area */
+  --bg-elevated: #1a1a1d;     /* cards sitting on bg-soft */
+  --card-bg: #16161a;         /* default card background */
+
+  /* Text — three tiers of contrast */
+  --text: #f2f2f4;            /* headings, primary text */
+  --text-soft: #b8b8c0;       /* body, descriptions */
+  --text-muted: #7a7a85;      /* timestamps, meta, hints */
+
+  /* Borders — subtle, never harsh white */
+  --border: rgba(255, 255, 255, 0.08);
+  --border-soft: rgba(255, 255, 255, 0.05);
+
+  /* Header */
+  --header-bg: rgba(10, 10, 11, 0.85);
+
+  /* Accents — slightly desaturated for dark bg comfort */
+  --accent: #60a5fa;          /* softer blue, easier on eyes than #3b82f6 */
+  --accent-soft: rgba(96, 165, 250, 0.12);
+  --success: #34d399;         /* mint green */
+  --warning: #fbbf24;         /* amber */
+
+  /* Shadows — stronger in dark mode so cards pop */
+  --shadow-sm: 0 4px 20px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 12px 32px rgba(0, 0, 0, 0.65);
+
+  /* Extra tokens for gradients that appear on cards */
+  --gradient-accent: linear-gradient(135deg, #60a5fa, #a78bfa);
+}
+
+[data-theme="light"] {
+  --bg: #ffffff;
+  --bg-soft: #f8fafc;
+  --bg-elevated: #ffffff;
+  --card-bg: #ffffff;
+
+  --text: #0f172a;
+  --text-soft: #475569;
+  --text-muted: #94a3b8;
+
+  --border: rgba(0, 0, 0, 0.1);
+  --border-soft: rgba(0, 0, 0, 0.06);
+
+  --header-bg: rgba(255, 255, 255, 0.85);
+
+  --accent: #3b82f6;
+  --accent-soft: rgba(59, 130, 246, 0.1);
+  --success: #10b981;
+  --warning: #d97706;
+
+  --shadow-sm: 0 4px 20px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 12px 32px rgba(0, 0, 0, 0.1);
+
+  --gradient-accent: linear-gradient(135deg, #3b82f6, #8b5cf6);
+}
+
+/* Smooth theme transitions on major surfaces */
+body,
+.main-header,
+.about-card,
+.achievement-card,
+.edu-card,
+.research-card,
+.portfolio-box,
+.feature-box-01 {
+  transition: background-color 0.3s ease, color 0.3s ease,
+    border-color 0.3s ease;
+}
+
+html {
+  scroll-padding-top: 90px;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* ============================================================
+   THEME-AWARE OVERRIDES
+   These re-color the template's hard-coded light colors when
+   data-theme="light" is active. Dark mode values are the default.
+   ============================================================ */
+
+/* Global text */
+[data-theme="dark"] body {
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* Headings that use #1e293b / #111 */
+[data-theme="dark"] h1,
+[data-theme="dark"] h2,
+[data-theme="dark"] h3,
+[data-theme="dark"] h4,
+[data-theme="dark"] h5,
+[data-theme="dark"] h6 {
+  color: var(--text);
+}
+
+/* Paragraph text using #555 / #475569 / #64748b */
+[data-theme="dark"] p,
+[data-theme="dark"] .about-content p,
+[data-theme="dark"] .about-intro p,
+[data-theme="dark"] .role-header h6,
+[data-theme="dark"] .rank,
+[data-theme="dark"] .contest-item span {
+  color: var(--text-soft);
+}
+
+/* ---- Education Timeline ---- */
+[data-theme="dark"] .edu-dot {
+  background: var(--bg);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px var(--accent-soft),
+    0 4px 12px rgba(59, 130, 246, 0.2);
+}
+
+[data-theme="dark"] .edu-card {
+  background: var(--card-bg);
+  border-color: var(--border);
+  box-shadow: var(--shadow-sm);
+}
+
+[data-theme="dark"] .edu-card:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: var(--shadow-md);
+}
+
+[data-theme="dark"] .edu-card h5 {
+  color: var(--text);
+}
+
+[data-theme="dark"] .edu-period {
+  color: var(--text-soft);
+  background: var(--bg-elevated);
+}
+
+[data-theme="dark"] .edu-icon {
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+
+[data-theme="dark"] .edu-institution {
+  color: var(--text-soft);
+  background: var(--bg-elevated);
+}
+
+/* ---- About Section ---- */
+[data-theme="dark"] .about-card {
+  background: var(--card-bg);
+  border-color: var(--border);
+  box-shadow: var(--shadow-sm);
+}
+
+[data-theme="dark"] .about-header h3 {
+  color: var(--text);
+}
+
+[data-theme="dark"] .contact-item {
+  color: var(--text-soft);
+}
+
+[data-theme="dark"] .contact-item svg {
+  color: var(--accent);
+}
+
+[data-theme="dark"] .about-contact {
+  border-top-color: var(--border-soft);
+  border-bottom-color: var(--border-soft);
+}
+
+[data-theme="dark"] .skills-summary h6 {
+  color: var(--text);
+}
+
+[data-theme="dark"] .skill-tags span {
+  background: var(--bg-elevated);
+  color: var(--text-soft);
+}
+
+[data-theme="dark"] .about-intro {
+  background: var(--card-bg);
+  border-left-color: var(--accent);
+}
+
+[data-theme="dark"] .achievement-card {
+  background: var(--card-bg);
+  border-color: var(--border);
+  box-shadow: var(--shadow-sm);
+}
+
+[data-theme="dark"] .achievement-header h5 {
+  color: var(--text);
+}
+
+[data-theme="dark"] .achievement-header svg {
+  color: var(--accent);
+}
+
+[data-theme="dark"] .achievement-item {
+  background: var(--bg-elevated);
+  border-color: var(--border-soft);
+}
+
+[data-theme="dark"] .platform-name {
+  color: var(--text);
+}
+
+[data-theme="dark"] .achievement-stats {
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+
+[data-theme="dark"] .contest-item {
+  border-bottom-color: var(--border-soft);
+}
+
+[data-theme="dark"] .contest-item strong {
+  color: var(--text);
+}
+
+[data-theme="dark"] .role-header h5 {
+  color: var(--text);
+}
+
+/* ---- Research Section ---- */
+[data-theme="dark"] .research-card {
+  background: var(--card-bg);
+  border-color: var(--border);
+}
+
+[data-theme="dark"] .research-tags span {
+  background: var(--bg-elevated);
+  color: var(--text-soft);
+}
+
+[data-theme="dark"] .badge-progress {
+  background: rgba(217, 119, 6, 0.15);
+  color: #fbbf24;
+}
+
+[data-theme="dark"] .badge-soon {
+  background: rgba(79, 70, 229, 0.15);
+  color: #a5b4fc;
+}
+
+/* ---- Header ---- */
+[data-theme="dark"] .main-header {
+  background: var(--header-bg);
+  border-bottom: 1px solid var(--border-soft);
+  backdrop-filter: blur(10px);
+}
+
+[data-theme="dark"] .nav-link {
+  color: var(--text-soft);
+}
+
+[data-theme="dark"] .nav-link.active,
+[data-theme="dark"] .nav-link:hover {
+  color: var(--text);
+}
+
+/* ---- Theme Toggle Button ---- */
+.theme-toggle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+  font-size: 15px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.25s ease,
+    border-color 0.2s ease;
+}
+
+.theme-toggle:hover {
+  background: var(--text);
+  color: var(--bg);
+  transform: rotate(15deg);
+  border-color: var(--text);
+}
+
+@media (max-width: 991px) {
+  .theme-toggle {
+    width: 46px;
+    height: 46px;
+    font-size: 17px;
+  }
+}
+
+/* ============================================================
+   ORIGINAL STYLES (unchanged)
+   ============================================================ */
+
+/* image popup */
+img.mfp-img {
+  box-shadow: 0 0 8px rgb(0 0 0 / 60%);
+  position: absolute;
+  padding: 0 !important;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.mfp-img-container .mfp-content {
+}
+.mfp-img-container .mfp-close {
+  top: -110px;
+  right: -24px;
+}
+
+.contact-form .form-group .form-control.invalid {
+  border-color: #ff0000;
+}
+
+.about-content h5 {
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.about-content p {
+  font-size: 15px;
+  line-height: 1.8;
+  color: #555;
+}
+
+.about-image img {
+  max-width: 100%;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+/* Global: stop horizontal scroll */
+html,
+body {
+  overflow-x: hidden;
+}
+
+/* Make sure the home section never overflows */
+.home-section {
+  overflow-x: hidden;
+}
+
+/* Ensure images can't exceed container */
+.home-image img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Your decorative effects are common overflow cause */
+.effect-1,
+.effect-2 {
+  max-width: 100%;
+  overflow: hidden;
+}
+
+/* Mobile tweaks */
+@media (max-width: 991px) {
+  .home-section .row {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .home-title {
+    font-size: 34px;
+    line-height: 1.2;
+    word-break: break-word;
+  }
+
+  .effect-1,
+  .effect-2 {
+    left: 0 !important;
+    right: 0 !important;
+  }
+}
+
+/* ===== Education Timeline - Professional Version ===== */
+.education-section {
+  position: relative;
+  padding-top: 90px;
+  padding-bottom: 80px;
+}
+
+.edu-timeline-wrap {
+  position: relative;
+}
+
+.edu-timeline-line {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  transform: translateX(-50%);
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    #3b82f6 10%,
+    #3b82f6 90%,
+    transparent 100%
+  );
+}
+
+.edu-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 120px;
+}
+
+.edu-item.left {
+  justify-content: flex-start;
+  padding-right: calc(50% + 40px);
+}
+
+.edu-item.right {
+  justify-content: flex-end;
+  padding-left: calc(50% + 40px);
+}
+
+.edu-dot {
+  position: absolute;
+  left: 50%;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  transform: translateX(-50%);
+  background: white;
+  border: 3px solid #3b82f6;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1),
+    0 4px 12px rgba(59, 130, 246, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.dot-inner {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #3b82f6;
+}
+
+.edu-card {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 18px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.05);
+  max-width: 520px;
+  width: 100%;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.edu-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(to bottom, #3b82f6, #8b5cf6);
+  border-radius: 4px 0 0 4px;
+}
+
+.edu-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1), 0 2px 6px rgba(0, 0, 0, 0.08);
+  border-color: #cbd5e1;
+}
+
+.edu-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.edu-period {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: #64748b;
+  background: #f1f5f9;
+  padding: 0px 2px;
+  border-radius: 20px;
+  text-transform: uppercase;
+}
+
+.edu-icon {
+  color: #3b82f6;
+  background: #eff6ff;
+  padding: 0px 2px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.edu-card h5 {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0px;
+  color: #1e293b;
+}
+
+.edu-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.edu-institution {
+  font-size: 14px;
+  font-weight: 600;
+  color: #475569;
+  background: #f8fafc;
+  border-radius: 6px;
+}
+
+.edu-grade {
+  font-size: 13px;
+  font-weight: 700;
+  color: #10b981;
+  background: rgba(16, 185, 129, 0.1);
+  border-radius: 6px;
+}
+
+/* Make service cards equal height */
+.feature-box-01 {
+  display: flex;
+  height: 100%;
+}
+
+.feature-box-01 .feature-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.feature-box-01 .icon {
+  margin-top: auto;
+}
+
+/* ===== Mobile Responsive ===== */
+@media (max-width: 991px) {
+  .edu-timeline-line {
+    left: 24px;
+    transform: none;
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      #3b82f6 5%,
+      #3b82f6 95%,
+      transparent 100%
+    );
+  }
+
+  .edu-item.left,
+  .edu-item.right {
+    padding: 0 0 0 56px;
+    justify-content: flex-start;
+    margin: 30px 0;
+  }
+
+  .edu-dot {
+    left: 24px;
+    transform: none;
+  }
+
+  .edu-card {
+    max-width: 100%;
+  }
+
+  .edu-card::before {
+    width: 3px;
+  }
+
+  .edu-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+}
+
+@media (max-width: 576px) {
+  .edu-card {
+    padding: 20px;
+  }
+
+  .edu-card h5 {
+    font-size: 16px;
+  }
+
+  .edu-header {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .edu-icon {
+    align-self: flex-start;
+  }
+}
+
+/* Mobile */
+@media (max-width: 576px) {
+  .navbar-logo {
+    width: 50px;
+  }
+}
+
+/* ===== About Section - Professional Design ===== */
+.about-section {
+  padding: 80px 0;
+}
+
+.about-card {
+  background: white;
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e2e8f0;
+  height: 100%;
+}
+
+.about-header h3 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #1e293b;
+  line-height: 1.3;
+  margin-bottom: 15px;
+}
+
+.about-tagline {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  color: white;
+  padding: 10px 16px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.about-tagline svg {
+  opacity: 0.9;
+}
+
+.about-contact {
+  margin: 25px 0;
+  padding: 20px 0;
+  border-top: 1px solid #f1f5f9;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+  font-size: 14px;
+  color: #475569;
+}
+
+.contact-item:last-child {
+  margin-bottom: 0;
+}
+
+.contact-item svg {
+  color: #3b82f6;
+  width: 18px;
+}
+
+.skills-summary {
+  margin-top: 25px;
+}
+
+.skills-summary h6 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 15px;
+}
+
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.skill-tags span {
+  background: #f1f5f9;
+  color: #475569;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12.5px;
+  font-weight: 500;
+}
+
+.about-intro {
+  background: white;
+  border-radius: 12px;
+  padding: 25px;
+  margin-bottom: 25px;
+  border-left: 4px solid #3b82f6;
+}
+
+.about-intro p {
+  font-size: 15.5px;
+  line-height: 1.7;
+  color: #475569;
+  margin: 0;
+}
+
+.achievement-card {
+  background: white;
+  border-radius: 14px;
+  padding: 24px;
+  margin-bottom: 20px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.03);
+}
+
+.achievement-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.achievement-header h5 {
+  font-size: 17px;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0;
+}
+
+.achievement-header svg {
+  color: #3b82f6;
+}
+
+.achievement-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.achievement-item {
+  background: #f8fafc;
+  border-radius: 10px;
+  padding: 16px;
+  border: 1px solid #e2e8f0;
+}
+
+.platform {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.platform-name {
+  font-weight: 700;
+  color: #1e293b;
+  font-size: 15px;
+}
+
+.rating {
+  background: linear-gradient(135deg, #10b981, #3b82f6);
+  color: white;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.rank {
+  font-size: 13px;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.achievement-stats {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #3b82f6;
+  font-weight: 500;
+  background: rgba(59, 130, 246, 0.08);
+  padding: 10px 14px;
+  border-radius: 8px;
+}
+
+.contest-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.contest-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.contest-item:last-child {
+  border-bottom: none;
+}
+
+.contest-item svg {
+  color: #f59e0b;
+  margin-top: 2px;
+}
+
+.contest-item div {
+  flex: 1;
+}
+
+.contest-item strong {
+  display: block;
+  font-size: 14px;
+  color: #1e293b;
+  margin-bottom: 4px;
+}
+
+.contest-item span {
+  font-size: 13px;
+  color: #64748b;
+}
+
+.role-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.role-header h6 {
+  font-size: 13px;
+  color: #64748b;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0;
+}
+
+.role-header h5 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 2px 0 0;
+}
+
+.role-header svg {
+  color: #10b981;
+}
+
+/* Responsive Design */
+@media (max-width: 991px) {
+  .about-section {
+    padding: 60px 0;
+  }
+
+  .about-card {
+    margin-bottom: 30px;
+  }
+
+  .achievement-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 576px) {
+  .about-card,
+  .achievement-card,
+  .tech-stack {
+    padding: 20px;
+  }
+
+  .about-header h3 {
+    font-size: 20px;
+  }
+
+  .tech-tags {
+    gap: 8px;
+  }
+
+  .tech-tags span {
+    padding: 5px 12px;
+    font-size: 12px;
+  }
+}
+
+.research-card {
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 16px;
+  padding: 24px 28px;
+  margin-bottom: 20px;
+  background: #fff;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.research-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.06);
+}
+.research-card.muted {
+  opacity: 0.85;
+}
+
+.badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+.badge-progress {
+  background: #fff4e6;
+  color: #d97706;
+}
+.badge-soon {
+  background: #eef2ff;
+  color: #4f46e5;
+}
+
+.research-tags span {
+  display: inline-block;
+  padding: 4px 10px;
+  margin: 4px 6px 0 0;
+  font-size: 12px;
+  border-radius: 6px;
+  background: #f3f4f6;
+  color: #374151;
+}
+
+/* ============================================================
+   DARK MODE FIXES — detail pages, research, about, skills
+   These components set colors inside <style jsx> blocks, which
+   win over the generic tag-based dark-mode rules above due to
+   CSS specificity. Re-assert the theme variables with !important
+   so text and backgrounds stay visible in night mode.
+   ============================================================ */
+
+/* Section wrapper reused across many pages */
+[data-theme="dark"] .bg-gray {
+  background: var(--bg-soft) !important;
+}
+
+/* ---- Headings / emphasized text ---- */
+[data-theme="dark"] .project-title,
+[data-theme="dark"] .achievement-title,
+[data-theme="dark"] .hero-title,
+[data-theme="dark"] .project-section-heading,
+[data-theme="dark"] .achievement-section-heading,
+[data-theme="dark"] .alt-title,
+[data-theme="dark"] .project-info-card h5,
+[data-theme="dark"] .project-tech-card h5,
+[data-theme="dark"] .achievement-info-card h5,
+[data-theme="dark"] .project-info-list li strong,
+[data-theme="dark"] .achievement-info-list li strong,
+[data-theme="dark"] .block-head h2,
+[data-theme="dark"] .sub-head,
+[data-theme="dark"] .category-card h4,
+[data-theme="dark"] .models-table th,
+[data-theme="dark"] .models-table .num,
+[data-theme="dark"] .stack-card h4,
+[data-theme="dark"] .thesis-gallery-title,
+[data-theme="dark"] .highlight-label,
+[data-theme="dark"] .publication-cta h3,
+[data-theme="dark"] .skill-box h3,
+[data-theme="dark"] .experience-box h3,
+[data-theme="dark"] .exp-role,
+[data-theme="dark"] .exp-hi-role,
+[data-theme="dark"] .gallery-title,
+[data-theme="dark"] .contest-badge {
+  color: var(--text) !important;
+}
+
+/* ---- Body copy / descriptions ---- */
+[data-theme="dark"] .project-lead,
+[data-theme="dark"] .achievement-lead,
+[data-theme="dark"] .project-full-desc,
+[data-theme="dark"] .achievement-full-desc,
+[data-theme="dark"] .challenge-row p,
+[data-theme="dark"] .alt-body,
+[data-theme="dark"] .project-features li,
+[data-theme="dark"] .achievement-highlights li,
+[data-theme="dark"] .hero-meta-chip,
+[data-theme="dark"] .hero-meta,
+[data-theme="dark"] .hero-authors,
+[data-theme="dark"] .block-lead,
+[data-theme="dark"] .abstract-text,
+[data-theme="dark"] .objectives-list li,
+[data-theme="dark"] .models-table td,
+[data-theme="dark"] .publication-cta p,
+[data-theme="dark"] .research-desc,
+[data-theme="dark"] .skill-name,
+[data-theme="dark"] .exp-summary,
+[data-theme="dark"] .exp-contributions li,
+[data-theme="dark"] .exp-hi-org,
+[data-theme="dark"] .gallery-subtitle {
+  color: var(--text-soft) !important;
+}
+
+/* ---- Meta / muted text ---- */
+[data-theme="dark"] .project-info-list li span,
+[data-theme="dark"] .achievement-info-list li span,
+[data-theme="dark"] .exp-hi-date,
+[data-theme="dark"] .exp-hi-sep,
+[data-theme="dark"] .gallery-counter-sep,
+[data-theme="dark"] .gallery-counter-total,
+[data-theme="dark"] .contest-gallery-note,
+[data-theme="dark"] .fact-label,
+[data-theme="dark"] .category-card p,
+[data-theme="dark"] .stack-card p,
+[data-theme="dark"] .thesis-gallery-desc,
+[data-theme="dark"] .exp-company {
+  color: var(--text-muted) !important;
+}
+
+/* ---- Card / panel surfaces ---- */
+[data-theme="dark"] .project-features li,
+[data-theme="dark"] .achievement-highlights li,
+[data-theme="dark"] .challenge-card,
+[data-theme="dark"] .project-info-card,
+[data-theme="dark"] .project-tech-card,
+[data-theme="dark"] .achievement-info-card,
+[data-theme="dark"] .highlight-card,
+[data-theme="dark"] .dataset-fact,
+[data-theme="dark"] .category-card,
+[data-theme="dark"] .stack-card,
+[data-theme="dark"] .thesis-gallery-item,
+[data-theme="dark"] .publication-cta,
+[data-theme="dark"] .skill-chip {
+  background: var(--card-bg) !important;
+  border-color: var(--border) !important;
+}
+
+/* ---- Inset placeholders / chips ---- */
+[data-theme="dark"] .project-hero-image,
+[data-theme="dark"] .gallery-image-card,
+[data-theme="dark"] .achievement-gallery-item,
+[data-theme="dark"] .award-photo-wrap,
+[data-theme="dark"] .hero-meta-chip,
+[data-theme="dark"] .thesis-gallery-image-btn,
+[data-theme="dark"] .models-table th {
+  background: var(--bg-elevated) !important;
+  border-color: var(--border) !important;
+}
+
+/* ---- Dividers ---- */
+[data-theme="dark"] .gallery-alt-row,
+[data-theme="dark"] .table-wrap {
+  border-color: var(--border) !important;
+}
+[data-theme="dark"] .models-table td {
+  border-color: var(--border-soft) !important;
+}
+[data-theme="dark"] .exp-line {
+  background: var(--border) !important;
+}
+
+/* ---- Page-level background (Research page had a hardcoded white body) ---- */
+[data-theme="dark"] .research-page {
+  background: var(--bg) !important;
+  color: var(--text) !important;
+}
+
+/* Best-model row: tint with the accent instead of a light gradient */
+[data-theme="dark"] .best-row {
+  background: var(--accent-soft) !important;
+}
+
+/* Small outlined link buttons that default to solid black */
+[data-theme="dark"] .profile-btn {
+  color: var(--text) !important;
+  border-color: var(--border) !important;
+}
+[data-theme="dark"] .profile-btn:hover {
+  background: var(--text) !important;
+  color: var(--bg) !important;
+}
+
+
+/* ============================================================
+   DARK MODE FIXES — header / navbar
+   Template CSS (assets/css/style.css) hardcodes nav colors for a
+   permanently light header, so these need !important to win.
+   ============================================================ */
+
+[data-theme="dark"] .main-header,
+[data-theme="dark"] .main-header.is-scrolled {
+  background: var(--header-bg) !important;
+}
+
+/* Mobile dropdown panel — template gives it its own white background */
+[data-theme="dark"] .navbar-collapse {
+  background: var(--header-bg) !important;
+}
+
+/* Nav links */
+[data-theme="dark"] .main-header .nav-link,
+[data-theme="dark"] .main-header .navbar-nav .nav-link {
+  color: var(--text-soft) !important;
+}
+[data-theme="dark"] .main-header .nav-link:hover,
+[data-theme="dark"] .main-header .nav-link.active {
+  color: var(--text) !important;
+}
+
+/* Hamburger toggler — the three <span> bars */
+[data-theme="dark"] .navbar-toggler {
+  border-color: var(--border) !important;
+}
+[data-theme="dark"] .navbar-toggler span,
+[data-theme="dark"] .navbar-toggler-icon {
+  background-color: var(--text) !important;
+}
+
+/* Logo — give it a light chip so dark strokes in the image never
+   blend into the dark header background */
+[data-theme="dark"] .navbar-logo {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 4px 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+}
+/* Isolated route support: original home layout is unchanged. */
+.original-route-page { padding-top: 90px; min-height: 80vh; }
+.original-route-page > section:first-child { scroll-margin-top: 90px; }
+@media (max-width: 767px) { .original-route-page { padding-top: 76px; } }

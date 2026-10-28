@@ -301,7 +301,12 @@ const GallerySlider = (props) => {
                 className={"slide" + (i === current ? " active" : "")}
                 onClick={() => handleSlideClick(img, i)}
               >
-                <img src={img.src} alt={img.caption} loading="lazy" decoding="async" />
+                <img
+                  src={i === current || i === (current + 1) % total || i === (current - 1 + total) % total ? (img.thumbnail || img.src) : undefined}
+                  alt={img.caption}
+                  loading="lazy"
+                  decoding="async"
+                />
 
                 {/* Hover hint */}
                 <div className="slide-zoom-hint">
@@ -394,7 +399,7 @@ const GallerySlider = (props) => {
 
       {lightbox !== null && (
         <div className="lightbox-overlay" onClick={() => setLightbox(null)}>
-          <button className="lightbox-close" onClick={() => setLightbox(null)}>
+          <button className="lightbox-close" onClick={() => setLightbox(null)} aria-label="Close photo preview">
             <X size={20} />
           </button>
           <div className="lightbox-content" onClick={(e) => e.stopPropagation()}>
@@ -405,7 +410,7 @@ const GallerySlider = (props) => {
               <ChevronLeft size={26} />
             </button>
             <div className="lightbox-img-wrap">
-              <img src={images[lightbox].src} alt={images[lightbox].caption} />
+              <img src={images[lightbox].src} alt={images[lightbox].caption} decoding="async" />
               <div
                 className="lightbox-caption"
                 style={{
@@ -436,12 +441,14 @@ const About = () => {
   // `href` makes each slide navigate to its detail page.
   const achievementImages = achievementsData.map((a) => ({
     src: a.image,
+    thumbnail: a.thumbnail || a.image,
     caption: a.rankLabel || a.title,
     href: `/achievements/${a.id}`,
   }));
 
   const certificationImages = certificationsData.map((c) => ({
     src: c.image,
+    thumbnail: c.thumbnail || c.image,
     caption: c.title,
     href: `/achievements/${c.id}`,
   }));
