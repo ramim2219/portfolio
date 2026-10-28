@@ -81,19 +81,19 @@ const TECH_STACK = [
 
 const THESIS_GALLERY = [
   {
-    src: "/assets/img/my_activities/thesis/thesis-1.jpeg",
+    src: "/assets/img/my_activities/thesis/thesis-1.webp",
     caption: "Thesis Defense",
     description:
       "Presenting the research methodology and results in front of the evaluation panel at Premier University, Chittagong.",
   },
   {
-    src: "/assets/img/my_activities/thesis/thesis-2.jpeg",
+    src: "/assets/img/my_activities/thesis/thesis-2.webp",
     caption: "With My Team",
     description:
       "Post-defense photo with my thesis teammates after successfully completing the final presentation.",
   },
   {
-    src: "/assets/img/my_activities/thesis/thesis-3.jpeg",
+    src: "/assets/img/my_activities/thesis/thesis-3.webp",
     caption: "Final Thesis Book",
     description:
       "The printed and bound copy of the thesis, submitted to the Department of CSE for final approval.",

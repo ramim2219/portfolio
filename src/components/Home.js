@@ -98,7 +98,7 @@ const Home = () => {
             <div className="home-image-outer">
               <div className="home-image-wrap">
                 <div className="home-image">
-                  <img src="/assets/img/home-banner.png" alt="Shafayet Ullah Ramim — Software Developer" fetchPriority="high" decoding="async" />
+                  <img src="/assets/img/home-banner-optimized.webp" alt="Shafayet Ullah Ramim — Software Developer" fetchPriority="high" decoding="async" />
                 </div>
 
                 {/* ✅ Social column — sits to the right of the image, gentle heartbeat pulse */}

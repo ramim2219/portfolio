@@ -32,10 +32,10 @@ const rawAchievements = [
       "Ranked 213 out of 307 competing teams",
       "Represented Premier University, Chittagong",
     ],
-    image: "/assets/img/icpc-dhaka-2024.jpg",
-    gallery: ["/assets/img/icpc-dhaka-2024.jpg",
-      "/assets/img/my_activities/icpc/icpc.jpg",
-      "/assets/img/my_activities/icpc/icpc-dhaka-2024.jpeg",
+    image: "/assets/img/my_activities/icpc/icpc-dhaka-2024.webp",
+    gallery: ["/assets/img/my_activities/icpc/icpc-dhaka-2024.webp",
+      "/assets/img/my_activities/icpc/icpc.webp",
+      "/assets/img/my_activities/icpc/icpc-dhaka-2024-single.webp",
     ],
     link: "",
   },
@@ -56,8 +56,8 @@ const rawAchievements = [
       "Ranked 64th out of 170 teams",
       "Solved 4 algorithmic problems covering graphs, DP, and math",
     ],
-    image: "/assets/img/duet-iupc-2023.jpg",
-    gallery: ["/assets/img/duet-iupc-2023.jpg"],
+    image: "/assets/img/my_activities/duet/duet-iupc-2023.webp",
+    gallery: ["/assets/img/my_activities/duet/duet-iupc-2023.webp"],
     link: "",
   },
   {
@@ -77,8 +77,8 @@ const rawAchievements = [
       "Ranked 42nd position overall",
       "Consistent problem-solving under contest pressure",
     ],
-    image: "/assets/img/iiuc-iupc-2025.jpg",
-    gallery: ["/assets/img/iiuc-iupc-2025.jpg"],
+    image: "/assets/img/my_activities/iiuc/iiuc-iupc-2025.webp",
+    gallery: ["/assets/img/my_activities/iiuc/iiuc-iupc-2025.webp"],
     link: "",
   },
   {
@@ -99,8 +99,8 @@ const rawAchievements = [
       "Individual problem-solving contest",
       "Solved 4 problems",
     ],
-    image: "/assets/img/bu_iupc_2025.jpg",
-    gallery: ["/assets/img/bu_iupc_2025.jpg"],
+    image: "/assets/img/my_activities/Bandarban/bu_iupc_2025.webp",
+    gallery: ["/assets/img/my_activities/Bandarban/bu_iupc_2025.webp"],
     link: "",
   },
   {
@@ -121,8 +121,8 @@ const rawAchievements = [
       "Competed on home ground at PUC",
       "Solved 4 problems",
     ],
-    image: "/assets/img/my_activities/puc/puc.jpg",
-    gallery: ["/assets/img/my_activities/puc/puc.jpg"],
+    image: "/assets/img/my_activities/puc/puc.webp",
+    gallery: ["/assets/img/my_activities/puc/puc.webp"],
     link: "",
   },
 ];
@@ -144,8 +144,8 @@ const rawCertifications = [
       "Prepared teams for IUPC and ICPC contests",
       "Designed the training curriculum and practice problem sets",
     ],
-    image: "/assets/img/cpp-trainer.jpeg",
-    gallery: ["/assets/img/cpp-trainer.jpeg"],
+    image: "/assets/img/my_activities/Trainer_award/award.webp",
+    gallery: ["/assets/img/my_activities/Trainer_award/award.webp"],
     link: "",
   },
   {
@@ -159,8 +159,8 @@ const rawCertifications = [
     fullDescription:
       "Official certificate of participation in the International Collegiate Programming Contest (ICPC) Dhaka Regional 2024.",
     highlights: ["Official ICPC participation certificate"],
-    image: "/assets/img/icpc.webp",
-    gallery: ["/assets/img/icpc.webp"],
+    image: "/assets/img/my_activities/Certificates/icpc.webp",
+    gallery: ["/assets/img/my_activities/Certificates/icpc.webp"],
     link: "",
   },
   {
@@ -174,8 +174,8 @@ const rawCertifications = [
     fullDescription:
       "Certificate of participation in the DUET Inter-University Programming Contest 2023.",
     highlights: ["DUET IUPC 2023 participation"],
-    image: "/assets/img/duet.webp",
-    gallery: ["/assets/img/duet.webp"],
+    image: "/assets/img/my_activities/Certificates/duet.webp",
+    gallery: ["/assets/img/my_activities/Certificates/duet.webp"],
     link: "",
   },
   {
@@ -189,8 +189,8 @@ const rawCertifications = [
     fullDescription:
       "Certificate of participation in the IIUC Inter-University Programming Contest 2025.",
     highlights: ["IIUC IUPC 2025 participation"],
-    image: "/assets/img/iiuc.webp",
-    gallery: ["/assets/img/iiuc.webp"],
+    image: "/assets/img/my_activities/Certificates/iiuc.webp",
+    gallery: ["/assets/img/my_activities/Certificates/iiuc.webp"],
     link: "",
   },
   {
@@ -204,8 +204,8 @@ const rawCertifications = [
     fullDescription:
       "Certificate of participation in the PUC Inter-University Programming Contest 2024.",
     highlights: ["PUC IUPC 2024 participation"],
-    image: "/assets/img/puc.webp",
-    gallery: ["/assets/img/puc.webp"],
+    image: "/assets/img/my_activities/Certificates/puc.webp",
+    gallery: ["/assets/img/my_activities/Certificates/puc.webp"],
     link: "",
   },
   {
@@ -219,8 +219,8 @@ const rawCertifications = [
     fullDescription:
       "Certificate awarded by GeeksforGeeks for coursework and problem-solving achievement.",
     highlights: ["GeeksforGeeks certification"],
-    image: "/assets/img/gfg.webp",
-    gallery: ["/assets/img/gfg.webp"],
+    image: "/assets/img/my_activities/Certificates/gfg.webp",
+    gallery: ["/assets/img/my_activities/Certificates/gfg.webp"],
     link: "",
   },
   {

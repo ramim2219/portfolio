@@ -89,7 +89,7 @@ const ExperienceDetail = ({ role }) => {
                 <div className="project-hero-image">
                   {/* Replace with a real photo of you at the office */}
                   <img
-                    src="/assets/img/my_activities/Office/office_time.jpeg"
+                    src="/assets/img/my_activities/Office/office_time.webp"
                     alt={`${role.title} — working at ${role.org}`}
                   />
 
